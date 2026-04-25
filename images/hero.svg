@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500">
+  <defs>
+    <linearGradient id="grad-sky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0284c7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad-agri" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#047857;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Abstract Tech Blob Background -->
+  <path d="M450,400 Q300,500 150,400 Q0,300 50,150 Q100,0 300,50 Q500,100 550,250 Q600,400 450,400 Z" fill="#1e293b" opacity="0.4"/>
+  
+  <!-- Server / Data Nodes -->
+  <rect x="50" y="250" width="100" height="150" rx="10" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+  <line x1="70" y1="270" x2="130" y2="270" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="70" y1="290" x2="110" y2="290" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  
+  <rect x="50" y="320" width="100" height="80" rx="10" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+  <line x1="70" y1="340" x2="130" y2="340" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+  <line x1="70" y1="360" x2="110" y2="360" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Connected Lines -->
+  <path d="M150,300 L250,250 L350,300" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="5 5" opacity="0.6"/>
+  <path d="M150,360 L300,420 L400,350" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="5 5" opacity="0.6"/>
+  
+  <circle cx="250" cy="250" r="6" fill="#38bdf8" filter="url(#glow)"/>
+  <circle cx="300" cy="420" r="6" fill="#10b981" filter="url(#glow)"/>
+
+  <!-- Education / Mobile App (Zemen Academy vibe) -->
+  <g transform="translate(350, 80)">
+    <rect x="0" y="0" width="160" height="320" rx="20" fill="#0f172a" stroke="url(#grad-sky)" stroke-width="4"/>
+    <!-- Screen content -->
+    <rect x="20" y="30" width="120" height="100" rx="8" fill="#1e293b"/>
+    <circle cx="80" cy="80" r="30" fill="none" stroke="#38bdf8" stroke-width="6"/>
+    <path d="M70,70 L90,80 L70,90 Z" fill="#38bdf8"/>
+    
+    <rect x="20" y="150" width="100" height="10" rx="5" fill="#e2e8f0"/>
+    <rect x="20" y="170" width="80" height="8" rx="4" fill="#94a3b8"/>
+    
+    <rect x="20" y="200" width="120" height="30" rx="5" fill="url(#grad-sky)" opacity="0.9"/>
+    <rect x="20" y="240" width="120" height="30" rx="5" fill="#1e293b"/>
+    <rect x="20" y="280" width="120" height="30" rx="5" fill="#1e293b"/>
+  </g>
+  
+  <!-- Agriculture / Plant (SindeTrack vibe) -->
+  <g transform="translate(200, 200)">
+    <!-- Base / Soil -->
+    <path d="M0,200 Q50,180 100,200" fill="none" stroke="#047857" stroke-width="6"/>
+    <!-- Stem -->
+    <path d="M50,200 Q50,100 80,50" fill="none" stroke="url(#grad-agri)" stroke-width="6" stroke-linecap="round"/>
+    <!-- Leaves -->
+    <path d="M80,50 Q40,40 30,70 Q60,80 80,50" fill="url(#grad-agri)"/>
+    <path d="M65,100 Q100,90 110,120 Q80,130 65,100" fill="url(#grad-agri)"/>
+    <circle cx="80" cy="50" r="8" fill="#10b981" filter="url(#glow)"/>
+    <circle cx="110" cy="120" r="5" fill="#10b981" filter="url(#glow)"/>
+  </g>
+  
+  <!-- Floating Tech Elements -->
+  <rect x="180" y="50" width="40" height="40" rx="8" fill="#38bdf8" opacity="0.2" transform="rotate(15 200 70)"/>
+  <rect x="400" y="420" width="50" height="50" rx="10" fill="#10b981" opacity="0.15" transform="rotate(-15 425 445)"/>
+</svg>
