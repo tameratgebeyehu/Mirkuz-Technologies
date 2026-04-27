@@ -8,14 +8,14 @@ export default function Home() {
   const isInteracting = useRef(false);
 
   const partners = [
-    { name: "PRINCETON UNIVERSITY", img: "/Logo's/princeton logo.jpg" },
-    { name: "UCHICAGO", img: "/Logo's/uchicago logo.png" },
-    { name: "WORLDQUANT", img: "/Logo's/worldquant logo 2.png" },
-    { name: "MACQUARIE UNIVERSITY", img: "/Logo's/macquarie logo (2).jpg" },
-    { name: "GOOGLE", img: "/Logo's/google logo.png" },
-    { name: "EVANGADI", img: "/Logo's/evangadi logo.jpg", h: 22 },
-    { name: "HP LIFE", img: "/Logo's/hp life logo.png", h: 48 },
-    { name: "RED CROSS", img: "/Logo's/ethiopian red cross society logo.jpg" }
+    { name: "PRINCETON UNIVERSITY", img: "/logos/princeton logo.jpg" },
+    { name: "UCHICAGO", img: "/logos/uchicago logo.png" },
+    { name: "WORLDQUANT", img: "/logos/worldquant logo 2.png" },
+    { name: "MACQUARIE UNIVERSITY", img: "/logos/macquarie logo (2).jpg" },
+    { name: "GOOGLE", img: "/logos/google logo.png" },
+    { name: "EVANGADI", img: "/logos/evangadi logo.jpg", h: 22 },
+    { name: "HP LIFE", img: "/logos/hp life logo.png", h: 48 },
+    { name: "RED CROSS", img: "/logos/ethiopian red cross society logo.jpg" }
   ];
 
   // Quadruple to ensure absolute seamless infinite scroll with JS
