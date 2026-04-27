@@ -69,7 +69,7 @@ export const parseMarkdown = (content) => {
 };
 
 export const getPosts = async () => {
-  const modules = import.meta.glob('/src/content/blog/*.md', { as: 'raw', eager: true });
+  const modules = import.meta.glob('/src/content/blog/*.md', { query: '?raw', import: 'default', eager: true });
   
   const posts = Object.entries(modules).map(([path, content]) => {
     const slug = path.split('/').pop().replace('.md', '');
