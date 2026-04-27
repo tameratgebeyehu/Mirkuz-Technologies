@@ -3,19 +3,29 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, ShieldCheck } from 'lucide-react';
 import { G } from '../data/portfolioData';
 
+// Import Logos
+import princetonImg from '../logos/princeton logo.jpg';
+import uchicagoImg from '../logos/uchicago logo.png';
+import worldquantImg from '../logos/worldquant logo 2.png';
+import macquarieImg from '../logos/macquarie logo (2).jpg';
+import googleImg from '../logos/google logo.png';
+import evangadiImg from '../logos/evangadi logo.jpg';
+import hplifeImg from '../logos/hp life logo.png';
+import redcrossImg from '../logos/ethiopian red cross society logo.jpg';
+
 export default function Home() {
   const scrollRef = useRef(null);
   const isInteracting = useRef(false);
 
   const partners = [
-    { name: "PRINCETON UNIVERSITY", img: "/logos/princeton logo.jpg" },
-    { name: "UCHICAGO", img: "/logos/uchicago logo.png" },
-    { name: "WORLDQUANT", img: "/logos/worldquant logo 2.png" },
-    { name: "MACQUARIE UNIVERSITY", img: "/logos/macquarie logo (2).jpg" },
-    { name: "GOOGLE", img: "/logos/google logo.png" },
-    { name: "EVANGADI", img: "/logos/evangadi logo.jpg", h: 22 },
-    { name: "HP LIFE", img: "/logos/hp life logo.png", h: 48 },
-    { name: "RED CROSS", img: "/logos/ethiopian red cross society logo.jpg" }
+    { name: "PRINCETON UNIVERSITY", img: princetonImg },
+    { name: "UCHICAGO", img: uchicagoImg },
+    { name: "WORLDQUANT", img: worldquantImg },
+    { name: "MACQUARIE UNIVERSITY", img: macquarieImg },
+    { name: "GOOGLE", img: googleImg },
+    { name: "EVANGADI", img: evangadiImg, h: 22 },
+    { name: "HP LIFE", img: hplifeImg, h: 48 },
+    { name: "RED CROSS", img: redcrossImg }
   ];
 
   // Quadruple to ensure absolute seamless infinite scroll with JS

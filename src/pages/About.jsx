@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Mail, Github, Linkedin, Send, Phone, MapPin } from 'lucide-react';
 import { G, SKILLS_DETAILED, HONORS } from '../data/portfolioData';
+import profileImg from '../logos/profile.jpg';
 
 export default function About() {
   const inputStyle = {
@@ -37,7 +38,7 @@ export default function About() {
               background: "rgba(255,255,255,0.03)"
             }}>
               <img 
-                src="/logos/profile.jpg" 
+                src={profileImg} 
                 alt="Tamerat Gebeyehu" 
                 loading="lazy"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
