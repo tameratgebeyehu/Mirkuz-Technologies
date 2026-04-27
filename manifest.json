@@ -1,0 +1,21 @@
+{
+  "name": "Tamerat Gebeyehu | Digital Headquarters",
+  "short_name": "Tamerat",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#060913",
+  "theme_color": "#10B981",
+  "description": "Professional portfolio of Tamerat Gebeyehu, a software developer from Ethiopia.",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192/10B981/FFFFFF?text=T",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512/10B981/FFFFFF?text=T",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
