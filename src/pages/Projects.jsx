@@ -7,9 +7,9 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
-    document.title = "Projects & Case Studies — Tamerat Gebeyehu";
+    document.title = "Tamerat Gebeyehu — Engineering Portfolio";
     const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute("content", "Explore software development projects by Tamerat Gebeyehu, including AbayKey, Qotabi, and Amharic localized tools.");
+    if (metaDesc) metaDesc.setAttribute("content", "Case studies in localized software engineering: AbayKey, Zemen Scholar, and SindeTrack by Mirkuz Technologies.");
   }, []);
 
   return (

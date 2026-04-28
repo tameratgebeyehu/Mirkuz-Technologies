@@ -33,9 +33,9 @@ export default function Home() {
 
   useEffect(() => {
     // SEO & Page Metadata
-    document.title = "Tamerat Gebeyehu — Student Developer from Ethiopia";
+    document.title = "Tamerat Gebeyehu — Mirkuz Technologies";
     const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute("content", "Student developer building high-performance fintech and edtech tools for Ethiopia. Specialist in Amharic localized software.");
+    if (metaDesc) metaDesc.setAttribute("content", "Mirkuz Technologies: Building high-performance fintech, edtech, and agritech tools for Ethiopia. Founded by student developer Tamerat Gebeyehu.");
 
     const el = scrollRef.current;
     if (!el) return;

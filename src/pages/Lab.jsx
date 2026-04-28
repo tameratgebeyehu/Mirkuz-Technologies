@@ -7,6 +7,10 @@ export default function Lab() {
   const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
+    document.title = "Tamerat Gebeyehu — Innovation Lab";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", "Exploring the next generation of fintech, agritech, and AI in the Mirkuz Technologies Research & Development Lab.");
+    
     if (selectedProject) document.body.classList.add('no-scroll');
     else document.body.classList.remove('no-scroll');
   }, [selectedProject]);

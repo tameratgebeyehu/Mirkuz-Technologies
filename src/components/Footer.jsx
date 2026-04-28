@@ -31,7 +31,7 @@ export default function Footer() {
         {/* Row 1: Identity */}
         <div>
           <div style={{ fontSize: 16, fontWeight: 900, color: "#fff", letterSpacing: "0.1em", marginBottom: 4 }}>
-            TAMERAT<span style={{ color: G.green }}>.</span>
+            TAMERAT GEBEYEHU<span style={{ color: G.green }}>.</span>
           </div>
           <div style={{ fontSize: 13, color: G.slate, fontWeight: 600, marginBottom: 4 }}>Building tools for Ethiopia.</div>
           <div style={{ fontSize: 11, color: G.slate, display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>

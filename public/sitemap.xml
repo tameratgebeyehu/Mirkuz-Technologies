@@ -1,33 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://tamerat.vercel.app/</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://mirkuztechnologies.com/</loc>
+    <lastmod>2026-04-28</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://tamerat.vercel.app/projects</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://mirkuztechnologies.com/projects</loc>
+    <lastmod>2026-04-28</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tamerat.vercel.app/lab</loc>
-    <lastmod>2026-04-27</lastmod>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tamerat.vercel.app/education</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://mirkuztechnologies.com/education</loc>
+    <lastmod>2026-04-28</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://tamerat.vercel.app/blog</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://mirkuztechnologies.com/blog</loc>
+    <lastmod>2026-04-28</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://tamerat.vercel.app/about</loc>
-    <lastmod>2026-04-27</lastmod>
+    <loc>https://mirkuztechnologies.com/about</loc>
+    <lastmod>2026-04-28</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>

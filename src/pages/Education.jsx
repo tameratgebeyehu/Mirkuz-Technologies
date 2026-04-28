@@ -2,11 +2,41 @@ import React, { useEffect } from 'react';
 import { Award, ExternalLink, CheckCircle, GraduationCap, ArrowRight } from 'lucide-react';
 import { G, ACADEMIC_FOUNDATION, TECHNICAL_SPECIALIZATIONS, CERTIFICATIONS } from '../data/portfolioData';
 
+// Import Logos for Specializations
+import princetonImg from '../logos/princeton logo.jpg';
+import uchicagoImg from '../logos/uchicago logo.png';
+import worldquantImg from '../logos/worldquant logo 2.png';
+import evangadiImg from '../logos/evangadi logo.jpg';
+import googleImg from '../logos/google logo.png';
+import macquarieImg from '../logos/macquarie logo (2).jpg';
+import hplifeImg from '../logos/hp life logo.png';
+import udacityImg from '../logos/udacity logo.png';
+import redcrossImg from '../logos/ethiopian red cross society logo.jpg';
+
 export default function Education() {
+  // Map textual logos to imported images
+  const logoMap = {
+    "WQ": worldquantImg,
+    "UC": uchicagoImg,
+    "P": princetonImg,
+    "ET": evangadiImg,
+    "G": googleImg,
+    "AN": "🚀",
+    "MQ": macquarieImg,
+    
+    // Credentials mapping
+    "Google": googleImg,
+    "HP Life": hplifeImg,
+    "Udacity": udacityImg,
+    "ERCS": redcrossImg,
+    "Macquarie University": macquarieImg,
+    "Nestlé": "🥛",
+    "Blue Ocean Strategy": "🌊"
+  };
   useEffect(() => {
-    document.title = "Education & Certifications — Tamerat Gebeyehu";
+    document.title = "Tamerat Gebeyehu — Education & Certifications";
     const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute("content", "Explore Tamerat Gebeyehu's educational background, including certifications from Princeton, UChicago, and Udacity.");
+    if (metaDesc) metaDesc.setAttribute("content", "The technical and academic foundation behind Mirkuz Technologies, featuring credentials from global institutions.");
   }, []);
 
   return (
@@ -36,34 +66,49 @@ export default function Education() {
            </div>
            
            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))", gap: 20 }}>
-             {CERTIFICATIONS.map((c, idx) => (
-               <a 
-                 key={c.id} 
-                 href={c.link}
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="glass-card"
-                 style={{ 
-                   padding: "40px 32px", 
-                   textDecoration: "none",
-                   display: "flex",
-                   flexDirection: "column",
-                   gap: 20
-                 }}
-               >
-                 <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(16,185,129,0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: G.green }}>
-                    <CheckCircle size={24} />
-                 </div>
-                 <div>
-                    <div style={{ fontSize: 11, fontWeight: 900, color: G.green, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>{c.org}</div>
-                    <h3 style={{ fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 12, lineHeight: 1.3 }}>{c.title}</h3>
-                    <p style={{ color: G.slate, fontSize: 14, lineHeight: 1.6 }}>{c.desc}</p>
-                 </div>
-                 <div style={{ marginTop: "auto", display: "flex", alignItems: "center", gap: 8, color: G.green, fontSize: 12, fontWeight: 800 }}>
-                   VERIFY CREDENTIAL <ArrowRight size={14} />
-                 </div>
-               </a>
-             ))}
+              {CERTIFICATIONS.map((c, idx) => {
+                const isLinkable = c.link && c.link !== "#";
+                const CardTag = isLinkable ? "a" : "div";
+                
+                return (
+                  <CardTag 
+                    key={c.id} 
+                    href={isLinkable ? c.link : undefined}
+                    target={isLinkable ? "_blank" : undefined}
+                    rel={isLinkable ? "noopener noreferrer" : undefined}
+                    className="glass-card"
+                    style={{ 
+                      padding: "40px 32px", 
+                      textDecoration: "none",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 20,
+                      cursor: isLinkable ? "pointer" : "default",
+                      border: isLinkable ? "1px solid rgba(255,255,255,0.05)" : "1px solid rgba(16,185,129,0.1)"
+                    }}
+                  >
+                    <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(16,185,129,0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: G.green, overflow: "hidden" }}>
+                       {logoMap[c.org] && typeof logoMap[c.org] === 'string' && logoMap[c.org].length > 10 ? (
+                          <img src={logoMap[c.org]} alt={c.org} style={{ width: "65%", height: "65%", objectFit: "contain" }} />
+                       ) : (
+                          logoMap[c.org] || <CheckCircle size={24} />
+                       )}
+                    </div>
+                    <div>
+                       <div style={{ fontSize: 11, fontWeight: 900, color: G.green, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>{c.org}</div>
+                       <h3 style={{ fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 12, lineHeight: 1.3 }}>{c.title}</h3>
+                       <p style={{ color: G.slate, fontSize: 14, lineHeight: 1.6 }}>{c.desc}</p>
+                    </div>
+                    <div style={{ marginTop: "auto", display: "flex", alignItems: "center", gap: 8, color: isLinkable ? G.green : G.slate, fontSize: 12, fontWeight: 800 }}>
+                      {isLinkable ? (
+                        <>VERIFY CREDENTIAL <ArrowRight size={14} /></>
+                      ) : (
+                        <span style={{ opacity: 0.6 }}>OFFLINE RECORD — COMING SOON</span>
+                      )}
+                    </div>
+                  </CardTag>
+                );
+              })}
            </div>
          </div>
 
@@ -92,9 +137,14 @@ export default function Education() {
                       width: 60, height: 60, borderRadius: 18, background: s.color + "15", 
                       display: "flex", alignItems: "center", justifyContent: "center", 
                       fontSize: 22, fontWeight: 900, color: s.color, marginBottom: 32,
-                      border: `1px solid ${s.color}30` 
+                      border: `1px solid ${s.color}30`,
+                      overflow: "hidden"
                     }}>
-                      {s.logo}
+                      {logoMap[s.logo] && typeof logoMap[s.logo] === 'string' && logoMap[s.logo].length > 10 ? (
+                        <img src={logoMap[s.logo]} alt={s.org} style={{ width: "70%", height: "70%", objectFit: "contain" }} />
+                      ) : (
+                        logoMap[s.logo] || s.logo
+                      )}
                     </div>
                     <div style={{ color: G.green, fontSize: 11, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>{s.org}</div>
                     <h3 style={{ fontSize: 22, fontWeight: 800, color: "#fff", marginBottom: 16, lineHeight: 1.2 }}>{s.title}</h3>

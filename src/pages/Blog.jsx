@@ -8,7 +8,7 @@ export default function Blog() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    document.title = "Journal — Tamerat Gebeyehu";
+    document.title = "Tamerat Gebeyehu — Engineering Journal";
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) metaDesc.setAttribute("content", "Insights on engineering localized software, fintech, and education in Ethiopia. Follow my journey as a student builder.");
 

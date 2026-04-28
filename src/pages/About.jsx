@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
-import { Mail, Github, Linkedin, Send, Phone, MapPin } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Mail, Github, Linkedin, Send, Phone, MapPin, CheckCircle } from 'lucide-react';
 import { G, SKILLS_DETAILED, HONORS } from '../data/portfolioData';
 import profileImg from '../logos/profile.jpg';
 
 export default function About() {
+  const [submitted, setSubmitted] = useState(false);
   const inputStyle = {
     width: "100%",
     padding: "14px 18px",
@@ -17,9 +18,9 @@ export default function About() {
   };
 
   useEffect(() => {
-    document.title = "About Tamerat Gebeyehu — Student Builder Ethiopia";
+    document.title = "Tamerat Gebeyehu — Founder of Mirkuz Technologies";
     const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute("content", "Learn about Tamerat Gebeyehu's journey as a student developer in Ethiopia, his work with the Red Cross, and his vision for digital infrastructure.");
+    if (metaDesc) metaDesc.setAttribute("content", "Learn about the mission of Mirkuz Technologies and the journey of its founder, Tamerat Gebeyehu—a student developer building digital infrastructure in Ethiopia.");
   }, []);
 
   return (
@@ -153,61 +154,100 @@ export default function About() {
              </div>
 
              {/* Right Column: Interactive Form */}
-             <form style={{ display: "flex", flexDirection: "column", gap: 16 }} onSubmit={(e) => {
-               e.preventDefault();
-               const form = e.target;
-               const btn = form.querySelector('button');
-               const originalText = btn.innerText;
-               
-               // Anti-Spam: Honeypot Check
-               if (form.querySelector('input[name="_gotcha"]').value) {
-                 return; // Silent fail for bots
-               }
-
-               btn.innerText = "SENDING...";
-               btn.disabled = true;
-
-               fetch(import.meta.env.VITE_FORMSPREE_URL, { 
-                 method: "POST",
-                 body: new FormData(form),
-                 headers: { 'Accept': 'application/json' }
-               }).then(response => {
-                 if (response.ok) {
-                   btn.innerText = "MESSAGE SENT!";
-                   btn.style.background = "#059669";
-                   form.reset();
-                   setTimeout(() => {
-                     btn.innerText = originalText;
-                     btn.disabled = false;
-                     btn.style.background = G.green;
-                   }, 3000);
-                 } else {
-                   btn.innerText = "ERROR - TRY AGAIN";
-                   btn.disabled = false;
+             {submitted ? (
+               <div className="animate-up" style={{ 
+                 background: "rgba(16,185,129,0.05)", 
+                 border: "1px solid rgba(16,185,129,0.2)", 
+                 borderRadius: 24, 
+                 padding: "60px 40px", 
+                 textAlign: "center",
+                 display: "flex",
+                 flexDirection: "column",
+                 alignItems: "center",
+                 gap: 24
+               }}>
+                 <div style={{ width: 80, height: 80, borderRadius: "50%", background: G.green, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", boxShadow: `0 0 30px ${G.green}40` }}>
+                    <CheckCircle size={40} />
+                 </div>
+                 <div>
+                   <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 12 }}>Message Sent Successfully!</h3>
+                   <p style={{ color: G.slate, lineHeight: 1.6 }}>Thank you for reaching out.<br />I've received your vision and will get back to you shortly.</p>
+                 </div>
+                 <button 
+                  onClick={() => setSubmitted(false)}
+                  className="btn-main" 
+                  style={{ background: "rgba(255,255,255,0.05)", color: "#fff", border: "1px solid rgba(255,255,255,0.1)", marginTop: 20 }}
+                 >
+                   SEND ANOTHER MESSAGE
+                 </button>
+               </div>
+             ) : (
+               <form style={{ display: "flex", flexDirection: "column", gap: 16 }} onSubmit={(e) => {
+                 e.preventDefault();
+                 const form = e.target;
+                 const btn = form.querySelector('button');
+                 
+                 // Anti-Spam: Honeypot Check
+                 if (form.querySelector('input[name="_gotcha"]').value) {
+                   return; // Silent fail for bots
                  }
-               });
-             }}>
-                {/* Honeypot field (hidden from humans) */}
-                <input type="text" name="_gotcha" style={{ display: "none" }} tabIndex="-1" autoComplete="off" />
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                    <label style={{ fontSize: 12, fontWeight: 800, color: G.slate, textTransform: "uppercase", letterSpacing: "0.05em" }}>Full Name</label>
-                    <input type="text" name="name" required placeholder="Tamerat Gebeyehu" style={inputStyle} />
+                 // Premium Feedback: Pulse Animation & Loading State
+                 btn.innerHTML = `<span class="pulse-loader"></span> SENDING...`;
+                 btn.disabled = true;
+                 btn.style.opacity = "0.7";
+
+                 // Speed Optimization: Explicit fetch
+                 const controller = new AbortController();
+                 const timeoutId = setTimeout(() => {
+                   btn.innerText = "ALMOST THERE..."; // Keep user engaged if slow
+                 }, 4000);
+
+                 fetch(import.meta.env.VITE_FORMSPREE_URL, { 
+                   method: "POST",
+                   body: new FormData(form),
+                   headers: { 'Accept': 'application/json' },
+                   mode: 'cors',
+                   signal: controller.signal
+                 }).then(response => {
+                   clearTimeout(timeoutId);
+                   if (response.ok) {
+                     setSubmitted(true);
+                     form.reset();
+                   } else {
+                     btn.innerText = "ERROR - TRY AGAIN";
+                     btn.disabled = false;
+                     btn.style.opacity = "1";
+                   }
+                 }).catch(() => {
+                   clearTimeout(timeoutId);
+                   btn.innerText = "CONNECTION ERROR";
+                   btn.disabled = false;
+                   btn.style.opacity = "1";
+                 });
+               }}>
+                  {/* Honeypot field (hidden from humans) */}
+                  <input type="text" name="_gotcha" style={{ display: "none" }} tabIndex="-1" autoComplete="off" />
+
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                      <label style={{ fontSize: 12, fontWeight: 800, color: G.slate, textTransform: "uppercase", letterSpacing: "0.05em" }}>Full Name</label>
+                      <input type="text" name="name" required placeholder="Your Name" style={inputStyle} />
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                      <label style={{ fontSize: 12, fontWeight: 800, color: G.slate, textTransform: "uppercase", letterSpacing: "0.05em" }}>Email Address</label>
+                      <input type="email" name="email" required placeholder="your@email.com" style={inputStyle} />
+                    </div>
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                    <label style={{ fontSize: 12, fontWeight: 800, color: G.slate, textTransform: "uppercase", letterSpacing: "0.05em" }}>Email Address</label>
-                    <input type="email" name="email" required placeholder="your@email.com" style={inputStyle} />
+                    <label style={{ fontSize: 12, fontWeight: 800, color: G.slate, textTransform: "uppercase", letterSpacing: "0.05em" }}>Project Details</label>
+                    <textarea name="message" required placeholder="Tell me about your vision..." rows="4" style={{ ...inputStyle, resize: "none" }}></textarea>
                   </div>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  <label style={{ fontSize: 12, fontWeight: 800, color: G.slate, textTransform: "uppercase", letterSpacing: "0.05em" }}>Project Details</label>
-                  <textarea name="message" required placeholder="Tell me about your vision..." rows="4" style={{ ...inputStyle, resize: "none" }}></textarea>
-                </div>
-                <button type="submit" className="btn-main primary" style={{ width: "100%", marginTop: 8 }}>
-                  SEND MESSAGE
-                </button>
-             </form>
+                  <button type="submit" className="btn-main primary" style={{ width: "100%", marginTop: 8 }}>
+                    SEND MESSAGE
+                  </button>
+               </form>
+             )}
 
            </div>
         </div>
@@ -223,6 +263,20 @@ export default function About() {
       `}</style>
       <style>{`
         .social-btn:hover { background: ${G.green}; transform: translateY(-5px); box-shadow: 0 10px 20px ${G.green}40; }
+        .pulse-loader {
+          width: 8px;
+          height: 8px;
+          background: #fff;
+          border-radius: 50%;
+          display: inline-block;
+          margin-right: 10px;
+          animation: pulse 1s infinite ease-in-out;
+        }
+        @keyframes pulse {
+          0% { transform: scale(0.8); opacity: 0.5; }
+          50% { transform: scale(1.2); opacity: 1; }
+          100% { transform: scale(0.8); opacity: 0.5; }
+        }
       `}</style>
     </section>
   );
