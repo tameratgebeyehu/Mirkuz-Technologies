@@ -204,6 +204,22 @@ img {
   50% { transform: scale(1.3); opacity: 1; }
 }
 
+/* Accessibility & Tap Targets */
+.btn-main, a, button {
+  min-height: 44px; /* Google's recommended minimum tap target size */
+}
+
+/* Performance: Content Visibility for long pages */
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* Ensure the first section (Hero) is always visible immediately */
+section:first-of-type {
+  content-visibility: visible;
+}
+
 @media (max-width: 480px) {
   .btn-main { padding: 12px 14px; font-size: 12px; }
 }

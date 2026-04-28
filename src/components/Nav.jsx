@@ -25,9 +25,12 @@ export default function Nav() {
       <div className="container" style={{ height: 72, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         
         {/* Logo */}
-        <Link to="/" style={{ 
-          fontSize: 20, fontWeight: 900, color: "#fff", textDecoration: "none", 
-          letterSpacing: "-0.02em" 
+        <Link to="/" className="nav-logo" aria-label="Tamerat Gebeyehu Home" style={{ 
+          fontSize: 20, 
+          fontWeight: 900, 
+          color: "#fff", 
+          textDecoration: "none", 
+          letterSpacing: "0.1em" 
         }}>
           TAMERAT<span style={{ color: G.green }}>.</span>
         </Link>
@@ -39,6 +42,7 @@ export default function Nav() {
               <li key={link.name}>
                 <Link 
                   to={link.path}
+                  aria-label={`Navigate to ${link.name}`}
                   style={{ 
                     color: activeLink(link.path) ? G.green : G.slate, 
                     textDecoration: "none", fontSize: 13, fontWeight: 700, 

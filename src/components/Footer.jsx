@@ -53,19 +53,23 @@ export default function Footer() {
 
         {/* Row 3: Socials */}
         <div style={{ display: "flex", gap: 20 }}>
-          {socials.map((s, i) => (
-            <a 
-              key={i} 
-              href={s.path} 
-              target={s.path.startsWith('mailto') ? "_self" : "_blank"}
-              rel="noopener noreferrer"
-              style={{ color: G.slate, transition: "color 0.2s" }} 
-              onMouseOver={e => e.currentTarget.style.color = G.green} 
-              onMouseOut={e => e.currentTarget.style.color = G.slate}
-            >
-              {s.icon}
-            </a>
-          ))}
+          {socials.map((s, i) => {
+            const labelMap = ["GitHub", "LinkedIn", "Email", "Telegram"];
+            return (
+              <a 
+                key={i} 
+                href={s.path} 
+                aria-label={labelMap[i]}
+                target={s.path.startsWith('mailto') ? "_self" : "_blank"}
+                rel="noopener noreferrer"
+                style={{ color: G.slate, transition: "color 0.2s" }} 
+                onMouseOver={e => e.currentTarget.style.color = G.green} 
+                onMouseOut={e => e.currentTarget.style.color = G.slate}
+              >
+                {s.icon}
+              </a>
+            );
+          })}
         </div>
 
         {/* Row 4: Copyright */}

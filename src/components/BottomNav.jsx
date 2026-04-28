@@ -22,6 +22,7 @@ export default function BottomNav() {
           <Link 
             key={item.name} 
             to={item.path} 
+            aria-label={`Go to ${item.name}`}
             style={{
               flex: 1,
               display: "flex",
