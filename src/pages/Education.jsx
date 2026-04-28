@@ -89,7 +89,13 @@ export default function Education() {
                   >
                     <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(16,185,129,0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: G.green, overflow: "hidden" }}>
                        {logoMap[c.org] && typeof logoMap[c.org] === 'string' && logoMap[c.org].length > 10 ? (
-                          <img src={logoMap[c.org]} alt={c.org} style={{ width: "65%", height: "65%", objectFit: "contain" }} />
+                          <img 
+                            src={logoMap[c.org]} 
+                            alt={c.org} 
+                            loading="lazy"
+                            decoding="async"
+                            style={{ width: "65%", height: "65%", objectFit: "contain" }} 
+                          />
                        ) : (
                           logoMap[c.org] || <CheckCircle size={24} />
                        )}

@@ -41,7 +41,8 @@ export default function About() {
               <img 
                 src={profileImg} 
                 alt="Tamerat Gebeyehu" 
-                loading="lazy"
+                fetchpriority="high"
+                decoding="async"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             </div>

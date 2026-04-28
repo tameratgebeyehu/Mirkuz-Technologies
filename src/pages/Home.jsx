@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, ShieldCheck } from 'lucide-react';
+import { ArrowUpRight, ShieldCheck, ArrowRight } from 'lucide-react';
 import { G } from '../data/portfolioData';
 
 // Import Logos
@@ -96,37 +96,34 @@ export default function Home() {
           <div className="pulse-dot" /> Grade 11 Developer · Ethiopia
         </div>
         
-        <h1 style={{ 
+        <h1 className="name-reveal" style={{ 
           marginBottom: 12, textAlign: "left", 
           fontSize: "clamp(32px, 8vw, 84px)",
           fontWeight: 900,
           lineHeight: 1.1
         }}>
-         i'm Tamerat.
+          i'm <span className="name-shimmer">Tamerat</span><span className="dot-glow">.</span>
         </h1>
 
-        <div className="tagline" style={{ 
+        <div className="tagline name-reveal" style={{ 
           fontSize: "clamp(18px, 4vw, 32px)", 
           fontWeight: 700, color: G.green, 
-          marginBottom: 24, letterSpacing: "-0.02em"
+          marginBottom: 24, letterSpacing: "-0.02em",
+          animationDelay: "0.2s"
         }}>
           Student. Builder. From Ethiopia.
         </div>
         
-        <p style={{ 
-          fontSize: "clamp(16px, 2.5vw, 19px)", color: G.slate, lineHeight: 1.6, 
-          marginBottom: 48, maxWidth: 600, fontWeight: 500
-        }}>
-          I build high-performance tools for Ethiopia, specializing in Fintech and Edtech. 
-          Dedicated to solving real-world challenges through elegant software.
+        <p className="name-reveal" style={{ color: G.slate, fontSize: 18, maxWidth: 600, marginBottom: 40, lineHeight: 1.7, animationDelay: "0.4s" }}>
+          Engineering localized software for the next generation. Focused on fintech, agritech, and educational infrastructure.
         </p>
-        
-        <div className="hero-btns" style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-          <Link to="/projects" className="btn-main primary">
-            View My Projects
+
+        <div className="hero-btns name-reveal" style={{ display: "flex", gap: 16, animationDelay: "0.6s" }}>
+          <Link to="/projects" className="btn-main primary" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            VIEW PROJECTS <ArrowRight size={18} />
           </Link>
-          <Link to="/lab" className="btn-main secondary">
-            What I’m Building
+          <Link to="/about" className="btn-main secondary">
+            ABOUT ME
           </Link>
         </div>
       </div>

@@ -1,5 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+
+// Scroll to top helper
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 // Layout Components
 import Nav from './components/Nav';
@@ -20,6 +29,7 @@ import NotFound from './pages/NotFound';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div style={{ 
         background: "#060913", 
         minHeight: "100vh", 
