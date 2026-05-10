@@ -19,6 +19,7 @@ import BottomNav from './components/BottomNav';
 // Pages
 import Home from './pages/Home';
 import Projects from './pages/Projects';
+import ProjectDetail from './pages/ProjectDetail';
 import Education from './pages/Education';
 import Lab from './pages/Lab';
 import Blog from './pages/Blog';
@@ -45,6 +46,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/education" element={<Education />} />
             <Route path="/lab" element={<Lab />} />
             <Route path="/blog" element={<Blog />} />

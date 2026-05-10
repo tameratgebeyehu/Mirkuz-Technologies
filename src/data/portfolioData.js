@@ -19,31 +19,60 @@ export const G = {
 export const PROJECTS = [
   {
     id: 1,
+    title: "ADEVeil",
+    slug: "adeveil",
+    category: "Privacy Tool",
+    status: "Production",
+    description: "A runtime privacy and security platform for Android.",
+    fullDescription: {
+      problem: "Standard mobile applications leak sensitive data through OS-level mechanics like background snapshots and clipboard access. Users have no control over their runtime privacy.",
+      solution: "A multi-layered Runtime Protection System that hardens input fields, prevents screen captures, and blurs sensitive app content during background transitions.",
+      features: [
+        { name: "Offline-first privacy", desc: "All encryption happens locally. No cloud dependencies." },
+        { name: "Secure vault", desc: "A military-grade encrypted storage system for sensitive documents." },
+        { name: "Runtime protection", desc: "Actively prevents OS-level data leakage and screen recording." }
+      ],
+      impact: "Successfully compiled and deployed as a production-ready APK.",
+      why: "Privacy is a fundamental human right, not a premium feature."
+    },
+    tech: ["React Native", "Expo", "TypeScript"],
+    type: "Mobile",
+    color: "#6366F1",
+    icon: "🛡️",
+    gallery: [5, 4, 1, 2, 3],
+    links: { download: null, demo: null, github: null },
+    timeline: [
+      { date: "May 2026", event: "Production APK Compilation" },
+      { date: "April 2026", event: "Runtime Protection implementation" }
+    ]
+  },
+  {
+    id: 2,
     title: "Zemen Scholar",
+    slug: "zemen-scholar",
     category: "EdTech",
     status: "Version 1.0",
     description: "The Digital Gateway for Ethiopian Students to US Higher Education.",
     fullDescription: {
-      problem: "In the Ethiopian education system, many students don't realize that US university preparation starts long before Grade 12. As a student in Grade 8 and 9, I found myself lost in a sea of unfamiliar terms like 'Common App,' 'CSS Profile,' and 'Holistic Review.' I didn't know which competitions mattered or how to structure my leadership activities until the deadlines were already approaching.",
+      problem: "In the Ethiopian education system, many students don't realize that US university preparation starts long before Grade 12.",
       solution: "I built Zemen Scholar to be the mentor I wish I had. It is a comprehensive roadmap that guides students through every milestone from Grade 9 to the day they receive their visa.",
-      quote: '"I finally understand the process. This app explains everything I didn\'t even know I needed to ask." — Student Feedback',
       features: [
-        { name: "The 'Scholar’s Glossary'", desc: "A curated dictionary of essential admissions terminology. It breaks down complex academic jargon into simple, actionable concepts." },
-        { name: "The 4-Year Roadmap", desc: "A strategic timeline that tells students exactly what to do and when—covering volunteering, leadership projects, and competitions early enough to build a world-class profile." },
-        { name: "GPA Converter", desc: "A custom-built tool that translates local secondary school marks into the American 4.0 grading system, giving students an immediate view of options." },
-        { name: "The Visa Wizard", desc: "A step-by-step guide through the F-1 Visa process, including document checklists for transcripts, bank statements, and interview preparation." }
+        { name: "The 'Scholar’s Glossary'", desc: "A curated dictionary of essential admissions terminology." },
+        { name: "The 4-Year Roadmap", desc: "A strategic timeline that tells students exactly what to do and when." }
       ],
-      impact: "Currently deployed among a peer group of Ethiopian students, providing a structured path for the 2026 application cycle.",
-      why: "I believe that a student's potential should not be limited by where they were born. Zemen Scholar is my contribution to ensuring that every Ethiopian student has a fair shot at a global education."
+      impact: "Currently deployed among a peer group of Ethiopian students.",
+      why: "I believe that a student's potential should not be limited by where they were born."
     },
     tech: ["Flutter", "Supabase", "Dart"],
     type: "Mobile",
     color: "#059669",
-    icon: "🎓"
+    icon: "🎓",
+    links: { download: null, demo: null, github: "https://github.com/tameratgebeyehu" }
   },
   {
-    id: 2,
+    id: 2.5,
     title: "Zemen Academy",
+    slug: "zemen-academy",
     category: "EdTech",
     status: "Active Beta",
     description: "Offline-first mastery for the New Ethiopian Curriculum.",
@@ -61,21 +90,22 @@ export const PROJECTS = [
     tech: ["React Native", "SQLite", "Node.js"],
     type: "Mobile",
     color: "#10B981",
-    icon: "⚛️"
+    icon: "⚛️",
+    links: { download: null, demo: null, github: null }
   },
   {
     id: 3,
     title: "SindeTrack",
+    slug: "sindetrack",
     category: "AgriTech",
     status: "Production",
     description: "Digitizing agricultural logistics for local wheat trade.",
     fullDescription: {
-      problem: "Local wheat traders in Ethiopia rely on paper ledgers, which lead to significant data loss, slow bookkeeping, and lack of transparency in the supply chain.",
-      solution: "A mobile logistics engine that tracks grain collection, automates bookkeeping, and prints physical receipts using mobile thermal printers directly at the farm gate.",
+      problem: "Local wheat traders in Ethiopia rely on paper ledgers, which lead to significant data loss and slow bookkeeping.",
+      solution: "A mobile logistics engine that tracks grain collection, automates bookkeeping, and prints physical receipts.",
       features: [
-        { name: "Thermal Print Integration", desc: "Instant physical proof of transaction for farmers and traders." },
-        { name: "Daily Reporting", desc: "Reduced bookkeeping time by 80% with automated summary generation." },
-        { name: "Inventory Tracking", desc: "Real-time visibility into grain stock across multiple collection points." }
+        { name: "Thermal Print Integration", desc: "Instant physical proof of transaction." },
+        { name: "Daily Reporting", desc: "Reduced bookkeeping time by 80%." }
       ],
       impact: "Eliminated paper-based data loss for early-adopter traders.",
       why: "To modernize the backbone of our economy—agriculture."
@@ -83,21 +113,22 @@ export const PROJECTS = [
     tech: ["Flutter", "Bluetooth API", "FastAPI"],
     type: "Logistics",
     color: "#D97706",
-    icon: "🌾"
+    icon: "🌾",
+    links: { download: null, demo: null, github: null }
   },
   {
     id: 4,
     title: "AbayKey",
+    slug: "abaykey",
     category: "System Tool",
     status: "RC-1",
     description: "Ethiopia's first gesture-family keyboard engine.",
     fullDescription: {
-      problem: "Ethiopic scripts are complex. Existing keyboards are either too slow or too cramped, leading to high error rates and frustration for Ge'ez script users.",
-      solution: "A 'Gesture-Family' engine where users press a base character and swipe to select variations. It turns a complex script into a fluid, ergonomic experience.",
+      problem: "Ethiopic scripts are complex. Existing keyboards are either too slow or too cramped.",
+      solution: "A 'Gesture-Family' engine where users press a base character and swipe to select variations.",
       features: [
         { name: "Gesture Engine", desc: "Slide to select the correct vowel variation instantly." },
-        { name: "Clipboard Manager", desc: "Privacy-first, offline-only clipboard history for productivity." },
-        { name: "Themed UI", desc: "Custom-built premium dashboard for settings and shortcuts." }
+        { name: "Clipboard Manager", desc: "Privacy-first, offline-only clipboard history for productivity." }
       ],
       impact: "Aiming to become the standard input method for Ge'ez scripts on Android.",
       why: "Our digital world should speak our language as fluently as we do."
@@ -105,41 +136,48 @@ export const PROJECTS = [
     tech: ["Android SDK", "Kotlin", "Java"],
     type: "OS Tool",
     color: "#DB2777",
-    icon: "⌨️"
+    icon: "⌨️",
+    links: { download: null, demo: null, github: null }
   },
   {
     id: 5,
     title: "Visit Dodola",
+    slug: "visit-dodola",
     category: "Tourism",
     status: "Live",
     description: "The official digital guide to the gateway of the Bale Mountains.",
     fullDescription: {
-      problem: "Dodola is a hidden gem, but information for international tourists was scattered or outdated, causing many to miss out on local hospitality and scenic routes.",
-      solution: "A comprehensive digital portal showcasing the best of Dodola—from trekking routes to local stays.",
+      problem: "Dodola is a hidden gem, but information for international tourists was scattered.",
+      solution: "A comprehensive digital portal showcasing the best of Dodola.",
+      features: [],
       impact: "Professionalizing the digital presence of local tourism.",
       why: "I'm proud of where I come from. I want the world to see it too."
     },
     tech: ["React", "CSS3", "Vite"],
     type: "Web App",
     color: "#2563EB",
-    icon: "🏔️"
+    icon: "🏔️",
+    links: { download: null, demo: "https://mirkuztechnologies.com", github: null }
   },
   {
     id: 6,
     title: "TallPath",
+    slug: "tallpath",
     category: "EdTech",
     status: "Beta",
     description: "Simplifying complex learning journeys for high-achievers.",
     fullDescription: {
       problem: "Advanced learners often get lost in a 'sea of content' without a clear path to mastery.",
       solution: "A path-finding engine that curates resources based on end-goals.",
+      features: [],
       impact: "Helping students in my community find their way in the global classroom.",
       why: "The shortest distance between potential and achievement is a clear path."
     },
     tech: ["React", "PostgreSQL", "Tailwind"],
     type: "Platform",
     color: "#7C3AED",
-    icon: "🚀"
+    icon: "🚀",
+    links: { download: null, demo: null, github: null }
   }
 ];
 

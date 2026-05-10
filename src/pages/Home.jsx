@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, ShieldCheck, ArrowRight } from 'lucide-react';
+import { ArrowUpRight, ShieldCheck, ArrowRight, Terminal, Globe, Lock, Cpu, Server, Code2, Smartphone, Play } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { G } from '../data/portfolioData';
 
 // Import Logos
@@ -16,6 +17,7 @@ import redcrossImg from '../logos/ethiopian red cross society logo.jpg';
 export default function Home() {
   const scrollRef = useRef(null);
   const isInteracting = useRef(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const partners = [
     { name: "PRINCETON UNIVERSITY", img: princetonImg },
@@ -30,6 +32,19 @@ export default function Home() {
 
   // Quadruple to ensure absolute seamless infinite scroll with JS
   const infiniteLogos = [...partners, ...partners, ...partners, ...partners];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.2 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100, damping: 15 } }
+  };
 
   useEffect(() => {
     // SEO & Page Metadata
@@ -83,53 +98,95 @@ export default function Home() {
     }}>
       
       {/* Dynamic Background Glow */}
-      <div className="bg-glow" style={{ position: "absolute", top: "15%", left: "5%", width: "40vw", height: "40vw", background: "radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%)", filter: "blur(100px)", zIndex: 0 }} />
+      <div style={{ position: "absolute", inset: 0, overflow: "hidden", zIndex: 0, pointerEvents: "none" }}>
+        <motion.div 
+          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3], x: [0, 50, 0], y: [0, -50, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          style={{ position: "absolute", top: "10%", left: "-5%", width: "40vw", height: "40vw", background: `radial-gradient(circle, ${G.green}25 0%, transparent 70%)`, filter: "blur(80px)" }} 
+        />
+        <motion.div 
+          animate={{ scale: [1, 1.5, 1], opacity: [0.2, 0.4, 0.2], x: [0, -30, 0], y: [0, 60, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          style={{ position: "absolute", bottom: "-10%", right: "-5%", width: "50vw", height: "50vw", background: "radial-gradient(circle, rgba(6,182,212,0.15) 0%, transparent 70%)", filter: "blur(100px)" }} 
+        />
+      </div>
       
-      <div className="container" style={{ position: "relative", zIndex: 1 }}>
-        
-        <div style={{ 
+      <motion.div 
+        className="container" 
+        style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        {/* Floating Badges */}
+        <motion.div className="floating-badge" animate={{ y: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }} style={{ top: "10%", left: "5%" }}>
+          <Code2 size={14} color={G.green} /> Full-Stack
+        </motion.div>
+        <motion.div className="floating-badge" animate={{ y: [0, 15, 0] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }} style={{ top: "30%", right: "5%" }}>
+          <Smartphone size={14} color="#06b6d4" /> React Native
+        </motion.div>
+        <motion.div className="floating-badge" animate={{ y: [0, -12, 0] }} transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 2 }} style={{ bottom: "20%", left: "10%" }}>
+          <Lock size={14} color="#f472b6" /> Security Expert
+        </motion.div>
+
+        <motion.div variants={itemVariants} style={{ 
           display: "inline-flex", alignItems: "center", gap: 8, 
           background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)", 
           borderRadius: 100, padding: "8px 16px", marginBottom: 32,
-          color: G.green, fontSize: 11, fontWeight: 800, letterSpacing: "0.05em"
+          color: G.green, fontSize: 11, fontWeight: 800, letterSpacing: "0.05em",
+          backdropFilter: "blur(10px)"
         }}>
           <div className="pulse-dot" /> Grade 11 Developer · Ethiopia
-        </div>
+        </motion.div>
         
-        <h1 className="name-reveal" style={{ 
-          marginBottom: 12, textAlign: "left", 
-          fontSize: "clamp(32px, 8vw, 84px)",
+        <motion.h1 variants={itemVariants} style={{ 
+          marginBottom: 16, textAlign: "center", 
+          fontSize: "clamp(56px, 10vw, 120px)",
           fontWeight: 900,
-          lineHeight: 1.1
+          lineHeight: 1.1,
+          letterSpacing: "-0.04em"
         }}>
-          i'm <span className="name-shimmer">Tamerat</span><span className="dot-glow">.</span>
-        </h1>
+          i'm <span style={{
+            background: `linear-gradient(135deg, ${G.green} 0%, #06b6d4 100%)`,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            color: "transparent",
+            display: "inline-block"
+          }}>Tamerat</span><span style={{ color: G.green }}>.</span>
+        </motion.h1>
 
-        <div className="tagline name-reveal" style={{ 
-          fontSize: "clamp(18px, 4vw, 32px)", 
-          fontWeight: 700, color: G.green, 
-          marginBottom: 24, letterSpacing: "-0.02em",
-          animationDelay: "0.2s"
+        <motion.div variants={itemVariants} className="tagline" style={{ 
+          fontSize: "clamp(24px, 5vw, 42px)", 
+          fontWeight: 700, color: "rgba(255,255,255,0.9)", 
+          marginBottom: 24, letterSpacing: "-0.02em"
         }}>
           Student. Builder. From Ethiopia.
-        </div>
+        </motion.div>
         
-        <p className="name-reveal" style={{ color: G.slate, fontSize: 18, maxWidth: 600, marginBottom: 40, lineHeight: 1.7, animationDelay: "0.4s" }}>
-          Engineering localized software for the next generation. Focused on fintech, agritech, and educational infrastructure.
-        </p>
+        <motion.p variants={itemVariants} style={{ color: G.slateLight, fontSize: "clamp(16px, 2.5vw, 22px)", maxWidth: 700, marginBottom: 48, lineHeight: 1.6 }}>
+          Engineering localized software for the next generation. Focused on fintech, agritech, and robust educational infrastructure.
+        </motion.p>
 
-        <div className="hero-btns name-reveal" style={{ display: "flex", gap: 16, animationDelay: "0.6s" }}>
-          <Link to="/projects" className="btn-main primary" style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            VIEW PROJECTS <ArrowRight size={18} />
+        <motion.div variants={itemVariants} className="hero-btns" style={{ display: "flex", gap: 16 }}>
+          <Link to="/projects" style={{ textDecoration: 'none' }}>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-main primary" style={{ display: "flex", alignItems: "center", gap: 8, boxShadow: `0 10px 30px ${G.green}40` }}>
+              VIEW PROJECTS <motion.div animate={{ x: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}><ArrowRight size={18} /></motion.div>
+            </motion.div>
           </Link>
-          <Link to="/about" className="btn-main secondary">
-            ABOUT ME
+          <Link to="/about" style={{ textDecoration: 'none' }}>
+            <motion.div whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.1)" }} whileTap={{ scale: 0.95 }} className="btn-main secondary" style={{ backdropFilter: "blur(10px)" }}>
+              ABOUT ME
+            </motion.div>
           </Link>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Hybrid Scrolling Logo Ribbon (Auto + Manual) */}
-      <div 
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 1 }}
         ref={scrollRef}
         className="marquee-wrapper" 
         style={{ 
@@ -140,7 +197,9 @@ export default function Home() {
           overflowX: "auto",
           cursor: "grab",
           scrollbarWidth: "none",
-          WebkitOverflowScrolling: "touch"
+          WebkitOverflowScrolling: "touch",
+          WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+          maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
         }}
       >
         <div className="marquee-content" style={{ 
@@ -185,16 +244,84 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
+
+      {/* Bento Grid Highlights */}
+      <section className="container" style={{ padding: "80px 0 120px", position: "relative", zIndex: 2 }}>
+        <div className="bento-grid">
+          
+          {/* Card 5: Blue Ocean Pitch */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.4 }}
+            className="bento-card col-span-2" style={{ padding: 0, display: 'flex', flexDirection: 'column' }}
+          >
+            <div style={{ padding: '24px 24px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+               <h3 style={{ fontSize: 24, fontWeight: 800 }}>Blue Ocean Entrepreneurial Pitch</h3>
+               <span style={{ background: '#ef444420', color: '#ef4444', padding: '4px 12px', borderRadius: 100, fontSize: 12, fontWeight: 700, border: '1px solid #ef444440' }}>Featured Pitch</span>
+            </div>
+            <div style={{ padding: 24, flex: 1, display: 'flex' }}>
+              <div style={{ width: '100%', borderRadius: 16, overflow: 'hidden', background: '#000', aspectRatio: '16/9', border: '1px solid rgba(255,255,255,0.05)', position: 'relative' }}>
+                {!isPlaying ? (
+                  <div 
+                    onClick={() => setIsPlaying(true)}
+                    style={{ 
+                      position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', 
+                      backgroundImage: 'url(https://img.youtube.com/vi/Ww-EElGvb68/hqdefault.jpg)', 
+                      backgroundSize: 'cover', backgroundPosition: 'center', 
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' 
+                    }}
+                  >
+                    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.3)', transition: 'background 0.3s ease' }} className="vid-overlay" />
+                    <motion.div 
+                      whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+                      style={{ 
+                        width: 80, height: 80, borderRadius: '50%', 
+                        background: 'rgba(16,185,129,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                        backdropFilter: 'blur(10px)', boxShadow: '0 10px 30px rgba(16,185,129,0.4)', zIndex: 1 
+                      }}
+                    >
+                      <Play fill="#fff" color="#fff" size={32} style={{ marginLeft: 6 }} />
+                    </motion.div>
+                  </div>
+                ) : (
+                  <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/Ww-EElGvb68?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1" 
+                    title="Blue Ocean Pitch" 
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerPolicy="strict-origin-when-cross-origin" 
+                    allowFullScreen
+                  ></iframe>
+                )}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Card 6: Connect / Availability */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.5 }}
+            className="bento-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', background: `linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(16,185,129,0.05) 100%)` }}
+          >
+            <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'rgba(16,185,129,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24, border: '1px solid rgba(16,185,129,0.2)' }}>
+              <ArrowUpRight size={32} color={G.green} />
+            </div>
+            <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 12 }}>Let's Build</h3>
+            <p style={{ color: G.slateLight, lineHeight: 1.6, marginBottom: 24, fontSize: 14 }}>Currently open for innovative collaborations and projects.</p>
+            <a href={`mailto:${G.email}`} style={{ textDecoration: 'none', width: '100%' }}>
+              <div className="btn-main primary" style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '12px', fontSize: 14 }}>
+                Get in Touch
+              </div>
+            </a>
+          </motion.div>
+
+        </div>
+      </section>
 
       <style>{`
-        .bg-glow {
-          animation: pulseGlow 10s ease-in-out infinite;
-        }
-
-        @keyframes pulseGlow {
-          0%, 100% { transform: scale(1); opacity: 0.8; }
-          50% { transform: scale(1.2); opacity: 1; }
+        .vid-overlay:hover {
+          background: rgba(0,0,0,0.1) !important;
         }
 
         .pulse-dot {
@@ -213,17 +340,83 @@ export default function Home() {
 
         .marquee-wrapper::-webkit-scrollbar { display: none; }
 
+        .bento-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+        }
+        .bento-card {
+          background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(255,255,255,0.05);
+          border-radius: 24px;
+          padding: 24px;
+          backdrop-filter: blur(20px);
+          position: relative;
+          overflow: hidden;
+          transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .bento-card:hover {
+          transform: translateY(-5px);
+          border-color: rgba(255,255,255,0.1);
+          box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .col-span-2 { grid-column: span 2; }
+        
+        .code-block {
+          background: rgba(0,0,0,0.4);
+          padding: 24px;
+          border-radius: 16px;
+          font-family: monospace;
+          font-size: 14px;
+          line-height: 1.6;
+          border: 1px solid rgba(255,255,255,0.05);
+          overflow-x: auto;
+        }
+        
+        .tech-badge {
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.1);
+          color: #fff;
+          padding: 6px 12px;
+          border-radius: 100px;
+          font-size: 12px;
+          font-weight: 600;
+        }
+
+        .floating-badge {
+          position: absolute;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.1);
+          backdrop-filter: blur(10px);
+          padding: 8px 16px;
+          border-radius: 100px;
+          color: rgba(255,255,255,0.7);
+          font-size: 12px;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        @media (max-width: 992px) {
+          .bento-grid { grid-template-columns: repeat(2, 1fr); }
+          .col-span-2 { grid-column: span 2; }
+        }
+
         @media (max-width: 768px) {
           .hero-btns { gap: 12px; }
           section { padding: 40px 0; }
-          h1 { font-size: 42px !important; }
+          .bento-grid { grid-template-columns: 1fr; }
+          .col-span-2 { grid-column: span 1; }
+          .floating-badge { display: none; }
         }
 
         @media (max-width: 480px) {
-          h1 { font-size: 34px !important; }
-          .tagline { font-size: 18px !important; }
-          p { font-size: 15px !important; }
-          .hero-btns { gap: 8px; }
+          .hero-btns { gap: 8px; flex-wrap: wrap; }
+          .hero-btns > a { flex: 1; min-width: 140px; }
+          .hero-btns .btn-main { width: 100%; justify-content: center; }
         }
       `}</style>
     </section>

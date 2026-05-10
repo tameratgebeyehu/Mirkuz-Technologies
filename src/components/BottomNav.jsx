@@ -5,7 +5,7 @@ import { G } from '../data/portfolioData';
 
 export default function BottomNav() {
   const location = useLocation();
-  const activeLink = (path) => location.pathname === path;
+  const activeLink = (path) => location.pathname === path || (path !== "/" && location.pathname.startsWith(path));
 
   const items = [
     { name: "Home", path: "/", icon: <Home size={20} /> },
