@@ -32,6 +32,7 @@ export default function Home() {
   const isInteracting = useRef(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [latestPost, setLatestPost] = useState(null);
+  const [videoType, setVideoType] = useState('youtube');
 
   const partners = [
     { name: "PRINCETON UNIVERSITY", img: princetonImg },
@@ -72,6 +73,15 @@ export default function Home() {
         setLatestPost(posts[0]);
       }
     });
+
+    // Check if local video pitch.mp4 exists
+    fetch('/pitch.mp4', { method: 'HEAD' })
+      .then(res => {
+        if (res.ok) {
+          setVideoType('local');
+        }
+      })
+      .catch(() => {});
 
     const el = scrollRef.current;
     if (!el) return;
@@ -349,7 +359,18 @@ export default function Home() {
               Our award-winning strategic pitch for the world's largest virtual entrepreneurship competition, demonstrating localized innovation and high school student leadership.
             </p>
 
-            <div style={{ width: '100%', borderRadius: 24, overflow: 'hidden', background: '#000', aspectRatio: '16/9', border: '1px solid rgba(255,255,255,0.08)', position: 'relative', boxShadow: "0 20px 50px rgba(0,0,0,0.5)" }}>
+            <div style={{ 
+              width: '100%', 
+              borderRadius: 24, 
+              overflow: 'hidden', 
+              background: '#000', 
+              aspectRatio: '16/9', 
+              border: '1px solid rgba(255,255,255,0.08)', 
+              outline: '1px solid rgba(16,185,129,0.15)',
+              outlineOffset: '4px',
+              position: 'relative', 
+              boxShadow: "0 20px 50px rgba(0,0,0,0.6)" 
+            }}>
               {!isPlaying ? (
                 <div 
                   onClick={() => setIsPlaying(true)}
@@ -360,39 +381,63 @@ export default function Home() {
                     display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' 
                   }}
                 >
-                  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(6,9,19,0.4)', transition: 'background 0.3s ease' }} className="vid-overlay" />
+                  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(6,9,19,0.5)', transition: 'background 0.3s ease' }} className="vid-overlay" />
                   
-                  {/* Glowing pulsing play button container */}
+                  {/* HUD Corner Overlays for Cinematic Feel */}
+                  <div style={{ position: 'absolute', top: 16, left: 16, borderLeft: '2px solid rgba(16,185,129,0.6)', borderTop: '2px solid rgba(16,185,129,0.6)', width: 16, height: 16, pointerEvents: 'none', zIndex: 2 }} />
+                  <div style={{ position: 'absolute', top: 16, right: 16, borderRight: '2px solid rgba(16,185,129,0.6)', borderTop: '2px solid rgba(16,185,129,0.6)', width: 16, height: 16, pointerEvents: 'none', zIndex: 2 }} />
+                  <div style={{ position: 'absolute', bottom: 16, left: 16, borderLeft: '2px solid rgba(16,185,129,0.6)', borderBottom: '2px solid rgba(16,185,129,0.6)', width: 16, height: 16, pointerEvents: 'none', zIndex: 2 }} />
+                  <div style={{ position: 'absolute', bottom: 16, right: 16, borderRight: '2px solid rgba(16,185,129,0.6)', borderBottom: '2px solid rgba(16,185,129,0.6)', width: 16, height: 16, pointerEvents: 'none', zIndex: 2 }} />
+                  
+                  {/* REC Camera blinker */}
+                  <div style={{ position: 'absolute', top: 18, left: 40, display: 'flex', alignItems: 'center', gap: 6, zIndex: 2, pointerEvents: 'none' }}>
+                    <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#ef4444', animation: 'dotPulse 1.5s infinite' }} />
+                    <span style={{ fontSize: 9, fontWeight: 900, color: 'rgba(255,255,255,0.6)', letterSpacing: '0.1em', fontFamily: 'monospace' }}>REC</span>
+                  </div>
+
+                  {/* Pulsing play button container with concentric ripples */}
                   <motion.div 
                     whileHover={{ scale: 1.1 }} 
                     whileTap={{ scale: 0.95 }}
                     style={{ 
                       width: 80, height: 80, borderRadius: '50%', 
-                      background: 'rgba(16,185,129,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                      backdropFilter: 'blur(10px)', boxShadow: '0 10px 30px rgba(16,185,129,0.5)', zIndex: 1,
+                      background: 'rgba(16,185,129,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                      backdropFilter: 'blur(12px)', boxShadow: '0 10px 30px rgba(16,185,129,0.6)', zIndex: 3,
                       position: 'relative'
                     }}
                   >
-                    <div style={{
-                      position: 'absolute', inset: -8, borderRadius: '50%',
-                      border: '2px solid rgba(16,185,129,0.3)',
-                      animation: 'playPulse 2s infinite'
-                    }} />
-                    <Play fill="#fff" color="#fff" size={28} style={{ marginLeft: 4 }} />
+                    {/* Concentric ripples */}
+                    <div className="play-ripple ripple-1" />
+                    <div className="play-ripple ripple-2" />
+                    <div className="play-ripple ripple-3" />
+                    <Play fill="#fff" color="#fff" size={26} style={{ marginLeft: 4, zIndex: 4 }} />
                   </motion.div>
                 </div>
               ) : (
-                <iframe 
-                  width="100%" 
-                  height="100%" 
-                  src="https://www.youtube.com/embed/Ww-EElGvb68?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1" 
-                  title="Blue Ocean Pitch" 
-                  frameBorder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                  referrerPolicy="strict-origin-when-cross-origin" 
-                  allowFullScreen
-                  style={{ border: "none" }}
-                ></iframe>
+                videoType === 'local' ? (
+                  <video 
+                    width="100%" 
+                    height="100%" 
+                    controls 
+                    autoPlay 
+                    style={{ objectFit: 'cover', borderRadius: 24, border: 'none' }}
+                  >
+                    <source src="/pitch.mp4" type="video/mp4" />
+                    Your browser does not support HTML5 video streaming.
+                  </video>
+                ) : (
+                  <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/Ww-EElGvb68?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1" 
+                    title="Blue Ocean Pitch" 
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerPolicy="strict-origin-when-cross-origin" 
+                    allowFullScreen
+                    style={{ border: "none" }}
+                  ></iframe>
+                )
               )}
             </div>
           </div>

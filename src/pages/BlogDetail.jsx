@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getPosts, formatPostDate } from '../utils/blogUtils';
 import { G } from '../data/portfolioData';
-import { Calendar, Tag, ChevronLeft } from 'lucide-react';
+import { Calendar, Tag, ChevronLeft, Linkedin, Mail, Github, Share2, Copy, Check } from 'lucide-react';
 
 export default function BlogDetail() {
   const { slug } = useParams();
@@ -110,31 +110,112 @@ export default function BlogDetail() {
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 32 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               <span style={{ fontSize: 13, fontWeight: 900, color: G.slate, textTransform: "uppercase", letterSpacing: "0.1em" }}>Share Story:</span>
-              <div style={{ display: "flex", gap: 8 }}>
+              <div style={{ display: "flex", gap: 12 }}>
                 <a 
                   href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`} 
                   target="_blank" rel="noopener noreferrer"
-                  className="share-btn"
-                >
-                  LINKEDIN
-                </a>
-                <a 
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`} 
-                  target="_blank" rel="noopener noreferrer"
-                  className="share-btn"
-                >
-                  TWITTER
-                </a>
-                <button 
-                  onClick={handleShare}
-                  className="share-btn"
+                  aria-label="Share on LinkedIn"
                   style={{
-                    color: copied ? G.green : G.slate,
-                    borderColor: copied ? G.green : "rgba(255,255,255,0.08)",
-                    background: copied ? "rgba(16,185,129,0.05)" : "rgba(255,255,255,0.03)"
+                    width: 44, height: 44, borderRadius: '50%',
+                    background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: G.slate, transition: 'all 0.3s ease', textDecoration: 'none'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.borderColor = G.green;
+                    e.currentTarget.style.color = G.green;
+                    e.currentTarget.style.background = 'rgba(16,185,129,0.05)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
+                    e.currentTarget.style.color = G.slate;
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                    e.currentTarget.style.transform = 'none';
                   }}
                 >
-                  {copied ? "COPIED!" : "SHARE LINK"}
+                  <Linkedin size={18} />
+                </a>
+
+                <a 
+                  href={`mailto:?subject=${encodeURIComponent(post.title)}&body=Check out this article: ${encodeURIComponent(window.location.href)}`}
+                  aria-label="Share via Email"
+                  style={{
+                    width: 44, height: 44, borderRadius: '50%',
+                    background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: G.slate, transition: 'all 0.3s ease', textDecoration: 'none'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.borderColor = G.green;
+                    e.currentTarget.style.color = G.green;
+                    e.currentTarget.style.background = 'rgba(16,185,129,0.05)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
+                    e.currentTarget.style.color = G.slate;
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                    e.currentTarget.style.transform = 'none';
+                  }}
+                >
+                  <Mail size={18} />
+                </a>
+
+                <a 
+                  href={G.github}
+                  target="_blank" rel="noopener noreferrer"
+                  aria-label="GitHub Profile"
+                  style={{
+                    width: 44, height: 44, borderRadius: '50%',
+                    background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: G.slate, transition: 'all 0.3s ease', textDecoration: 'none'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.borderColor = G.green;
+                    e.currentTarget.style.color = G.green;
+                    e.currentTarget.style.background = 'rgba(16,185,129,0.05)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
+                    e.currentTarget.style.color = G.slate;
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                    e.currentTarget.style.transform = 'none';
+                  }}
+                >
+                  <Github size={18} />
+                </a>
+
+                <button 
+                  onClick={handleShare}
+                  aria-label="Share or Copy Link"
+                  style={{
+                    width: 44, height: 44, borderRadius: '50%',
+                    background: copied ? 'rgba(16,185,129,0.05)' : 'rgba(255,255,255,0.03)',
+                    border: copied ? `1px solid ${G.green}` : '1px solid rgba(255,255,255,0.08)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: copied ? G.green : G.slate, transition: 'all 0.3s ease', cursor: 'pointer'
+                  }}
+                  onMouseOver={(e) => {
+                    if (!copied) {
+                      e.currentTarget.style.borderColor = G.green;
+                      e.currentTarget.style.color = G.green;
+                      e.currentTarget.style.background = 'rgba(16,185,129,0.05)';
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                    }
+                  }}
+                  onMouseOut={(e) => {
+                    if (!copied) {
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
+                      e.currentTarget.style.color = G.slate;
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                      e.currentTarget.style.transform = 'none';
+                    }
+                  }}
+                >
+                  {copied ? <Check size={18} /> : <Share2 size={18} />}
                 </button>
               </div>
             </div>
