@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Briefcase, FlaskConical, BookOpen, User } from 'lucide-react';
+import { Home, Briefcase, GraduationCap, FlaskConical, BookOpen, User } from 'lucide-react';
 import { G } from '../data/portfolioData';
 
 export default function BottomNav() {
@@ -10,6 +10,7 @@ export default function BottomNav() {
   const items = [
     { name: "Home", path: "/", icon: <Home size={20} /> },
     { name: "Projects", path: "/projects", icon: <Briefcase size={20} /> },
+    { name: "Education", path: "/education", icon: <GraduationCap size={20} /> },
     { name: "Lab", path: "/lab", icon: <FlaskConical size={20} /> },
     { name: "Blog", path: "/blog", icon: <BookOpen size={20} /> },
     { name: "About", path: "/about", icon: <User size={20} /> }
@@ -41,8 +42,8 @@ export default function BottomNav() {
             }}>
               {item.icon}
             </div>
-            <span style={{ 
-              fontSize: 10, 
+            <span className="bottom-nav-label" style={{ 
+              fontSize: 9, 
               fontWeight: 800, 
               textTransform: "uppercase", 
               letterSpacing: "0.02em" 
@@ -61,7 +62,7 @@ export default function BottomNav() {
           left: 0;
           width: 100%;
           z-index: 100; /* Set to 100 as per Task */
-          padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+          padding: 12px 6px calc(12px + env(safe-area-inset-bottom));
           background: rgba(6, 9, 19, 0.95);
           backdrop-filter: blur(20px);
           border-top: 1px solid rgba(255,255,255,0.08);
@@ -72,13 +73,19 @@ export default function BottomNav() {
           display: flex;
           align-items: center;
           justify-content: space-around;
-          max-width: 500px;
+          max-width: 540px;
           margin: 0 auto;
         }
 
         @media (max-width: 768px) {
           .bottom-nav-wrapper {
             display: block;
+          }
+        }
+
+        @media (max-width: 380px) {
+          .bottom-nav-label {
+            font-size: 8px !important;
           }
         }
       `}</style>

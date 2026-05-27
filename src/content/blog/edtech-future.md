@@ -1,6 +1,6 @@
 ---
 title: "The Future of EdTech in Africa"
-date: "2026-04-20"
+date: "2026-04-20 14:30:00"
 description: "How offline-first applications can change the game for students in remote areas."
 tags: ["Education", "Software", "Future"]
 ---

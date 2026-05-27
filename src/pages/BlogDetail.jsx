@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { getPosts } from '../utils/blogUtils';
+import { getPosts, formatPostDate } from '../utils/blogUtils';
 import { G } from '../data/portfolioData';
 import { Calendar, Tag, ChevronLeft } from 'lucide-react';
 
@@ -8,6 +8,7 @@ export default function BlogDetail() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     getPosts().then(posts => {
@@ -16,6 +17,28 @@ export default function BlogDetail() {
     });
     window.scrollTo(0, 0);
   }, [slug]);
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: post.title,
+          text: post.description,
+          url: window.location.href,
+        });
+      } catch (err) {
+        copyToClipboard();
+      }
+    } else {
+      copyToClipboard();
+    }
+  };
 
   if (!post) return (
     <div className="container" style={{ padding: "100px 0", color: G.slate }}>Loading post...</div>
@@ -42,7 +65,9 @@ export default function BlogDetail() {
           {/* 2. Unified Structure: Date -> Title -> Tags */}
           <div style={{ display: "flex", alignItems: "center", gap: 12, color: G.green, fontSize: 12, fontWeight: 800, marginBottom: 16 }}>
             <Calendar size={14} />
-            {new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase()}
+            {formatPostDate(post.date).toUpperCase()}
+            <span style={{ color: G.slate }}>•</span>
+            <span style={{ color: G.slate }}>{post.readingTime}</span>
           </div>
           
           <h1 style={{ 
@@ -101,13 +126,15 @@ export default function BlogDetail() {
                   TWITTER
                 </a>
                 <button 
-                  onClick={() => {
-                    navigator.clipboard.writeText(window.location.href);
-                    alert("Link copied to clipboard!");
-                  }}
+                  onClick={handleShare}
                   className="share-btn"
+                  style={{
+                    color: copied ? G.green : G.slate,
+                    borderColor: copied ? G.green : "rgba(255,255,255,0.08)",
+                    background: copied ? "rgba(16,185,129,0.05)" : "rgba(255,255,255,0.03)"
+                  }}
                 >
-                  COPY LINK
+                  {copied ? "COPIED!" : "SHARE LINK"}
                 </button>
               </div>
             </div>

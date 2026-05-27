@@ -1,8 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, ShieldCheck, ArrowRight, Terminal, Globe, Lock, Cpu, Server, Code2, Smartphone, Play } from 'lucide-react';
+import { ArrowUpRight, ShieldCheck, ArrowRight, Terminal, Globe, Lock, Cpu, Server, Code2, Smartphone, Play, GraduationCap, FlaskConical, BookOpen, Briefcase, Award } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { G } from '../data/portfolioData';
+import { getPosts, formatPostDate } from '../utils/blogUtils';
 
 // Import Logos
 import princetonImg from '../logos/princeton logo.jpg';
@@ -14,10 +15,23 @@ import evangadiImg from '../logos/evangadi logo.jpg';
 import hplifeImg from '../logos/hp life logo.png';
 import redcrossImg from '../logos/ethiopian red cross society logo.jpg';
 
+const tagStyle = (color) => ({
+  display: "inline-block",
+  padding: "2px 10px",
+  borderRadius: 20,
+  fontSize: 11,
+  fontWeight: 600,
+  background: color + "22",
+  color: color,
+  letterSpacing: "0.05em",
+  textTransform: "uppercase",
+});
+
 export default function Home() {
   const scrollRef = useRef(null);
   const isInteracting = useRef(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [latestPost, setLatestPost] = useState(null);
 
   const partners = [
     { name: "PRINCETON UNIVERSITY", img: princetonImg },
@@ -51,6 +65,13 @@ export default function Home() {
     document.title = "Tamerat Gebeyehu — Mirkuz Technologies";
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) metaDesc.setAttribute("content", "Mirkuz Technologies: Building high-performance fintech, edtech, and agritech tools for Ethiopia. Founded by student developer Tamerat Gebeyehu.");
+
+    // Fetch latest post dynamically
+    getPosts().then(posts => {
+      if (posts && posts.length > 0) {
+        setLatestPost(posts[0]);
+      }
+    });
 
     const el = scrollRef.current;
     if (!el) return;
@@ -246,82 +267,214 @@ export default function Home() {
         </div>
       </motion.div>
 
-      {/* Bento Grid Highlights */}
-      <section className="container" style={{ padding: "80px 0 120px", position: "relative", zIndex: 2 }}>
-        <div className="bento-grid">
-          
-          {/* Card 5: Blue Ocean Pitch */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.4 }}
-            className="bento-card col-span-2" style={{ padding: 0, display: 'flex', flexDirection: 'column' }}
-          >
-            <div style={{ padding: '24px 24px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
-               <h3 style={{ fontSize: 24, fontWeight: 800 }}>Blue Ocean Entrepreneurial Pitch</h3>
-               <span style={{ background: '#ef444420', color: '#ef4444', padding: '4px 12px', borderRadius: 100, fontSize: 12, fontWeight: 700, border: '1px solid #ef444440' }}>Featured Pitch</span>
+      {/* Showcase Sections */}
+      <section className="container" style={{ padding: "60px 0 100px", position: "relative", zIndex: 2, display: "flex", flexDirection: "column", gap: "64px" }}>
+        
+        {/* Latest Insights & Writing Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }} 
+          whileInView={{ opacity: 1, y: 0 }} 
+          viewport={{ once: true, margin: "-100px" }} 
+          transition={{ delay: 0.15 }}
+          className="featured-section-card"
+          style={{ 
+            background: "rgba(255,255,255,0.01)", 
+            border: "1px solid rgba(255,255,255,0.05)", 
+            borderRadius: 32, 
+            padding: "40px", 
+            backdropFilter: "blur(20px)",
+            position: "relative",
+            overflow: "hidden",
+            boxShadow: `0 10px 30px rgba(0,0,0,0.2)`,
+            transition: "border-color 0.3s ease, box-shadow 0.3s ease"
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.borderColor = G.green + "40";
+            e.currentTarget.style.boxShadow = `0 20px 40px ${G.green}08`;
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)";
+            e.currentTarget.style.boxShadow = `0 10px 30px rgba(0,0,0,0.2)`;
+          }}
+        >
+          {latestPost ? (
+            <>
+              <div style={{ display: "flex", gap: 12, marginBottom: 20, flexWrap: "wrap", alignItems: "center" }}>
+                <span className="tech-badge" style={{ background: "rgba(16,185,129,0.1)", color: G.green, borderColor: "rgba(16,185,129,0.2)" }}>LATEST ARTICLE</span>
+                {latestPost.tags?.[0] && <span style={tagStyle(G.green)}>#{latestPost.tags[0]}</span>}
+                <span style={{ color: G.slate, fontSize: 13 }}>{formatPostDate(latestPost.date)} · {latestPost.readingTime || latestPost.time}</span>
+              </div>
+              <h3 style={{ fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 900, marginBottom: 16, color: "#fff", lineHeight: 1.2 }}>
+                {latestPost.title}
+              </h3>
+              <p style={{ color: G.slate, fontSize: "clamp(14px, 2vw, 16px)", lineHeight: 1.7, marginBottom: 32, maxWidth: 800 }}>
+                {latestPost.description}
+              </p>
+              <Link to={`/blog/${latestPost.slug}`} style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, color: G.green, fontWeight: 800, fontSize: 14 }}>
+                READ FULL ARTICLE <ArrowRight size={16} />
+              </Link>
+            </>
+          ) : (
+            <div style={{ color: G.slate }}>Loading latest article...</div>
+          )}
+        </motion.div>
+
+        {/* Cinematic Video Showcase (Blue Ocean Pitch) */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }} 
+          whileInView={{ opacity: 1, y: 0 }} 
+          viewport={{ once: true, margin: "-100px" }} 
+          transition={{ delay: 0.25 }}
+          className="featured-section-card"
+          style={{ 
+            background: "rgba(255,255,255,0.01)", 
+            border: "1px solid rgba(255,255,255,0.05)", 
+            borderRadius: 32, 
+            padding: "40px", 
+            backdropFilter: "blur(20px)",
+            boxShadow: `0 10px 30px rgba(0,0,0,0.2)`,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center"
+          }}
+        >
+          <div style={{ width: "100%", maxWidth: 800 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, marginBottom: 24, flexWrap: 'wrap' }}>
+               <span style={{ background: '#ef444415', color: '#ef4444', padding: '6px 16px', borderRadius: 100, fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em', border: '1px solid #ef444430' }}>Featured Pitch</span>
+               <h3 style={{ fontSize: "clamp(20px, 3.5vw, 28px)", fontWeight: 900, margin: 0, color: "#fff" }}>Blue Ocean Entrepreneurial Pitch</h3>
             </div>
-            <div style={{ padding: 24, flex: 1, display: 'flex' }}>
-              <div style={{ width: '100%', borderRadius: 16, overflow: 'hidden', background: '#000', aspectRatio: '16/9', border: '1px solid rgba(255,255,255,0.05)', position: 'relative' }}>
-                {!isPlaying ? (
-                  <div 
-                    onClick={() => setIsPlaying(true)}
+            
+            <p style={{ color: G.slate, fontSize: 15, lineHeight: 1.6, marginBottom: 32, maxWidth: 640, margin: "0 auto 32px" }}>
+              Our award-winning strategic pitch for the world's largest virtual entrepreneurship competition, demonstrating localized innovation and high school student leadership.
+            </p>
+
+            <div style={{ width: '100%', borderRadius: 24, overflow: 'hidden', background: '#000', aspectRatio: '16/9', border: '1px solid rgba(255,255,255,0.08)', position: 'relative', boxShadow: "0 20px 50px rgba(0,0,0,0.5)" }}>
+              {!isPlaying ? (
+                <div 
+                  onClick={() => setIsPlaying(true)}
+                  style={{ 
+                    position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', 
+                    backgroundImage: 'url(https://img.youtube.com/vi/Ww-EElGvb68/maxresdefault.jpg), url(https://img.youtube.com/vi/Ww-EElGvb68/hqdefault.jpg)', 
+                    backgroundSize: 'cover', backgroundPosition: 'center', 
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' 
+                  }}
+                >
+                  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(6,9,19,0.4)', transition: 'background 0.3s ease' }} className="vid-overlay" />
+                  
+                  {/* Glowing pulsing play button container */}
+                  <motion.div 
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.95 }}
                     style={{ 
-                      position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', 
-                      backgroundImage: 'url(https://img.youtube.com/vi/Ww-EElGvb68/hqdefault.jpg)', 
-                      backgroundSize: 'cover', backgroundPosition: 'center', 
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' 
+                      width: 80, height: 80, borderRadius: '50%', 
+                      background: 'rgba(16,185,129,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                      backdropFilter: 'blur(10px)', boxShadow: '0 10px 30px rgba(16,185,129,0.5)', zIndex: 1,
+                      position: 'relative'
                     }}
                   >
-                    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.3)', transition: 'background 0.3s ease' }} className="vid-overlay" />
-                    <motion.div 
-                      whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
-                      style={{ 
-                        width: 80, height: 80, borderRadius: '50%', 
-                        background: 'rgba(16,185,129,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                        backdropFilter: 'blur(10px)', boxShadow: '0 10px 30px rgba(16,185,129,0.4)', zIndex: 1 
-                      }}
-                    >
-                      <Play fill="#fff" color="#fff" size={32} style={{ marginLeft: 6 }} />
-                    </motion.div>
-                  </div>
-                ) : (
-                  <iframe 
-                    width="100%" 
-                    height="100%" 
-                    src="https://www.youtube.com/embed/Ww-EElGvb68?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1" 
-                    title="Blue Ocean Pitch" 
-                    frameBorder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerPolicy="strict-origin-when-cross-origin" 
-                    allowFullScreen
-                  ></iframe>
-                )}
-              </div>
+                    <div style={{
+                      position: 'absolute', inset: -8, borderRadius: '50%',
+                      border: '2px solid rgba(16,185,129,0.3)',
+                      animation: 'playPulse 2s infinite'
+                    }} />
+                    <Play fill="#fff" color="#fff" size={28} style={{ marginLeft: 4 }} />
+                  </motion.div>
+                </div>
+              ) : (
+                <iframe 
+                  width="100%" 
+                  height="100%" 
+                  src="https://www.youtube.com/embed/Ww-EElGvb68?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1" 
+                  title="Blue Ocean Pitch" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerPolicy="strict-origin-when-cross-origin" 
+                  allowFullScreen
+                  style={{ border: "none" }}
+                ></iframe>
+              )}
             </div>
-          </motion.div>
+          </div>
+        </motion.div>
 
-          {/* Card 6: Connect / Availability */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ delay: 0.5 }}
-            className="bento-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', background: `linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(16,185,129,0.05) 100%)` }}
-          >
-            <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'rgba(16,185,129,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24, border: '1px solid rgba(16,185,129,0.2)' }}>
-              <ArrowUpRight size={32} color={G.green} />
-            </div>
-            <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 12 }}>Let's Build</h3>
-            <p style={{ color: G.slateLight, lineHeight: 1.6, marginBottom: 24, fontSize: 14 }}>Currently open for innovative collaborations and projects.</p>
-            <a href={`mailto:${G.email}`} style={{ textDecoration: 'none', width: '100%' }}>
-              <div className="btn-main primary" style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '12px', fontSize: 14 }}>
-                Get in Touch
-              </div>
-            </a>
-          </motion.div>
+        {/* Centered Futuristic "Let's Build" CTA Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }} 
+          whileInView={{ opacity: 1, y: 0 }} 
+          viewport={{ once: true, margin: "-100px" }} 
+          transition={{ delay: 0.3 }}
+          className="featured-section-card" 
+          style={{ 
+            padding: "60px 40px", 
+            display: 'flex', 
+            flexDirection: 'column', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            textAlign: 'center', 
+            background: `linear-gradient(135deg, rgba(255,255,255,0.01) 0%, rgba(16,185,129,0.03) 100%)`,
+            border: "1px solid rgba(255,255,255,0.05)",
+            borderRadius: 32,
+            boxShadow: `0 10px 30px rgba(0,0,0,0.2)`
+          }}
+        >
+          <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'rgba(16,185,129,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24, border: '1px solid rgba(16,185,129,0.2)' }}>
+            <ArrowUpRight size={28} color={G.green} style={{ animation: "arrowBounce 2s infinite" }} />
+          </div>
+          
+          <h3 style={{ fontSize: "clamp(24px, 4vw, 36px)", fontWeight: 900, marginBottom: 12, color: "#fff" }}>Let's Build the Future.</h3>
+          
+          <p style={{ color: G.slateLight, lineHeight: 1.6, marginBottom: 36, fontSize: 16, maxWidth: 500 }}>
+            I am currently looking for high-impact collaborations, open-source projects, and localized software opportunities. Let's start the dialogue.
+          </p>
+          
+          <a href={`mailto:${G.email}`} style={{ textDecoration: 'none', width: '100%', maxWidth: 300 }}>
+            <motion.div 
+              whileHover={{ scale: 1.05, boxShadow: `0 15px 30px ${G.green}40` }} 
+              whileTap={{ scale: 0.95 }} 
+              className="btn-main primary" 
+              style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '16px', fontSize: 15 }}
+            >
+              Get in Touch
+            </motion.div>
+          </a>
 
-        </div>
+          {/* Connected Quick Socials */}
+          <div style={{ display: "flex", gap: 24, marginTop: 40, justifyContent: "center", flexWrap: "wrap" }}>
+            {[
+              { name: "Email", href: `mailto:${G.email}` },
+              { name: "GitHub", href: G.github },
+              { name: "LinkedIn", href: G.linkedin },
+              { name: "Telegram", href: G.telegram }
+            ].map(social => (
+              <a 
+                key={social.name} 
+                href={social.href} 
+                target={social.href.startsWith("mailto") ? "_self" : "_blank"} 
+                rel="noreferrer" 
+                style={{ 
+                  color: G.slate, 
+                  textDecoration: "none", 
+                  fontSize: 12, 
+                  fontWeight: 800, 
+                  letterSpacing: "0.05em",
+                  textTransform: "uppercase",
+                  transition: "color 0.2s" 
+                }}
+                onMouseOver={(e) => e.target.style.color = G.green}
+                onMouseOut={(e) => e.target.style.color = G.slate}
+              >
+                {social.name}
+              </a>
+            ))}
+          </div>
+        </motion.div>
+
       </section>
 
       <style>{`
         .vid-overlay:hover {
-          background: rgba(0,0,0,0.1) !important;
+          background: rgba(6, 9, 19, 0.2) !important;
         }
 
         .pulse-dot {
@@ -338,41 +491,19 @@ export default function Home() {
           100% { transform: scale(1); box-shadow: 0 0 0 0 ${G.green}00; }
         }
 
+        @keyframes playPulse {
+          0% { transform: scale(1); opacity: 0.9; }
+          50% { transform: scale(1.2); opacity: 0.1; }
+          100% { transform: scale(1); opacity: 0.9; }
+        }
+
+        @keyframes arrowBounce {
+          0%, 100% { transform: translate(0, 0); }
+          50% { transform: translate(4px, -4px); }
+        }
+
         .marquee-wrapper::-webkit-scrollbar { display: none; }
 
-        .bento-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 24px;
-        }
-        .bento-card {
-          background: rgba(255,255,255,0.02);
-          border: 1px solid rgba(255,255,255,0.05);
-          border-radius: 24px;
-          padding: 24px;
-          backdrop-filter: blur(20px);
-          position: relative;
-          overflow: hidden;
-          transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        .bento-card:hover {
-          transform: translateY(-5px);
-          border-color: rgba(255,255,255,0.1);
-          box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-        .col-span-2 { grid-column: span 2; }
-        
-        .code-block {
-          background: rgba(0,0,0,0.4);
-          padding: 24px;
-          border-radius: 16px;
-          font-family: monospace;
-          font-size: 14px;
-          line-height: 1.6;
-          border: 1px solid rgba(255,255,255,0.05);
-          overflow-x: auto;
-        }
-        
         .tech-badge {
           background: rgba(255,255,255,0.05);
           border: 1px solid rgba(255,255,255,0.1);
@@ -400,17 +531,11 @@ export default function Home() {
           z-index: 0;
         }
 
-        @media (max-width: 992px) {
-          .bento-grid { grid-template-columns: repeat(2, 1fr); }
-          .col-span-2 { grid-column: span 2; }
-        }
-
         @media (max-width: 768px) {
           .hero-btns { gap: 12px; }
           section { padding: 40px 0; }
-          .bento-grid { grid-template-columns: 1fr; }
-          .col-span-2 { grid-column: span 1; }
           .floating-badge { display: none; }
+          .featured-section-card { padding: 32px 24px !important; border-radius: 24px !important; }
         }
 
         @media (max-width: 480px) {

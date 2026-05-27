@@ -255,6 +255,7 @@ export const TECHNICAL_SPECIALIZATIONS = [
 ];
 
 export const CERTIFICATIONS = [
+  { id: 10, title: "Certificate of Recognition", org: "Blue Ocean Strategy", link: "https://credsverse.com/credentials/ff1642d5-7519-44e5-9d1c-5919299ab5e6", desc: "Awarded for participating in the world's largest virtual entrepreneurship pitch competition for high school students." },
   { id: 8, title: "Student Entrepreneurship", org: "Blue Ocean Strategy", link: "https://credsverse.com/credentials/abe66077-feb7-4692-8aeb-f96dd747a525", desc: "Strategic innovation and market-creation principles." },
   { id: 5, title: "Excel Skills for Business: Essentials", org: "Macquarie University", link: "https://www.coursera.org/account/accomplishments/verify/JKZ23217P292", desc: "Professional spreadsheet management and data logic." },
   { id: 9, title: "Red Cross Volunteer", org: "ERCS", link: "#", desc: "Certified in community service and emergency response." },

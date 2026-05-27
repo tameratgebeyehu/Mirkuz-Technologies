@@ -61,11 +61,51 @@ export const parseMarkdown = (content) => {
     });
 
   // Wrap lists
-  if (html.includes('<li>')) {
-    html = html.replace(/(<li>.*<\/li>)/sim, '<ul>$1</ul>');
+  // Calculate dynamic reading time
+  const wordCount = body.trim().split(/\s+/).length;
+  const readingTime = Math.ceil(wordCount / 225); // ~225 WPM average reading speed
+  frontmatter.readingTime = `${readingTime} min read`;
+
+  // Set fallback date if missing
+  if (!frontmatter.date) {
+    frontmatter.date = new Date().toISOString();
   }
 
   return { frontmatter, body, html };
+};
+
+export const formatPostDate = (dateStr) => {
+  if (!dateStr) return '';
+  // Support standard YYYY-MM-DD HH:MM:SS by replacing space with T if needed
+  const normalizedStr = dateStr.includes(' ') && !dateStr.includes('T') ? dateStr.replace(' ', 'T') : dateStr;
+  const date = new Date(normalizedStr);
+  if (isNaN(date.getTime())) return dateStr;
+  
+  const now = new Date();
+  
+  // Strip time for day comparison
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const postDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  
+  const diffTime = today - postDate;
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  
+  // Check if dateStr contains a time part (hours/minutes)
+  const hasTime = dateStr.includes(':') || dateStr.includes('T');
+  let timeSuffix = '';
+  if (hasTime) {
+    timeSuffix = ' at ' + date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  }
+
+  if (diffDays === 0) {
+    return 'Today' + timeSuffix;
+  } else if (diffDays === 1) {
+    return 'Yesterday' + timeSuffix;
+  } else if (diffDays > 1 && diffDays < 7) {
+    return `${diffDays} days ago` + timeSuffix;
+  }
+  
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + timeSuffix;
 };
 
 export const getPosts = async () => {
@@ -81,5 +121,9 @@ export const getPosts = async () => {
     };
   });
 
-  return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  return posts.sort((a, b) => {
+    const normA = a.date && a.date.includes(' ') && !a.date.includes('T') ? a.date.replace(' ', 'T') : (a.date || '');
+    const normB = b.date && b.date.includes(' ') && !b.date.includes('T') ? b.date.replace(' ', 'T') : (b.date || '');
+    return new Date(normB) - new Date(normA);
+  });
 };

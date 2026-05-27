@@ -1,6 +1,6 @@
 ---
 title: "Why Ethiopia Needs Better Keyboards"
-date: "2026-04-27"
+date: "2026-04-27 10:00:00"
 description: "A look at the challenges of typing in Amharic and how we can solve it with tech."
 tags: ["Tech", "Ethiopia", "UX"]
 ---

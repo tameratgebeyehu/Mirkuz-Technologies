@@ -230,7 +230,7 @@ export default function About() {
                   {/* Honeypot field (hidden from humans) */}
                   <input type="text" name="_gotcha" style={{ display: "none" }} tabIndex="-1" autoComplete="off" />
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                  <div className="form-grid">
                     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                       <label style={{ fontSize: 12, fontWeight: 800, color: G.slate, textTransform: "uppercase", letterSpacing: "0.05em" }}>Full Name</label>
                       <input type="text" name="name" required placeholder="Your Name" style={inputStyle} />
@@ -255,6 +255,16 @@ export default function About() {
       </div>
 
       <style>{`
+        .form-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+        @media (max-width: 600px) {
+          .form-grid {
+            grid-template-columns: 1fr;
+          }
+        }
         .social-btn:hover {
           background: rgba(16,185,129,0.1) !important;
           border-color: ${G.green} !important;

@@ -152,9 +152,8 @@ export default function ProjectDetail() {
         </div>
       </section>
 
-      {/* Main Content */}
       <section className="container" style={{ marginTop: 80 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 60 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 60 }}>
           
           {/* Left Column: Narrative */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 48 }}>
