@@ -33,6 +33,7 @@ export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [latestPost, setLatestPost] = useState(null);
   const [videoType, setVideoType] = useState('youtube');
+  const [thumbnailUrl, setThumbnailUrl] = useState('');
 
   const partners = [
     { name: "PRINCETON UNIVERSITY", img: princetonImg },
@@ -61,6 +62,8 @@ export default function Home() {
     visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100, damping: 15 } }
   };
 
+  const VIDEO_ID = 'Ww-EElGvb68';
+
   useEffect(() => {
     // SEO & Page Metadata
     document.title = "Tamerat Gebeyehu — Mirkuz Technologies";
@@ -77,11 +80,28 @@ export default function Home() {
     // Check if local video pitch.mp4 exists
     fetch('/pitch.mp4', { method: 'HEAD' })
       .then(res => {
-        if (res.ok) {
-          setVideoType('local');
-        }
+        if (res.ok) setVideoType('local');
       })
       .catch(() => {});
+
+    // Detect best available YouTube thumbnail (maxres → sd → hq)
+    const tryThumbnail = async () => {
+      const sizes = ['maxresdefault', 'sddefault', 'hqdefault'];
+      for (const size of sizes) {
+        try {
+          const res = await fetch(`https://img.youtube.com/vi/${VIDEO_ID}/${size}.jpg`, { method: 'HEAD' });
+          // YouTube returns a 120×90 stub image (not a real 404) — filter by content-length
+          const len = parseInt(res.headers.get('content-length') || '0', 10);
+          if (res.ok && len > 5000) {
+            setThumbnailUrl(`https://img.youtube.com/vi/${VIDEO_ID}/${size}.jpg`);
+            return;
+          }
+        } catch (_) {}
+      }
+      // Final fallback: embed thumbnail via YouTube noembed service
+      setThumbnailUrl(`https://img.youtube.com/vi/${VIDEO_ID}/sddefault.jpg`);
+    };
+    tryThumbnail();
 
     const el = scrollRef.current;
     if (!el) return;
@@ -363,22 +383,24 @@ export default function Home() {
               width: '100%', 
               borderRadius: 24, 
               overflow: 'hidden', 
-              background: '#000', 
+              background: thumbnailUrl ? '#000' : 'linear-gradient(135deg, #0f172a 0%, #1a2744 100%)',
               aspectRatio: '16/9', 
               border: '1px solid rgba(255,255,255,0.08)', 
               outline: '1px solid rgba(16,185,129,0.15)',
               outlineOffset: '4px',
               position: 'relative', 
-              boxShadow: "0 20px 50px rgba(0,0,0,0.6)" 
-            }}>
+              boxShadow: "0 20px 50px rgba(0,0,0,0.6)",
+              transition: 'background 0.4s ease'
+            }} className={!thumbnailUrl ? 'thumb-shimmer' : ''}>
               {!isPlaying ? (
                 <div 
                   onClick={() => setIsPlaying(true)}
                   style={{ 
                     position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', 
-                    backgroundImage: 'url(https://img.youtube.com/vi/Ww-EElGvb68/maxresdefault.jpg), url(https://img.youtube.com/vi/Ww-EElGvb68/hqdefault.jpg)', 
+                    backgroundImage: thumbnailUrl ? `url(${thumbnailUrl})` : 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
                     backgroundSize: 'cover', backgroundPosition: 'center', 
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' 
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+                    transition: 'background-image 0.3s ease'
                   }}
                 >
                   <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(6,9,19,0.5)', transition: 'background 0.3s ease' }} className="vid-overlay" />
@@ -429,7 +451,7 @@ export default function Home() {
                   <iframe 
                     width="100%" 
                     height="100%" 
-                    src="https://www.youtube.com/embed/Ww-EElGvb68?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1" 
+                    src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1`}
                     title="Blue Ocean Pitch" 
                     frameBorder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -520,6 +542,21 @@ export default function Home() {
       <style>{`
         .vid-overlay:hover {
           background: rgba(6, 9, 19, 0.2) !important;
+        }
+
+        @keyframes thumbShimmer {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+        .thumb-shimmer::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+          background-size: 200% 100%;
+          animation: thumbShimmer 1.8s infinite linear;
+          z-index: 1;
+          pointer-events: none;
         }
 
         .pulse-dot {
