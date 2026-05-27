@@ -77,29 +77,54 @@ export default function Home() {
       }
     });
 
-    // Check if local video pitch.mp4 exists
+    // Check if local video pitch.mp4 exists and is actually a video file (avoiding SPA HTML fallbacks)
     fetch('/pitch.mp4', { method: 'HEAD' })
       .then(res => {
-        if (res.ok) setVideoType('local');
+        const contentType = res.headers.get('content-type');
+        if (res.ok && contentType && contentType.includes('video')) {
+          setVideoType('local');
+        } else {
+          setVideoType('youtube');
+        }
       })
-      .catch(() => {});
+      .catch(() => {
+        setVideoType('youtube');
+      });
 
-    // Detect best available YouTube thumbnail (maxres → sd → hq)
-    const tryThumbnail = async () => {
+    // Detect best available YouTube thumbnail (maxres → sd → hq) using native Image loading to avoid CORS fetch issues
+    const tryThumbnail = () => {
       const sizes = ['maxresdefault', 'sddefault', 'hqdefault'];
-      for (const size of sizes) {
-        try {
-          const res = await fetch(`https://img.youtube.com/vi/${VIDEO_ID}/${size}.jpg`, { method: 'HEAD' });
-          // YouTube returns a 120×90 stub image (not a real 404) — filter by content-length
-          const len = parseInt(res.headers.get('content-length') || '0', 10);
-          if (res.ok && len > 5000) {
-            setThumbnailUrl(`https://img.youtube.com/vi/${VIDEO_ID}/${size}.jpg`);
-            return;
+      let index = 0;
+
+      const checkNext = () => {
+        if (index >= sizes.length) {
+          setThumbnailUrl(`https://img.youtube.com/vi/${VIDEO_ID}/sddefault.jpg`);
+          return;
+        }
+
+        const size = sizes[index];
+        const url = `https://img.youtube.com/vi/${VIDEO_ID}/${size}.jpg`;
+        const img = new Image();
+
+        img.onload = () => {
+          // YouTube returns a 120x90 stub placeholder if the requested size doesn't exist
+          if (img.width > 120) {
+            setThumbnailUrl(url);
+          } else {
+            index++;
+            checkNext();
           }
-        } catch (_) {}
-      }
-      // Final fallback: embed thumbnail via YouTube noembed service
-      setThumbnailUrl(`https://img.youtube.com/vi/${VIDEO_ID}/sddefault.jpg`);
+        };
+
+        img.onerror = () => {
+          index++;
+          checkNext();
+        };
+
+        img.src = url;
+      };
+
+      checkNext();
     };
     tryThumbnail();
 
