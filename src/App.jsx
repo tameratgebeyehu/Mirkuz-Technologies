@@ -21,6 +21,7 @@ import Home from './pages/Home';
 import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
 import Education from './pages/Education';
+import CertificateDetail from './pages/CertificateDetail';
 import Lab from './pages/Lab';
 import Blog from './pages/Blog';
 import BlogDetail from './pages/BlogDetail';
@@ -48,6 +49,7 @@ function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/education" element={<Education />} />
+            <Route path="/education/certificates/:slug" element={<CertificateDetail />} />
             <Route path="/lab" element={<Lab />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogDetail />} />

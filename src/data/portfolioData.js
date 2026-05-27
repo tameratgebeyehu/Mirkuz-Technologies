@@ -255,16 +255,156 @@ export const TECHNICAL_SPECIALIZATIONS = [
 ];
 
 export const CERTIFICATIONS = [
-  { id: 10, title: "Certificate of Recognition", org: "Blue Ocean Strategy", link: "https://credsverse.com/credentials/ff1642d5-7519-44e5-9d1c-5919299ab5e6", desc: "Awarded for participating in the world's largest virtual entrepreneurship pitch competition for high school students." },
-  { id: 8, title: "Student Entrepreneurship", org: "Blue Ocean Strategy", link: "https://credsverse.com/credentials/abe66077-feb7-4692-8aeb-f96dd747a525", desc: "Strategic innovation and market-creation principles." },
-  { id: 5, title: "Excel Skills for Business: Essentials", org: "Macquarie University", link: "https://www.coursera.org/account/accomplishments/verify/JKZ23217P292", desc: "Professional spreadsheet management and data logic." },
-  { id: 9, title: "Red Cross Volunteer", org: "ERCS", link: "#", desc: "Certified in community service and emergency response." },
-  { id: 1, title: "AI Fundamentals", org: "Google", link: "https://coursera.org/share/715a24a86008fc1b9ca8ca0b36fc2970", desc: "Core concepts of neural networks and generative AI models." },
-  { id: 3, title: "AI for Business Professionals", org: "HP Life", link: "https://www.life-global.org/certificate/fcb202f9-af69-4764-80ee-830179eb52a4", desc: "Strategic implementation of AI in business workflows." },
-  { id: 4, title: "Data Science & Analytics", org: "HP Life", link: "https://www.life-global.org/certificate/793e630d-a24d-4b48-ba77-4a59b9a62fa5", desc: "Techniques for data processing and predictive analysis." },
-  { id: 6, title: "Professional Networking", org: "HP Life", link: "https://www.life-global.org/certificate/b374fc87-c911-4f5b-a473-54b8c8d448f9", desc: "Strategies for global career growth and collaboration." },
-  { id: 2, title: "AI Fundamentals", org: "Udacity", link: "https://www.udacity.com/certificate/lp/4b49a7b0-6de3-4822-9324-3f27ff503205", desc: "Practical applications of artificial intelligence in software." },
-  { id: 7, title: "Idea Generation", org: "Nestlé", link: "https://mycourse.app/MZMSt0aHLIdb7hedy", desc: "Creative problem-solving and conceptual thinking for enterprise." }
+  { 
+    id: 10, 
+    title: "Certificate of Recognition", 
+    org: "Blue Ocean Strategy", 
+    slug: "recognition-blue-ocean",
+    link: "https://credsverse.com/credentials/ff1642d5-7519-44e5-9d1c-5919299ab5e6", 
+    desc: "Awarded for participating in the world's largest virtual entrepreneurship pitch competition for high school students.",
+    fullDescription: {
+      overview: "Awarded for participating in the world's largest virtual entrepreneurship pitch competition for high school students. This recognition validates my leadership in drafting a complete strategic pitch, analyzing market boundaries, and creating a 'Blue Ocean' offering to bypass competition.",
+      skills: ["Strategic Planning", "Blue Ocean Strategy Formulation", "Value Curve Design", "Competitive Pitching"],
+      modules: ["The Strategy Canvas", "Eliminate-Reduce-Raise-Create (ERRC) Grid", "Four Actions Framework", "Utility, Price, and Cost Test"],
+      credentialId: "ff1642d5-7519-44e5-9d1c-5919299ab5e6",
+      syllabus: "Focuses on identifying uncontested market spaces, analyzing value curves, and pitching innovations to global evaluators. Applied these methodologies directly to localized problems in Ethiopia."
+    }
+  },
+  { 
+    id: 8, 
+    title: "Student Entrepreneurship", 
+    org: "Blue Ocean Strategy", 
+    slug: "entrepreneurship-blue-ocean",
+    link: "https://credsverse.com/credentials/abe66077-feb7-4692-8aeb-f96dd747a525", 
+    desc: "Strategic innovation and market-creation principles.",
+    fullDescription: {
+      overview: "A dedicated credential demonstrating deep understanding of strategic innovation, value creation, and entrepreneurship. Covers the foundational rules of Blue Ocean theory and competitive analysis.",
+      skills: ["Value Innovation", "Strategic Positioning", "Niche Identification", "Business Model Design"],
+      modules: ["Introduction to Blue Ocean Strategy", "Red Ocean vs. Blue Ocean Dynamics", "The Three Tiers of Non-Customers", "Value-Cost Trade-off"],
+      credentialId: "abe66077-feb7-4692-8aeb-f96dd747a525",
+      syllabus: "Curriculum covers structural assumptions, value innovation principles, and defining target customer segments while creating uncontested market space."
+    }
+  },
+  { 
+    id: 5, 
+    title: "Excel Skills for Business: Essentials", 
+    org: "Macquarie University", 
+    slug: "excel-essentials-macquarie",
+    link: "https://www.coursera.org/account/accomplishments/verify/JKZ23217P292", 
+    desc: "Professional spreadsheet management and data logic.",
+    fullDescription: {
+      overview: "A professional course certifying expert-level spreadsheet management, data logic, and operational modeling. Issued by Macquarie University, this training establishes high competency in business intelligence.",
+      skills: ["Spreadsheet Modeling", "Data Analysis", "Mathematical Formulas", "Chart Design"],
+      modules: ["Introduction to Spreadsheet Layout", "Managing Data with Logic & Sorting", "Fundamental Formulas (SUM, AVERAGE, standard operators)", "Essential Functions (VLOOKUP, IF, nested statements)", "Charts & Data Visualization"],
+      credentialId: "JKZ23217P292",
+      syllabus: "Detailed training on spreadsheet design, mathematical modeling, conditional logic, complex functions, and professional data visualization practices."
+    }
+  },
+  { 
+    id: 9, 
+    title: "Red Cross Volunteer", 
+    org: "ERCS", 
+    slug: "red-cross-volunteer",
+    link: "#", 
+    desc: "Certified in community service and emergency response.",
+    fullDescription: {
+      overview: "Certified volunteer training completed under the Ethiopian Red Cross Society (ERCS). Equips participants with operational capability in community first aid, disaster response, and humanitarian support.",
+      skills: ["First Aid & CPR", "Disaster Preparedness", "Emergency Coordination", "Civic Leadership"],
+      modules: ["History of the Red Cross & Red Crescent Movement", "First Aid Essentials (wound care, fractures, choking, CPR)", "Community Disaster Risk Reduction", "Humanitarian Principles and Volunteer Ethics"],
+      credentialId: "N/A (Local Paper Record)",
+      syllabus: "Hands-on training covering emergency healthcare response, disaster resilience, first aid procedures, and community advocacy under local ERCS guidelines."
+    }
+  },
+  { 
+    id: 1, 
+    title: "AI Fundamentals", 
+    org: "Google", 
+    slug: "google-ai-fundamentals",
+    link: "https://coursera.org/share/715a24a86008fc1b9ca8ca0b36fc2970", 
+    desc: "Core concepts of neural networks and generative AI models.",
+    fullDescription: {
+      overview: "A professional credential issued by Google certifying foundational understanding of machine learning algorithms, deep neural network concepts, and generative AI models.",
+      skills: ["Machine Learning", "Generative AI", "Neural Networks", "Responsible AI"],
+      modules: ["Introduction to Generative AI", "Introduction to Large Language Models", "Introduction to Image Generation", "Responsible AI Principles and Ethics"],
+      credentialId: "715a24a86008fc1b9ca8ca0b36fc2970",
+      syllabus: "Focuses on modern neural networks, predictive analytics, natural language models, semantic search, and structural differences between standard programming and AI-driven development."
+    }
+  },
+  { 
+    id: 3, 
+    title: "AI for Business Professionals", 
+    org: "HP Life", 
+    slug: "hp-life-ai-business",
+    link: "https://www.life-global.org/certificate/fcb202f9-af69-4764-80ee-830179eb52a4", 
+    desc: "Strategic implementation of AI in business workflows.",
+    fullDescription: {
+      overview: "HP Life certification validating knowledge of AI integration, automation, and workflow enhancement in small-to-medium business operations.",
+      skills: ["Business Automation", "Workflow Optimization", "AI Integration", "Strategic Innovation"],
+      modules: ["Introduction to AI in Business", "Process Mapping and Automation Tools", "Ethical AI Considerations for SMBs", "Practical Implementation Roadmap"],
+      credentialId: "fcb202f9-af69-4764-80ee-830179eb52a4",
+      syllabus: "Examines the practical application of artificial intelligence tools to streamline sales, customer service, operations, and technical infrastructure in corporate environments."
+    }
+  },
+  { 
+    id: 4, 
+    title: "Data Science & Analytics", 
+    org: "HP Life", 
+    slug: "hp-life-data-science",
+    link: "https://www.life-global.org/certificate/793e630d-a24d-4b48-ba77-4a59b9a62fa5", 
+    desc: "Techniques for data processing and predictive analysis.",
+    fullDescription: {
+      overview: "An analytical credential focused on descriptive and predictive analytics, data cleaning, and statistical metrics to drive data-informed decision-making.",
+      skills: ["Descriptive Analytics", "Data Cleaning", "Data Visualization", "Predictive Modeling"],
+      modules: ["Understanding Structured and Unstructured Data", "Descriptive vs. Predictive Modeling", "Visualizing and Interpreting Insights", "Actionable Decision Frameworks"],
+      credentialId: "793e630d-a24d-4b48-ba77-4a59b9a62fa5",
+      syllabus: "Covers techniques for collecting business data, preprocessing and cleaning data, building simple predictive curves, and translating findings into strategic projects."
+    }
+  },
+  { 
+    id: 6, 
+    title: "Professional Networking", 
+    org: "HP Life", 
+    slug: "hp-life-networking",
+    link: "https://www.life-global.org/certificate/b374fc87-c911-4f5b-a473-54b8c8d448f9", 
+    desc: "Strategies for global career growth and collaboration.",
+    fullDescription: {
+      overview: "Focuses on professional networking, collaboration strategy, and creating strong institutional alliances for business and technology projects.",
+      skills: ["Strategic Collaboration", "Business Communication", "Relationship Building", "Global Outreach"],
+      modules: ["The Psychology of Networking", "Designing a Professional Networking Plan", "Online and Offline Branding", "Collaborative Project Management"],
+      credentialId: "b374fc87-c911-4f5b-a473-54b8c8d448f9",
+      syllabus: "Teaches methodologies for identifying strategic partners, managing professional communications, establishing business presence, and building long-term alliances."
+    }
+  },
+  { 
+    id: 2, 
+    title: "AI Fundamentals", 
+    org: "Udacity", 
+    slug: "udacity-ai-fundamentals",
+    link: "https://www.udacity.com/certificate/lp/4b49a7b0-6de3-4822-9324-3f27ff503205", 
+    desc: "Practical applications of artificial intelligence in software.",
+    fullDescription: {
+      overview: "Practical, hands-on certification from Udacity validating deep understanding of artificial intelligence basics, search algorithms, and machine learning models in Python.",
+      skills: ["Python for AI", "Supervised Learning", "Search Algorithms", "Data Science Libraries"],
+      modules: ["Introduction to AI Search (BFS, DFS, A*)", "Intro to Supervised Learning (Regression, Classification)", "Model Selection & Hyperparameter Tuning", "Ethical Implications of Intelligent Systems"],
+      credentialId: "lp/4b49a7b0-6de3-4822-9324-3f27ff503205",
+      syllabus: "Covers Python script programming for AI models, search and optimization algorithms, classification/regression models, and statistical data validation."
+    }
+  },
+  { 
+    id: 7, 
+    title: "Idea Generation", 
+    org: "Nestlé", 
+    slug: "nestle-idea-generation",
+    link: "https://mycourse.app/MZMSt0aHLIdb7hedy", 
+    desc: "Creative problem-solving and conceptual thinking for enterprise.",
+    fullDescription: {
+      overview: "Nestlé business credential verifying capability in design thinking, idea pitching, creative problem solving, and concept prototyping.",
+      skills: ["Design Thinking", "Idea Pitching", "Problem Identification", "Concept Prototyping"],
+      modules: ["Problem Definition & Empathy Mapping", "Brainstorming and Ideation Frameworks", "Pitch Development & Communication", "Feedback Incorporation & Iteration"],
+      credentialId: "MZMSt0aHLIdb7hedy",
+      syllabus: "Focuses on customer-centric design, creative brainstorming techniques, formulating business propositions, and pitching concepts to corporate stakeholders."
+    }
+  }
 ];
 
 export const SKILLS_DETAILED = [

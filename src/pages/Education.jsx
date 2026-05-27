@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Award, ExternalLink, CheckCircle, GraduationCap, ArrowRight } from 'lucide-react';
 import { G, ACADEMIC_FOUNDATION, TECHNICAL_SPECIALIZATIONS, CERTIFICATIONS } from '../data/portfolioData';
 
@@ -67,55 +68,47 @@ export default function Education() {
            
            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))", gap: 20 }}>
               {CERTIFICATIONS.map((c, idx) => {
-                const isLinkable = c.link && c.link !== "#";
-                const CardTag = isLinkable ? "a" : "div";
-                
-                return (
-                  <CardTag 
-                    key={c.id} 
-                    href={isLinkable ? c.link : undefined}
-                    target={isLinkable ? "_blank" : undefined}
-                    rel={isLinkable ? "noopener noreferrer" : undefined}
-                    className="glass-card"
-                    style={{ 
-                      padding: "40px 32px", 
-                      textDecoration: "none",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 20,
-                      cursor: isLinkable ? "pointer" : "default",
-                      border: isLinkable ? "1px solid rgba(255,255,255,0.05)" : "1px solid rgba(16,185,129,0.1)"
-                    }}
-                  >
-                    <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(16,185,129,0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: G.green, overflow: "hidden" }}>
-                       {logoMap[c.org] && typeof logoMap[c.org] === 'string' && logoMap[c.org].length > 10 ? (
-                          <img 
-                            src={logoMap[c.org]} 
-                            alt={c.org} 
-                            loading="lazy"
-                            decoding="async"
-                            style={{ width: "65%", height: "65%", objectFit: "contain" }} 
-                          />
-                       ) : (
-                          logoMap[c.org] || <CheckCircle size={24} />
-                       )}
-                    </div>
-                    <div>
-                       <div style={{ fontSize: 11, fontWeight: 900, color: G.green, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>{c.org}</div>
-                       <h3 style={{ fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 12, lineHeight: 1.3 }}>{c.title}</h3>
-                       <p style={{ color: G.slate, fontSize: 14, lineHeight: 1.6 }}>{c.desc}</p>
-                    </div>
-                    <div style={{ marginTop: "auto", display: "flex", alignItems: "center", gap: 8, color: isLinkable ? G.green : G.slate, fontSize: 12, fontWeight: 800 }}>
-                      {isLinkable ? (
-                        <>VERIFY CREDENTIAL <ArrowRight size={14} /></>
-                      ) : (
-                        <span style={{ opacity: 0.6 }}>OFFLINE RECORD — COMING SOON</span>
-                      )}
-                    </div>
-                  </CardTag>
-                );
-              })}
-           </div>
+                 return (
+                   <Link 
+                     key={c.id} 
+                     to={`/education/certificates/${c.slug}`}
+                     className="glass-card"
+                     style={{ 
+                       padding: "40px 32px", 
+                       textDecoration: "none",
+                       display: "flex",
+                       flexDirection: "column",
+                       gap: 20,
+                       cursor: "pointer",
+                       border: "1px solid rgba(255,255,255,0.05)",
+                       transition: "transform 0.2s, border-color 0.2s"
+                     }}
+                   >
+                     <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(16,185,129,0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: G.green, overflow: "hidden" }}>
+                        {logoMap[c.org] && typeof logoMap[c.org] === 'string' && logoMap[c.org].length > 10 ? (
+                           <img 
+                             src={logoMap[c.org]} 
+                             alt={c.org} 
+                             loading="lazy"
+                             decoding="async"
+                             style={{ width: "65%", height: "65%", objectFit: "contain" }} 
+                           />
+                        ) : (
+                           logoMap[c.org] || <CheckCircle size={24} />
+                        )}
+                     </div>
+                     <div>
+                        <div style={{ fontSize: 11, fontWeight: 900, color: G.green, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>{c.org}</div>
+                        <h3 style={{ fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 12, lineHeight: 1.3 }}>{c.title}</h3>
+                        <p style={{ color: G.slate, fontSize: 14, lineHeight: 1.6 }}>{c.desc}</p>
+                     </div>
+                     <div style={{ marginTop: "auto", display: "flex", alignItems: "center", gap: 8, color: G.green, fontSize: 12, fontWeight: 800 }}>
+                       VIEW DETAILS & SYLLABUS <ArrowRight size={14} />
+                     </div>
+                   </Link>
+                 );
+               })}
+            </div>
          </div>
 
          {/* 2. Technical Specializations - Premium Square Layout */}
