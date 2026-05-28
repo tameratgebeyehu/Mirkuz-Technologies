@@ -38,6 +38,7 @@ export default function Nav() {
     { name: "Home", path: "/" },
     { name: "Projects", path: "/projects" },
     { name: "Education", path: "/education" },
+    { name: "Gallery", path: "/gallery" },
     { name: "Lab", path: "/lab" },
     { name: "Blog", path: "/blog" },
     { name: "About", path: "/about" },
