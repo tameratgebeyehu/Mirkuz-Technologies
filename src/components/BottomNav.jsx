@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Briefcase, GraduationCap, FlaskConical, BookOpen, User, Image } from 'lucide-react';
+import { Home, Briefcase, GraduationCap, FlaskConical, BookOpen, User } from 'lucide-react';
 import { G } from '../data/portfolioData';
 
 export default function BottomNav() {
@@ -11,7 +11,6 @@ export default function BottomNav() {
     { name: "Home", path: "/", icon: <Home size={20} /> },
     { name: "Projects", path: "/projects", icon: <Briefcase size={20} /> },
     { name: "Education", path: "/education", icon: <GraduationCap size={20} /> },
-    { name: "Gallery", path: "/gallery", icon: <Image size={20} /> },
     { name: "Lab", path: "/lab", icon: <FlaskConical size={20} /> },
     { name: "Blog", path: "/blog", icon: <BookOpen size={20} /> },
     { name: "About", path: "/about", icon: <User size={20} /> }
