@@ -407,14 +407,27 @@ export default function AlbumDetail() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.2 }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.6}
+              onDragEnd={(e, info) => {
+                const swipeThreshold = 50;
+                if (info.offset.x < -swipeThreshold) {
+                  setActiveMediaIndex((prev) => (prev + 1) % album.media.length);
+                } else if (info.offset.x > swipeThreshold) {
+                  setActiveMediaIndex((prev) => (prev - 1 + album.media.length) % album.media.length);
+                }
+              }}
               style={{
                 maxWidth: "90vw",
                 maxHeight: "85vh",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                position: "relative"
+                position: "relative",
+                cursor: "grab"
               }}
+              whileTap={{ cursor: "grabbing" }}
               onClick={e => e.stopPropagation()}
             >
               {mediaErrors[currentMedia.id] ? (

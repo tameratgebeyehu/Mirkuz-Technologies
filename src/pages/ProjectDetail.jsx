@@ -342,9 +342,21 @@ export default function ProjectDetail() {
               className="lightbox-img"
               key={lightboxIndex}
               initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} transition={{ duration: 0.2 }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.6}
+              onDragEnd={(e, info) => {
+                const swipeThreshold = 50;
+                if (info.offset.x < -swipeThreshold) {
+                  setLightboxIndex((prev) => (prev + 1) % availableImages.length);
+                } else if (info.offset.x > swipeThreshold) {
+                  setLightboxIndex((prev) => (prev - 1 + availableImages.length) % availableImages.length);
+                }
+              }}
               src={`/projects/${project.slug}/${availableImages[lightboxIndex]}.jpg`} 
               alt={`${project.title} screenshot`}
-              style={{ objectFit: 'contain', borderRadius: 16, boxShadow: '0 20px 50px rgba(0,0,0,0.5)' }}
+              style={{ objectFit: 'contain', borderRadius: 16, boxShadow: '0 20px 50px rgba(0,0,0,0.5)', cursor: 'grab' }}
+              whileTap={{ cursor: 'grabbing' }}
               onClick={(e) => e.stopPropagation()}
             />
           </motion.div>
