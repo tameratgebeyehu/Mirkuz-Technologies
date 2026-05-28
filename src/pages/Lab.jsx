@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowUpRight, Beaker, CheckCircle2, FlaskConical } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { G, LAB_PROJECTS } from '../data/portfolioData';
 import ProjectModal from '../components/ProjectModal';
+
+function DynamicIcon({ name, ...props }) {
+  const IconComponent = Icons[name];
+  if (!IconComponent) return null;
+  return <IconComponent {...props} />;
+}
 
 export default function Lab() {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -48,7 +55,9 @@ export default function Lab() {
                 <div style={{ height: "100%", width: p.progress + "%", background: G.green }} />
               </div>
 
-              <div style={{ fontSize: 44, marginBottom: 24 }}>{p.icon}</div>
+              <div style={{ marginBottom: 24, color: G.green }}>
+                <DynamicIcon name={p.icon} size={48} />
+              </div>
               
               <div style={{ 
                 display: "inline-flex", alignItems: "center", gap: 6, 

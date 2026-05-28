@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Award, ExternalLink, CheckCircle, GraduationCap, ArrowRight } from 'lucide-react';
+import { Award, ExternalLink, CheckCircle, GraduationCap, ArrowRight, Rocket, Waves, Lightbulb } from 'lucide-react';
 import { G, ACADEMIC_FOUNDATION, TECHNICAL_SPECIALIZATIONS, CERTIFICATIONS } from '../data/portfolioData';
 
 // Import Logos for Specializations
@@ -22,7 +22,7 @@ export default function Education() {
     "P": princetonImg,
     "ET": evangadiImg,
     "G": googleImg,
-    "AN": "🚀",
+    "AN": <Rocket size={28} />,
     "MQ": macquarieImg,
     
     // Credentials mapping
@@ -31,8 +31,8 @@ export default function Education() {
     "Udacity": udacityImg,
     "ERCS": redcrossImg,
     "Macquarie University": macquarieImg,
-    "Nestlé": "🥛",
-    "Blue Ocean Strategy": "🌊"
+    "Nestlé": <Lightbulb size={24} />,
+    "Blue Ocean Strategy": <Waves size={24} />
   };
   useEffect(() => {
     document.title = "Tamerat Gebeyehu — Education & Certifications";

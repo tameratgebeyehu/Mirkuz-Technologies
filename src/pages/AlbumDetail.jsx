@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Calendar, MapPin, Play, ZoomIn, X, ChevronLeft, ChevronRight, Image } from 'lucide-react';
+import { ArrowLeft, Calendar, MapPin, Play, ZoomIn, X, ChevronLeft, ChevronRight, Image, Video } from 'lucide-react';
 import { GALLERY_ITEMS, G } from '../data/portfolioData';
 
 export default function AlbumDetail() {
@@ -198,7 +198,9 @@ export default function AlbumDetail() {
                     padding: 24,
                     textAlign: "center"
                   }}>
-                    <span style={{ fontSize: 36, marginBottom: 8 }}>{item.type === 'video' ? "🎥" : "📷"}</span>
+                    <div style={{ color: album.color, marginBottom: 12 }}>
+                      {item.type === 'video' ? <Video size={36} /> : <Image size={36} />}
+                    </div>
                     <h4 style={{ fontSize: 14, fontWeight: 800, color: "#fff", margin: "0 0 4px" }}>{item.title}</h4>
                     <span style={{ fontSize: 11, color: album.color, fontWeight: 700, textTransform: "uppercase" }}>View Media</span>
                   </div>
@@ -274,7 +276,7 @@ export default function AlbumDetail() {
                       style={{
                         position: "absolute",
                         inset: 0,
-                        background: "linear-gradient(180deg, transparent 40%, rgba(6,9,19,0.9) 100%)",
+                        background: "linear-gradient(180deg, transparent 50%, rgba(6,9,19,0.85) 100%)",
                         opacity: 0,
                         display: "flex",
                         flexDirection: "column",
@@ -284,12 +286,9 @@ export default function AlbumDetail() {
                         zIndex: 3
                       }}
                     >
-                      <h4 style={{ fontSize: 15, fontWeight: 800, color: "#fff", margin: "0 0 4px" }}>
+                      <h4 style={{ fontSize: 14, fontWeight: 800, color: "#fff", margin: 0, textAlign: "center" }}>
                         {item.title}
                       </h4>
-                      <p style={{ color: G.slate, fontSize: 11, margin: 0, display: "-webkit-box", WebkitLineClamp: 1, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-                        {item.caption}
-                      </p>
                     </div>
 
                   </div>
@@ -311,242 +310,163 @@ export default function AlbumDetail() {
             style={{
               position: "fixed",
               inset: 0,
-              zIndex: 9999,
-              background: "rgba(3,5,9,0.95)",
+              zIndex: 99999,
+              background: "rgba(3,5,9,0.97)",
               backdropFilter: "blur(20px)",
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
-              padding: "24px"
+              justifyContent: "center"
             }}
             onClick={() => setActiveMediaIndex(null)}
           >
-            
-            {/* Main Lightbox Box */}
-            <motion.div
-              initial={{ scale: 0.97, y: 15 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.97, y: 15 }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            {/* Top Close Control */}
+            <button
+              onClick={() => setActiveMediaIndex(null)}
               style={{
-                width: "100%",
-                maxWidth: 1120,
-                minHeight: 520,
-                background: "#060913",
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: 28,
-                overflow: "hidden",
-                boxShadow: "0 30px 60px rgba(0,0,0,0.6)",
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))",
+                position: "absolute",
+                top: 32,
+                right: 32,
+                background: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                color: "#fff",
+                width: 48,
+                height: 48,
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                zIndex: 10000,
+                transition: "all 0.2s"
+              }}
+              onMouseOver={e => e.currentTarget.style.transform = "scale(1.1)"}
+              onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
+            >
+              <X size={24} />
+            </button>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveMediaIndex((prev) => (prev - 1 + album.media.length) % album.media.length);
+              }}
+              style={{
+                position: "absolute",
+                left: 32,
+                background: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                color: "#fff",
+                width: 48,
+                height: 48,
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                zIndex: 10000,
+                transition: "all 0.2s"
+              }}
+              onMouseOver={e => e.currentTarget.style.borderColor = album.color}
+              onMouseOut={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"}
+            >
+              <ChevronLeft size={28} />
+            </button>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveMediaIndex((prev) => (prev + 1) % album.media.length);
+              }}
+              style={{
+                position: "absolute",
+                right: 32,
+                background: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                color: "#fff",
+                width: 48,
+                height: 48,
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                zIndex: 10000,
+                transition: "all 0.2s"
+              }}
+              onMouseOver={e => e.currentTarget.style.borderColor = album.color}
+              onMouseOut={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"}
+            >
+              <ChevronRight size={28} />
+            </button>
+
+            {/* Center Content Container */}
+            <motion.div
+              key={currentMedia.id}
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              style={{
+                maxWidth: "90vw",
+                maxHeight: "85vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
                 position: "relative"
               }}
               onClick={e => e.stopPropagation()}
             >
-              
-              {/* Top Controls Overlay */}
-              <div style={{
-                position: "absolute",
-                top: 20,
-                right: 20,
-                display: "flex",
-                gap: 8,
-                zIndex: 10
-              }}>
-                
-                {/* Left arrow */}
-                <button
-                  onClick={() => setActiveMediaIndex((prev) => (prev - 1 + album.media.length) % album.media.length)}
-                  style={{
-                    background: "rgba(6,9,19,0.8)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    color: "#fff",
-                    width: 36,
-                    height: 36,
-                    borderRadius: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    transition: "all 0.2s"
-                  }}
-                  onMouseOver={e => e.currentTarget.style.borderColor = album.color}
-                  onMouseOut={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"}
-                >
-                  <ChevronLeft size={18} />
-                </button>
-
-                {/* Right arrow */}
-                <button
-                  onClick={() => setActiveMediaIndex((prev) => (prev + 1) % album.media.length)}
-                  style={{
-                    background: "rgba(6,9,19,0.8)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    color: "#fff",
-                    width: 36,
-                    height: 36,
-                    borderRadius: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    transition: "all 0.2s"
-                  }}
-                  onMouseOver={e => e.currentTarget.style.borderColor = album.color}
-                  onMouseOut={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"}
-                >
-                  <ChevronRight size={18} />
-                </button>
-
-                {/* Close Drawer */}
-                <button
-                  onClick={() => setActiveMediaIndex(null)}
-                  style={{
-                    background: "rgba(6,9,19,0.8)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    color: "#fff",
-                    width: 36,
-                    height: 36,
-                    borderRadius: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    transition: "all 0.2s"
-                  }}
-                  onMouseOver={e => e.currentTarget.style.transform = "scale(1.1)"}
-                  onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
-                >
-                  <X size={18} />
-                </button>
-
-              </div>
-
-              {/* Left Side: Media Render */}
-              <div style={{
-                position: "relative",
-                width: "100%",
-                height: "100%",
-                minHeight: 380,
-                background: "rgba(0,0,0,0.95)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
-              }}>
-                
-                {mediaErrors[currentMedia.id] ? (
-                  <div style={{
-                    width: "100%",
-                    height: "100%",
-                    minHeight: 380,
-                    background: `linear-gradient(135deg, ${album.color}15 0%, #030509 100%)`,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: 40,
-                    textAlign: "center"
-                  }}>
-                    <span style={{ fontSize: 64, marginBottom: 16 }}>{currentMedia.type === 'video' ? "🎥" : "📷"}</span>
-                    <h3 style={{ fontSize: 20, fontWeight: 800, color: "#fff", margin: "0 0 12px" }}>{currentMedia.title}</h3>
-                    <p style={{ color: G.slate, fontSize: 14, maxWidth: 320, lineHeight: 1.5 }}>
-                      This file is unavailable locally (404). But the description and title are fully preserved below.
-                    </p>
-                  </div>
-                ) : currentMedia.type === 'video' ? (
-                  <video
-                    key={currentMedia.id}
-                    src={currentMedia.url}
-                    poster={album.coverImage}
-                    controls
-                    autoPlay
-                    loop
-                    onError={() => setMediaErrors(prev => ({ ...prev, [currentMedia.id]: true }))}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      maxHeight: "100%",
-                      objectFit: "contain",
-                      display: "block"
-                    }}
-                  />
-                ) : (
-                  <img
-                    key={currentMedia.id}
-                    src={currentMedia.url}
-                    alt={currentMedia.title}
-                    onError={() => setMediaErrors(prev => ({ ...prev, [currentMedia.id]: true }))}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "contain",
-                      display: "block"
-                    }}
-                  />
-                )}
-
-              </div>
-
-              {/* Right Side: Specific Media Narrative */}
-              <div style={{
-                padding: "48px 40px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                background: "linear-gradient(135deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0) 100%)",
-                borderLeft: "1px solid rgba(255,255,255,0.05)"
-              }}>
-                
-                <span style={{
-                  alignSelf: "flex-start",
-                  background: album.color + "15",
-                  color: album.color,
-                  padding: "5px 14px",
-                  borderRadius: 100,
-                  fontSize: 9,
-                  fontWeight: 900,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.08em",
-                  border: `1px solid ${album.color}30`,
-                  marginBottom: 16
+              {mediaErrors[currentMedia.id] ? (
+                <div style={{
+                  width: "100%",
+                  minWidth: 320,
+                  height: 400,
+                  background: `linear-gradient(135deg, ${album.color}15 0%, #030509 100%)`,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: 40,
+                  borderRadius: 24,
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  textAlign: "center"
                 }}>
-                  {album.category} — {currentMedia.type.toUpperCase()} {activeMediaIndex + 1}/{album.media.length}
-                </span>
-
-                <h2 style={{
-                  fontSize: "clamp(20px, 3vw, 24px)",
-                  fontWeight: 900,
-                  color: "#fff",
-                  lineHeight: 1.3,
-                  marginBottom: 12
-                }}>
-                  {currentMedia.title}
-                </h2>
-
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 16, fontSize: 13, color: G.slate, marginBottom: 24 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    <Calendar size={14} style={{ color: album.color }} />
-                    <span style={{ fontWeight: 600, color: G.slateLight }}>{album.date}</span>
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    <MapPin size={14} style={{ color: album.color }} />
-                    <span style={{ fontWeight: 600, color: G.slateLight }}>{album.location}</span>
-                  </div>
+                  {currentMedia.type === 'video' ? <Play size={48} color={album.color} /> : <Image size={48} color={album.color} />}
+                  <h3 style={{ fontSize: 20, fontWeight: 800, color: "#fff", margin: "16px 0 8px" }}>{currentMedia.title}</h3>
+                  <p style={{ color: G.slate, fontSize: 14, maxWidth: 280, margin: 0 }}>This file is currently unavailable locally.</p>
                 </div>
-
-                <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 20 }}>
-                  <h4 style={{ fontSize: 10, fontWeight: 900, color: G.slate, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10 }}>
-                    Moment Story
-                  </h4>
-                  <p style={{ color: G.slateLight, fontSize: 14, lineHeight: 1.7, margin: 0, maxHeight: 180, overflowY: "auto" }}>
-                    {currentMedia.caption}
-                  </p>
-                </div>
-
-              </div>
-
+              ) : currentMedia.type === 'video' ? (
+                <video
+                  src={currentMedia.url}
+                  poster={album.coverImage}
+                  controls
+                  autoPlay
+                  loop
+                  onError={() => setMediaErrors(prev => ({ ...prev, [currentMedia.id]: true }))}
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "85vh",
+                    objectFit: "contain",
+                    borderRadius: 24,
+                    boxShadow: "0 25px 50px rgba(0,0,0,0.6)"
+                  }}
+                />
+              ) : (
+                <img
+                  src={currentMedia.url}
+                  alt={currentMedia.title}
+                  onError={() => setMediaErrors(prev => ({ ...prev, [currentMedia.id]: true }))}
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "85vh",
+                    objectFit: "contain",
+                    borderRadius: 24,
+                    boxShadow: "0 25px 50px rgba(0,0,0,0.6)"
+                  }}
+                />
+              )}
             </motion.div>
-
           </motion.div>
         )}
       </AnimatePresence>

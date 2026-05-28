@@ -1,8 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowUpRight, Search, Filter } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { G, PROJECTS } from '../data/portfolioData';
+
+function DynamicIcon({ name, ...props }) {
+  const IconComponent = Icons[name];
+  if (!IconComponent) return null;
+  return <IconComponent {...props} />;
+}
 
 export default function Projects() {
   const navigate = useNavigate();
@@ -119,8 +126,8 @@ export default function Projects() {
                     }
                   }}
                 />
-                <div style={{ display: 'none', background: `linear-gradient(135deg, ${p.color}20, transparent)`, width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: 24, fontSize: 40 }}>
-                  {p.icon}
+                <div style={{ display: 'none', background: `linear-gradient(135deg, ${p.color}20, transparent)`, width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: 24, color: p.color }}>
+                  <DynamicIcon name={p.icon} size={36} />
                 </div>
               </div>
               <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>

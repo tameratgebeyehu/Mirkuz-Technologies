@@ -1,6 +1,13 @@
 import React, { useEffect } from 'react';
 import { X, CheckCircle2 } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { G } from '../data/portfolioData';
+
+function DynamicIcon({ name, ...props }) {
+  const IconComponent = Icons[name];
+  if (!IconComponent) return null;
+  return <IconComponent {...props} />;
+}
 
 export default function ProjectModal({ project, onClose }) {
   useEffect(() => {
@@ -57,8 +64,8 @@ export default function ProjectModal({ project, onClose }) {
 
         {/* Scrollable Content Area */}
         <div style={{ overflowY: "auto", flex: 1, scrollbarWidth: "none" }} className="modal-scroll-area">
-          <div style={{ height: "clamp(180px, 25vh, 280px)", background: isLab ? "linear-gradient(135deg, rgba(34,211,238,0.15), rgba(34,211,238,0.02))" : `linear-gradient(135deg, ${project.color}33, ${project.color}05)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "clamp(60px, 10vw, 100px)" }}>
-            {project.icon}
+          <div style={{ height: "clamp(180px, 25vh, 280px)", background: isLab ? "linear-gradient(135deg, rgba(34,211,238,0.15), rgba(34,211,238,0.02))" : `linear-gradient(135deg, ${project.color}33, ${project.color}05)`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <DynamicIcon name={project.icon} size={80} style={{ color: isLab ? "#22D3EE" : project.color }} />
           </div>
 
           <div style={{ padding: "clamp(24px, 5vw, 48px)" }}>

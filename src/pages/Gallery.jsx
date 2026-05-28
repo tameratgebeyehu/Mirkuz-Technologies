@@ -1,8 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, MapPin, ZoomIn, Info, Play, Image } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { G, GALLERY_ITEMS } from '../data/portfolioData';
+
+function DynamicIcon({ name, ...props }) {
+  const IconComponent = Icons[name];
+  if (!IconComponent) return null;
+  return <IconComponent {...props} />;
+}
 
 export default function Gallery() {
   const [filter, setFilter] = useState('All');
@@ -131,11 +137,15 @@ export default function Gallery() {
                         gap: 6,
                         boxShadow: "0 4px 12px rgba(0,0,0,0.3)"
                       }}>
-                        <span>📷 {photoCount}</span>
+                        <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+                          <Icons.Image size={11} /> {photoCount}
+                        </span>
                         {videoCount > 0 && (
                           <>
                             <span style={{ opacity: 0.3 }}>•</span>
-                            <span>🎥 {videoCount}</span>
+                            <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+                              <Icons.Play size={11} /> {videoCount}
+                            </span>
                           </>
                         )}
                       </div>
@@ -153,7 +163,9 @@ export default function Gallery() {
                           padding: 24,
                           textAlign: "center"
                         }}>
-                          <div style={{ fontSize: 54, marginBottom: 12 }}>{item.icon}</div>
+                          <div style={{ marginBottom: 12, color: item.color }}>
+                            <DynamicIcon name={item.icon} size={48} />
+                          </div>
                           <span style={{ fontSize: 10, fontWeight: 900, color: item.color, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: 4 }}>
                             {item.category}
                           </span>
@@ -213,7 +225,7 @@ export default function Gallery() {
                                 {item.title}
                               </h3>
                               <div style={{ display: "flex", alignItems: "center", gap: 6, color: item.color, fontSize: 12, fontWeight: 700 }}>
-                                <Play size={12} style={{ fill: item.color, stroke: item.color }} /> Open Album
+                                <Icons.Play size={12} style={{ fill: item.color, stroke: item.color }} /> Open Album
                               </div>
                             </div>
                           </div>
@@ -230,7 +242,7 @@ export default function Gallery() {
 
         {filteredItems.length === 0 && (
           <div style={{ textAlign: 'center', padding: '100px 0', color: G.slate }}>
-            <Image size={48} style={{ opacity: 0.2, margin: '0 auto 16px' }} />
+            <Icons.Image size={48} style={{ opacity: 0.2, margin: '0 auto 16px' }} />
             <p>No albums found in this category.</p>
           </div>
         )}

@@ -38,7 +38,7 @@ export const PROJECTS = [
     tech: ["React Native", "Expo", "TypeScript"],
     type: "Mobile",
     color: "#6366F1",
-    icon: "🛡️",
+    icon: "Shield",
     gallery: [5, 4, 1, 2, 3],
     links: { download: null, demo: null, github: null },
     timeline: [
@@ -66,7 +66,7 @@ export const PROJECTS = [
     tech: ["Flutter", "Supabase", "Dart"],
     type: "Mobile",
     color: "#059669",
-    icon: "🎓",
+    icon: "GraduationCap",
     links: { download: null, demo: null, github: "https://github.com/tameratgebeyehu" }
   },
   {
@@ -90,7 +90,7 @@ export const PROJECTS = [
     tech: ["React Native", "SQLite", "Node.js"],
     type: "Mobile",
     color: "#10B981",
-    icon: "⚛️",
+    icon: "BookOpen",
     links: { download: null, demo: null, github: null }
   },
   {
@@ -113,7 +113,7 @@ export const PROJECTS = [
     tech: ["Flutter", "Bluetooth API", "FastAPI"],
     type: "Logistics",
     color: "#D97706",
-    icon: "🌾",
+    icon: "Wheat",
     links: { download: null, demo: null, github: null }
   },
   {
@@ -136,7 +136,7 @@ export const PROJECTS = [
     tech: ["Android SDK", "Kotlin", "Java"],
     type: "OS Tool",
     color: "#DB2777",
-    icon: "⌨️",
+    icon: "Keyboard",
     links: { download: null, demo: null, github: null }
   },
   {
@@ -156,7 +156,7 @@ export const PROJECTS = [
     tech: ["React", "CSS3", "Vite"],
     type: "Web App",
     color: "#2563EB",
-    icon: "🏔️",
+    icon: "Mountain",
     links: { download: null, demo: "https://mirkuztechnologies.com", github: null }
   },
   {
@@ -176,7 +176,7 @@ export const PROJECTS = [
     tech: ["React", "PostgreSQL", "Tailwind"],
     type: "Platform",
     color: "#7C3AED",
-    icon: "🚀",
+    icon: "Rocket",
     links: { download: null, demo: null, github: null }
   }
 ];
@@ -187,18 +187,18 @@ export const LAB_PROJECTS = [
     title: "TDA Trading Bot",
     status: "Active Testing",
     progress: 75,
-    icon: "🤖",
+    icon: "Bot",
     tech: ["Python", "Mathematical Modeling", "Real-market Data"],
     problem: "High-frequency trading is often driven by human emotion and fatigue, leading to inconsistent results.",
     solution: "An algorithmic engine designed to execute strategies based on cold data, removing the 'human element' from entry and exit points.",
-    statusDetail: "Currently in a demo environment to validate the mathematical model before real-market capital deployment."
+    statusDetail: "Currently in a sandbox environment to validate the mathematical model before real-market capital deployment."
   },
   {
     id: 8,
     title: "DELALA",
     status: "Prototyping",
     progress: 40,
-    icon: "🤝",
+    icon: "Handshake",
     tech: ["React Native", "Trust Architecture", "Verified Listings"],
     problem: "Ethiopia's informal brokerage (Delala) system is unorganized and lacks transparency.",
     solution: "A transparent digital brokerage platform that professionalizes the middleman role with verified listings and clear communication channels.",
@@ -209,7 +209,7 @@ export const LAB_PROJECTS = [
     title: "QOTABI & QOTABI Pay",
     status: "Researching",
     progress: 30,
-    icon: "💰",
+    icon: "Coins",
     tech: ["Fintech", "Micro-savings", "Offline-logic"],
     problem: "Saving small amounts is difficult without disciplined tools or accessible digital banking.",
     solution: "A micro-savings platform following the 'Frugal Living' philosophy. Includes QOTABI Pay for secure, small-scale transactions.",
@@ -220,7 +220,7 @@ export const LAB_PROJECTS = [
     title: "ADE Coffee",
     status: "Concept",
     progress: 20,
-    icon: "☕",
+    icon: "Coffee",
     tech: ["Traceability", "Logistics", "Direct-to-Consumer"],
     problem: "Coffee farmers often lack direct access to global markets and consumers miss the true 'story' of the bean.",
     solution: "A traceability-focused logistics engine that connects the origin of the coffee directly to the final consumer.",
@@ -231,7 +231,7 @@ export const LAB_PROJECTS = [
     title: "ADDE",
     status: "Alpha",
     progress: 15,
-    icon: "📦",
+    icon: "Package",
     tech: ["Premium Logistics", "Resell Ecosystem", "UI/UX"],
     problem: "The secondary resell market in Ethiopia lacks a premium, high-trust logistics experience.",
     solution: "A premium resell platform that treats every delivery with 'Apple-level' care and transparency.",
@@ -467,7 +467,7 @@ export const GALLERY_ITEMS = [
     category: "Volunteering",
     date: "March 2026",
     coverImage: "/gallery/red-cross-first-aid.jpg",
-    icon: "🚑",
+    icon: "Heart",
     color: "#ef4444",
     description: "My active participation as a high school volunteer for the Ethiopian Red Cross Society (ERCS) sub-branch. The program focused on community health outreach, distributing medical kits, conducting drills, and raising health awareness in remote villages of West Arsi.",
     location: "Dodola District & West Arsi Zone",
@@ -476,36 +476,31 @@ export const GALLERY_ITEMS = [
         id: "rc-1",
         title: "First Aid Simulation Training",
         type: "image",
-        url: "/gallery/red-cross-first-aid.jpg",
-        caption: "Conducting a hands-on drill demonstrating critical response procedures, CPR, and pressure bandaging techniques. This simulation was part of the community-wide first-aid training conducted by the Ethiopian Red Cross Society (ERCS)."
+        url: "/gallery/red-cross-first-aid.jpg"
       },
       {
         id: "rc-2",
         title: "Humanitarian Principles Seminar",
         type: "image",
-        url: "/gallery/red-cross-seminar.jpg",
-        caption: "Engaging in an active group reflection on the seven fundamental principles of the Red Cross: Humanity, Impartiality, Neutrality, Independence, Voluntary Service, Unity, and Universality. This seminar established the ethics for our village outreach campaigns."
+        url: "/gallery/red-cross-seminar.jpg"
       },
       {
         id: "rc-3",
         title: "Volunteer Deployment Briefing",
         type: "image",
-        url: "/gallery/red-cross-deployment.jpg",
-        caption: "Organizing field folders and coordinate maps with ERCS officers before departing for remote health monitoring visits. The focus was to distribute first aid kits and raise awareness on emergency health procedures."
+        url: "/gallery/red-cross-deployment.jpg"
       },
       {
         id: "rc-4",
         title: "Emergency Evacuation Drills",
         type: "image",
-        url: "/gallery/red-cross-drill.jpg",
-        caption: "Collaborating with local emergency personnel during a simulated rapid-evacuation exercise at the community center, practicing triage and mobile stretcher routing."
+        url: "/gallery/red-cross-drill.jpg"
       },
       {
         id: "rc-5",
         title: "Village Health Awareness Camp",
         type: "image",
-        url: "/gallery/red-cross-camp.jpg",
-        caption: "Distributing water purification tablets and basic sanitation pamphlets to local families in outlying Dodola sub-villages."
+        url: "/gallery/red-cross-camp.jpg"
       }
     ]
   },
@@ -516,7 +511,7 @@ export const GALLERY_ITEMS = [
     category: "Honors & Awards",
     date: "January 2024",
     coverImage: "/gallery/medal-ceremony.jpg",
-    icon: "🥉",
+    icon: "Award",
     color: "#d97706",
     description: "Celebrating foundational computing awards and skill validations. Includes regional competition achievements and secondary school recognitions that motivated my entry into systems programming and local app development.",
     location: "Victory Wisdom Hall, Dodola",
@@ -525,64 +520,25 @@ export const GALLERY_ITEMS = [
         id: "mh-1",
         title: "Tenth World's Medal Stage Ceremony",
         type: "image",
-        url: "/gallery/medal/ceremony.jpg",
-        caption: "Receiving the Tenth World's Medal (Bronze Honors) at the regional computer logic and software design contest. A proud milestone that validated my development work."
+        url: "/gallery/medal/ceremony.jpg"
       },
       {
         id: "mh-2",
         title: "Honors & Trophies Presentation",
         type: "image",
-        url: "/gallery/medal/presentation.jpg",
-        caption: "Displaying the official Bronze Medal and Certificate of Merit with victory school administrators after the final regional awards announcement."
+        url: "/gallery/medal/presentation.jpg"
       },
       {
         id: "mh-3",
         title: "Bronze Medal Stage Presentation",
         type: "image",
-        url: "/gallery/medal-ceremony.jpg",
-        caption: "Receiving the Bronze Medal on stage during the Victory Wisdom School regional computing and digital design competition. This award recognized foundational technical logic and was the spark for my journey into software engineering."
+        url: "/gallery/medal-ceremony.jpg"
       },
       {
         id: "mh-4",
         title: "Certificate & Award Review",
         type: "image",
-        url: "/gallery/medal-certificate.jpg",
-        caption: "Examining the official computer skills merit credentials alongside school instructors immediately following the regional ceremony. The support from our local academic team was critical to this achievement."
-      }
-    ]
-  },
-  {
-    id: "electrical-society",
-    slug: "electrical-society",
-    title: "Ethiopian Electrical Society Conventions",
-    category: "Electrical Society",
-    date: "May 2026",
-    coverImage: "/gallery/electrical-society/pic1.jpg",
-    icon: "⚡",
-    color: "#3b82f6",
-    description: "Participating in professional seminars and automation workshops hosted by the Ethiopian Electrical Society. Interacting with grid design engineers, SCADA telemetry researchers, and presentation panels focusing on smart energy systems.",
-    location: "Addis Ababa Convention Center",
-    media: [
-      {
-        id: "ees-1",
-        title: "EES Grid Telemetry Seminar",
-        type: "image",
-        url: "/gallery/electrical-society/pic1.jpg",
-        caption: "Exchanging ideas with professional engineers during the EES keynote session. Discussed industrial SCADA architectures and high-voltage transmission telemetry grids."
-      },
-      {
-        id: "ees-2",
-        title: "Electrical Grid Automation Workshop",
-        type: "image",
-        url: "/gallery/electrical-society/pic2.jpg",
-        caption: "Reviewing automation logic and transmission protocols with grid specialists. The workshop explored local power dispatch issues and smart metering networks."
-      },
-      {
-        id: "ees-3",
-        title: "EES Youth Panel Presentation",
-        type: "image",
-        url: "/gallery/electrical-society/pic3.jpg",
-        caption: "Presenting localized software concepts for grid demand forecasting. Highlighted the integration of offline-first algorithms to assist remote substation operations."
+        url: "/gallery/medal-certificate.jpg"
       }
     ]
   },
@@ -593,7 +549,7 @@ export const GALLERY_ITEMS = [
     category: "Video Editing",
     date: "2025 - 2026",
     coverImage: "/gallery/videos/reel-thumbnail.jpg",
-    icon: "🎬",
+    icon: "Film",
     color: "#7c3aed",
     description: "Showcasing dynamic video editing works, masterclass reels, sound design assets, and post-production timelines. Features local visual editing projects alongside strategic marketing videos designed for competitive pitches.",
     location: "Mirkuz Editing Lab",
@@ -602,22 +558,19 @@ export const GALLERY_ITEMS = [
         id: "ve-1",
         title: "Video Editing Portfolio Reel",
         type: "video",
-        url: "/gallery/videos/edit-reel.mp4",
-        caption: "A comprehensive compilation of my original video editing works, showcasing advanced transitions, custom motion graphics, clean typography, sound design, and color grading reels."
+        url: "/gallery/videos/edit-reel.mp4"
       },
       {
         id: "ve-2",
         title: "Teaser Commercial Cut",
         type: "video",
-        url: "/gallery/videos/teaser-cut.mp4",
-        caption: "An edited commercial promo teaser featuring rapid beat-sync cuts, dynamic transitions, and modern kinetic typography overlay cards."
+        url: "/gallery/videos/teaser-cut.mp4"
       },
       {
         id: "ve-3",
         title: "Mirkuz Brand Motion Graphics",
         type: "image",
-        url: "/gallery/videos/motion-draft.jpg",
-        caption: "Initial visual vector drafts for Mirkuz Technologies animated logo intros and transition assets."
+        url: "/gallery/videos/motion-draft.jpg"
       }
     ]
   },
@@ -628,7 +581,7 @@ export const GALLERY_ITEMS = [
     category: "Strategic Pitch",
     date: "April 2026",
     coverImage: "/gallery/pitch-rehearsal.jpg",
-    icon: "🌊",
+    icon: "Waves",
     color: "#10b981",
     description: "Designing the comprehensive pitch deck, strategic framework canvases, and dynamic high-fidelity presentation for the global Blue Ocean Entrepreneurship Competition. The project details our localized agritech and student fintech engines.",
     location: "Mirkuz Innovation Hub & Studio",
@@ -637,50 +590,19 @@ export const GALLERY_ITEMS = [
         id: "bo-1",
         title: "Blue Ocean Strategic Pitch - Main Video",
         type: "video",
-        url: "/gallery/videos/blue-ocean-main.mp4",
-        caption: "The original, high-fidelity pitch presentation video for the Blue Ocean Entrepreneurship Competition, demonstrating localized agricultural and educational fintech innovations entirely designed by us."
+        url: "/gallery/videos/blue-ocean-main.mp4"
       },
       {
         id: "bo-2",
         title: "Strategy Canvas Workshop",
         type: "image",
-        url: "/gallery/canvas-draft.jpg",
-        caption: "Drafting the ERRC (Eliminate-Reduce-Raise-Create) Strategy Canvas on the board with my student teammates. This brainstorming session defined our final Blue Ocean Strategy pitch structure."
+        url: "/gallery/canvas-draft.jpg"
       },
       {
         id: "bo-3",
         title: "Venture Pitch Rehearsal",
         type: "image",
-        url: "/gallery/pitch-rehearsal.jpg",
-        caption: "Conducting a final mock presentation defense of our agritech logistics engine. We rehearsed explaining our Bluetooth thermal printer integration and transaction automated logs under pressure."
-      }
-    ]
-  },
-  {
-    id: "academic-mentorship",
-    slug: "academic-mentorship",
-    title: "High School Academic Mentorship",
-    category: "Academic Mentorship",
-    date: "April - May 2026",
-    coverImage: "/gallery/mentor-session.jpg",
-    icon: "👩‍🏫",
-    color: "#2563eb",
-    description: "Volunteering as an academic mentor and leading math tutorials for Grade 11 secondary school peers. Cooperating with school faculty members to gather student feedback for localized learning software.",
-    location: "Dodola & Hawiko Academy",
-    media: [
-      {
-        id: "am-1",
-        title: "Faculty Advisory Review",
-        type: "image",
-        url: "/gallery/mentor-session.jpg",
-        caption: "Discussing localized educational software tools with math and science teachers. In this session, I demonstrated Zemen Academy's offline syncing database and gathered faculty feedback on curriculum coverage."
-      },
-      {
-        id: "am-2",
-        title: "Dodola Math Club Tutorial",
-        type: "image",
-        url: "/gallery/math-club.jpg",
-        caption: "Leading an after-school tutoring session for fellow Grade 11 students. We focused on advanced mathematical proofs, algorithms, and logical problem solving to prepare for competitive admission pathways."
+        url: "/gallery/pitch-rehearsal.jpg"
       }
     ]
   }

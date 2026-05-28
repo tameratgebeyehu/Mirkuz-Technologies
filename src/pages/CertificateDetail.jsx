@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Award, ShieldCheck, CheckCircle2, Calendar, FileText, Globe } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Award, ShieldCheck, CheckCircle2, Calendar, FileText, Globe, Trophy, Waves, Lightbulb } from 'lucide-react';
 import { CERTIFICATIONS, G } from '../data/portfolioData';
 
 // Import Logos for Credentials
@@ -23,8 +23,8 @@ export default function CertificateDetail() {
     "Udacity": udacityImg,
     "ERCS": redcrossImg,
     "Macquarie University": macquarieImg,
-    "Nestlé": "🥛",
-    "Blue Ocean Strategy": "🌊"
+    "Nestlé": <Lightbulb size={48} color={G.green} />,
+    "Blue Ocean Strategy": <Waves size={48} color={G.green} />
   };
 
   useEffect(() => {
@@ -102,7 +102,7 @@ export default function CertificateDetail() {
                   style={{ width: "65%", height: "65%", objectFit: "contain" }} 
                 />
               ) : (
-                <span style={{ fontSize: 48 }}>{logoMap[cert.org] || "🏆"}</span>
+                logoMap[cert.org] || <Trophy size={48} color={G.green} />
               )}
             </motion.div>
 

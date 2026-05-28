@@ -2,7 +2,14 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Download, Github, CheckCircle2, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { PROJECTS, G } from '../data/portfolioData';
+
+function DynamicIcon({ name, ...props }) {
+  const IconComponent = Icons[name];
+  if (!IconComponent) return null;
+  return <IconComponent {...props} />;
+}
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -114,11 +121,13 @@ export default function ProjectDetail() {
                     e.target.src = `/projects/${project.slug}/logo.jpg`;
                   } else {
                     e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'block';
+                    e.target.nextSibling.style.display = 'flex';
                   }
                 }}
               />
-              <span style={{ display: 'none' }}>{project.icon}</span>
+              <div style={{ display: 'none', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', color: project.color }}>
+                <DynamicIcon name={project.icon} size={48} />
+              </div>
             </motion.div>
 
             <div style={{ flex: 1, minWidth: 280 }}>
