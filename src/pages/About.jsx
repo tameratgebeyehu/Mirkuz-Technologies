@@ -199,33 +199,42 @@ export default function About() {
                  btn.style.opacity = "0.7";
 
                  // Speed Optimization: Explicit fetch
-                 const controller = new AbortController();
-                 const timeoutId = setTimeout(() => {
-                   btn.innerText = "ALMOST THERE..."; // Keep user engaged if slow
-                 }, 4000);
+                  const controller = new AbortController();
+                  const timeoutId = setTimeout(() => {
+                    btn.innerText = "ALMOST THERE..."; // Keep user engaged if slow
+                  }, 4000);
 
-                 fetch(import.meta.env.VITE_FORMSPREE_URL, { 
-                   method: "POST",
-                   body: new FormData(form),
-                   headers: { 'Accept': 'application/json' },
-                   mode: 'cors',
-                   signal: controller.signal
-                 }).then(response => {
-                   clearTimeout(timeoutId);
-                   if (response.ok) {
-                     setSubmitted(true);
-                     form.reset();
-                   } else {
-                     btn.innerText = "ERROR - TRY AGAIN";
-                     btn.disabled = false;
-                     btn.style.opacity = "1";
-                   }
-                 }).catch(() => {
-                   clearTimeout(timeoutId);
-                   btn.innerText = "CONNECTION ERROR";
-                   btn.disabled = false;
-                   btn.style.opacity = "1";
-                 });
+                  const formData = new FormData(form);
+                  const payload = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    message: formData.get('message')
+                  };
+
+                  fetch('/api/contact', { 
+                    method: "POST",
+                    headers: { 
+                      'Content-Type': 'application/json',
+                      'Accept': 'application/json' 
+                    },
+                    body: JSON.stringify(payload),
+                    signal: controller.signal
+                  }).then(response => {
+                    clearTimeout(timeoutId);
+                    if (response.ok) {
+                      setSubmitted(true);
+                      form.reset();
+                    } else {
+                      btn.innerText = "ERROR - TRY AGAIN";
+                      btn.disabled = false;
+                      btn.style.opacity = "1";
+                    }
+                  }).catch(() => {
+                    clearTimeout(timeoutId);
+                    btn.innerText = "CONNECTION ERROR";
+                    btn.disabled = false;
+                    btn.style.opacity = "1";
+                  });
                }}>
                   {/* Honeypot field (hidden from humans) */}
                   <input type="text" name="_gotcha" style={{ display: "none" }} tabIndex="-1" autoComplete="off" />

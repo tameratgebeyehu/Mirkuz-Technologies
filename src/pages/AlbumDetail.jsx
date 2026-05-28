@@ -434,7 +434,26 @@ export default function AlbumDetail() {
                 justifyContent: "center"
               }}>
                 
-                {currentMedia.type === 'video' ? (
+                {mediaErrors[currentMedia.id] ? (
+                  <div style={{
+                    width: "100%",
+                    height: "100%",
+                    minHeight: 380,
+                    background: `linear-gradient(135deg, ${album.color}15 0%, #030509 100%)`,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: 40,
+                    textAlign: "center"
+                  }}>
+                    <span style={{ fontSize: 64, marginBottom: 16 }}>{currentMedia.type === 'video' ? "🎥" : "📷"}</span>
+                    <h3 style={{ fontSize: 20, fontWeight: 800, color: "#fff", margin: "0 0 12px" }}>{currentMedia.title}</h3>
+                    <p style={{ color: G.slate, fontSize: 14, maxWidth: 320, lineHeight: 1.5 }}>
+                      This file is unavailable locally (404). But the description and title are fully preserved below.
+                    </p>
+                  </div>
+                ) : currentMedia.type === 'video' ? (
                   <video
                     key={currentMedia.id}
                     src={currentMedia.url}
@@ -442,6 +461,7 @@ export default function AlbumDetail() {
                     controls
                     autoPlay
                     loop
+                    onError={() => setMediaErrors(prev => ({ ...prev, [currentMedia.id]: true }))}
                     style={{
                       width: "100%",
                       height: "100%",
@@ -455,6 +475,7 @@ export default function AlbumDetail() {
                     key={currentMedia.id}
                     src={currentMedia.url}
                     alt={currentMedia.title}
+                    onError={() => setMediaErrors(prev => ({ ...prev, [currentMedia.id]: true }))}
                     style={{
                       width: "100%",
                       height: "100%",

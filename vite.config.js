@@ -9,6 +9,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      workbox: {
+        globIgnores: ['apks/**/*']
+      },
       manifest: {
         name: 'Tamerat Portfolio',
         short_name: 'Tamerat',
@@ -18,14 +21,14 @@ export default defineConfig({
         display: 'standalone',
         icons: [
           {
-            src: 'logos/profile.jpg',
+            src: 'logos/pwa-192.png',
             sizes: '192x192',
-            type: 'image/jpeg'
+            type: 'image/png'
           },
           {
-            src: 'logos/profile.jpg',
+            src: 'logos/pwa-512.png',
             sizes: '512x512',
-            type: 'image/jpeg',
+            type: 'image/png',
             purpose: 'any maskable'
           }
         ]

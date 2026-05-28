@@ -66,4 +66,115 @@
     <lastmod>2026-05-09</lastmod>
     <priority>0.7</priority>
   </url>
+
+  <!-- Gallery Page & Albums -->
+  <url>
+    <loc>https://mirkuztechnologies.com/gallery</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/gallery/red-cross</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/gallery/medal-honors</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/gallery/electrical-society</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/gallery/video-editing</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/gallery/blue-ocean-pitch</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/gallery/academic-mentorship</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Blog Details -->
+  <url>
+    <loc>https://mirkuztechnologies.com/blog/ai-is-not-cheating</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/blog/better-keyboards</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/blog/edtech-future</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/blog/vibe-coding</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Certificate Details -->
+  <url>
+    <loc>https://mirkuztechnologies.com/education/certificates/recognition-blue-ocean</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/education/certificates/entrepreneurship-blue-ocean</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/education/certificates/excel-essentials-macquarie</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/education/certificates/red-cross-volunteer</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/education/certificates/google-ai-fundamentals</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/education/certificates/hp-life-ai-business</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/education/certificates/hp-life-data-science</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/education/certificates/hp-life-networking</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/education/certificates/udacity-ai-fundamentals</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mirkuztechnologies.com/education/certificates/nestle-idea-generation</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
 </urlset>

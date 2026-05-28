@@ -43,11 +43,11 @@ export const parseMarkdown = (content) => {
     .replace(/^### (.*$)/gim, '<h3>$1</h3>')
     .replace(/^## (.*$)/gim, '<h2>$1</h2>')
     .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-    // Images: ![alt](url) -> <figure><img src="url" alt="alt" /><figcaption>alt</figcaption></figure>
+    // Images: ![alt](url) -> <figure><img src="$2" alt="$1" /><figcaption>$1</figcaption></figure>
     .replace(/\!\[(.*?)\]\((.*?)\)/gim, '<figure><img src="$2" alt="$1" /><figcaption>$1</figcaption></figure>')
-    // Bold/Italic
-    .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-    .replace(/\*(.*)\*/gim, '<em>$1</em>')
+    // Bold/Italic (non-greedy)
+    .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/gim, '<em>$1</em>')
     // Lists
     .replace(/^\- (.*$)/gim, '<li>$1</li>')
     .replace(/<\/li>\n<li>/gim, '</li><li>') 
@@ -56,11 +56,16 @@ export const parseMarkdown = (content) => {
     // Paragraphs (simplified)
     .replace(/\n\n/gim, '</p><p>')
     .replace(/^(.+)$/gim, (match) => {
-      if (match.startsWith('<')) return match;
+      const blockTags = ['<h1', '<h2', '<h3', '<h4', '<h5', '<h6', '<ul', '<ol', '<li', '<blockquote', '<pre', '<figure', '<p', '<div', '<hr', '<section', '<article'];
+      const startsWithBlock = blockTags.some(tag => match.trim().startsWith(tag));
+      if (startsWithBlock) return match;
       return `<p>${match}</p>`;
     });
 
-  // Wrap lists
+  // Wrap lists (wrap consecutive <li> elements in <ul>)
+  html = html.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>')
+             .replace(/<\/ul>\s*<ul>/g, '');
+
   // Calculate dynamic reading time
   const wordCount = body.trim().split(/\s+/).length;
   const readingTime = Math.ceil(wordCount / 225); // ~225 WPM average reading speed
