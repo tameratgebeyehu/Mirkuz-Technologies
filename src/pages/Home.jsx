@@ -1,9 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowUpRight, ShieldCheck, ArrowRight, Terminal, Globe, Lock, Cpu, Server, Code2, Smartphone, Play, GraduationCap, FlaskConical, BookOpen, Briefcase, Award } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowUpRight, ShieldCheck, ArrowRight, Terminal, Globe, Lock, Cpu, Server, Code2, Smartphone, Play, GraduationCap, FlaskConical, BookOpen, Briefcase, Award, ShoppingCart, Star, PenLine, Sparkles, ExternalLink, BookMarked, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { G } from '../data/portfolioData';
 import { getPosts, formatPostDate } from '../utils/blogUtils';
+import TallPathSignup from '../components/TallPathSignup';
 
 // Import Logos
 import princetonImg from '../logos/princeton logo.jpg';
@@ -28,8 +29,6 @@ const tagStyle = (color) => ({
 });
 
 export default function Home() {
-  const scrollRef = useRef(null);
-  const isInteracting = useRef(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [latestPost, setLatestPost] = useState(null);
   const [videoType, setVideoType] = useState('youtube');
@@ -46,8 +45,8 @@ export default function Home() {
     { name: "RED CROSS", img: redcrossImg }
   ];
 
-  // Quadruple to ensure absolute seamless infinite scroll with JS
-  const infiniteLogos = [...partners, ...partners, ...partners, ...partners];
+  // Double to ensure seamless hardware-accelerated CSS infinite scroll
+  const infiniteLogos = [...partners, ...partners];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -66,9 +65,31 @@ export default function Home() {
 
   useEffect(() => {
     // SEO & Page Metadata
-    document.title = "Tamerat Gebeyehu — Mirkuz Technologies";
+    document.title = "Tamerat Gebeyehu — Mirkuz Technologies | Developer & Author";
     const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute("content", "Mirkuz Technologies: Building high-performance fintech, edtech, and agritech tools for Ethiopia. Founded by student developer Tamerat Gebeyehu.");
+    if (metaDesc) metaDesc.setAttribute("content", "Mirkuz Technologies: Building high-performance fintech, edtech, and agritech tools for Ethiopia. Author of 'Code Ethiopia: From Zero to Developer'. Founded by student developer Tamerat Gebeyehu.");
+
+    // Structured Data: Book (JSON-LD for SEO rich snippets)
+    const existingLd = document.getElementById('book-jsonld');
+    if (!existingLd) {
+      const script = document.createElement('script');
+      script.id = 'book-jsonld';
+      script.type = 'application/ld+json';
+      script.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Book",
+        "name": "Code Ethiopia: From Zero to Developer",
+        "author": { "@type": "Person", "name": "Tamerat Gebeyehu" },
+        "description": "A comprehensive beginner-friendly programming guide designed specifically for Ethiopian learners. Covers Python, JavaScript, problem-solving, and practical coding exercises.",
+        "numberOfPages": 270,
+        "inLanguage": "en",
+        "genre": "Computer Science / Programming",
+        "publisher": { "@type": "Organization", "name": "Mirkuz Technologies" },
+        "image": "/books/code-ethiopia-cover.png",
+        "offers": { "@type": "Offer", "availability": "https://schema.org/InStock" }
+      });
+      document.head.appendChild(script);
+    }
 
     // Fetch latest post dynamically
     getPosts().then(posts => {
@@ -77,19 +98,8 @@ export default function Home() {
       }
     });
 
-    // Check if local video pitch.mp4 exists and is actually a video file (avoiding SPA HTML fallbacks)
-    fetch('/pitch.mp4', { method: 'HEAD' })
-      .then(res => {
-        const contentType = res.headers.get('content-type');
-        if (res.ok && contentType && contentType.includes('video')) {
-          setVideoType('local');
-        } else {
-          setVideoType('youtube');
-        }
-      })
-      .catch(() => {
-        setVideoType('youtube');
-      });
+    // Default to YouTube since no local video exists in the repo
+    setVideoType('youtube');
 
     // Detect best available YouTube thumbnail (maxres → sd → hq) using native Image loading to avoid CORS fetch issues
     const tryThumbnail = () => {
@@ -127,43 +137,6 @@ export default function Home() {
       checkNext();
     };
     tryThumbnail();
-
-    const el = scrollRef.current;
-    if (!el) return;
-
-    let request;
-    const speed = 0.8; // Pixels per frame
-
-    const animate = () => {
-      if (!isInteracting.current) {
-        el.scrollLeft += speed;
-        
-        // Infinite Loop Logic: If we reach the end of one set, jump back to start
-        if (el.scrollLeft >= el.scrollWidth / 2) {
-          el.scrollLeft = 0;
-        }
-      }
-      request = requestAnimationFrame(animate);
-    };
-
-    request = requestAnimationFrame(animate);
-
-    // Interaction handling
-    const startInteracting = () => { isInteracting.current = true; };
-    const stopInteracting = () => { isInteracting.current = false; };
-
-    el.addEventListener('mousedown', startInteracting);
-    el.addEventListener('touchstart', startInteracting);
-    window.addEventListener('mouseup', stopInteracting);
-    window.addEventListener('touchend', stopInteracting);
-
-    return () => {
-      cancelAnimationFrame(request);
-      el.removeEventListener('mousedown', startInteracting);
-      el.removeEventListener('touchstart', startInteracting);
-      window.removeEventListener('mouseup', stopInteracting);
-      window.removeEventListener('touchend', stopInteracting);
-    };
   }, []);
 
   return (
@@ -258,22 +231,18 @@ export default function Home() {
         </motion.div>
       </motion.div>
 
-      {/* Hybrid Scrolling Logo Ribbon (Auto + Manual) */}
+      {/* Hardware-Accelerated CSS Infinite Marquee Ribbon */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
-        ref={scrollRef}
         className="marquee-wrapper" 
         style={{ 
           marginTop: 100, 
           position: "relative", 
           zIndex: 1, 
           width: "100%", 
-          overflowX: "auto",
-          cursor: "grab",
-          scrollbarWidth: "none",
-          WebkitOverflowScrolling: "touch",
+          overflow: "hidden",
           WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
           maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
         }}
@@ -324,22 +293,206 @@ export default function Home() {
 
       {/* Showcase Sections */}
       <section className="container" style={{ padding: "60px 0 100px", position: "relative", zIndex: 2, display: "flex", flexDirection: "column", gap: "64px" }}>
-        
-        {/* Latest Insights & Writing Section */}
+
+        {/* ===== FEATURED BOOK — FIRST ===== */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          style={{ position: "relative" }}
+        >
+          {/* Section Label */}
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 28 }}>
+            <span style={{
+              background: "rgba(16,185,129,0.1)", color: G.green,
+              padding: "7px 18px", borderRadius: 100, fontSize: 11, fontWeight: 900,
+              textTransform: "uppercase", letterSpacing: "0.12em",
+              border: "1px solid rgba(16,185,129,0.22)",
+              display: "inline-flex", alignItems: "center", gap: 7
+            }}>
+              <BookMarked size={13} /> Featured Book
+            </span>
+          </div>
+
+          {/* Book Card */}
+          <div className="book-card" style={{
+            background: "linear-gradient(135deg, rgba(16,185,129,0.04) 0%, rgba(6,9,19,0.7) 50%, rgba(6,182,212,0.04) 100%)",
+            border: "1px solid rgba(16,185,129,0.18)",
+            borderRadius: 32, padding: "44px",
+            backdropFilter: "blur(20px)",
+            boxShadow: "0 0 60px rgba(16,185,129,0.07), 0 20px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04)",
+            position: "relative", overflow: "hidden"
+          }}>
+
+            {/* Floating code symbols background */}
+            <div className="book-bg-symbols" aria-hidden="true">
+              {['{ }', '</>', 'def', '===', '01', 'fn()', '#!', 'λ', '&&', '>>'].map((sym, i) => (
+                <span key={i} className={`code-sym code-sym-${i}`}>{sym}</span>
+              ))}
+            </div>
+
+
+
+            {/* Two-column layout */}
+            <div className="book-layout">
+
+              {/* LEFT — Book Cover */}
+              <div className="book-cover-col">
+                <div className="book-cover-wrapper">
+                  <div className="book-cover-glow" />
+                  <motion.div
+                    whileHover={{ rotateY: -8, rotateX: 3, scale: 1.04, y: -8 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                    style={{ transformStyle: "preserve-3d" }}
+                    className="book-3d"
+                  >
+                    <img
+                      src="/books/code-ethiopia-cover.png"
+                      alt="Code Ethiopia: From Zero to Developer — by Tamerat Gebeyehu"
+                      className="book-cover-img"
+                      loading="lazy"
+                      width="280" height="370"
+                    />
+                    <div className="book-spine" />
+                  </motion.div>
+
+                  {/* Stars */}
+                  <div style={{ marginTop: 16, display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                    <div style={{ display: "flex", gap: 3, alignItems: "center" }}>
+                      {[1,2,3,4].map(s => (
+                        <Star key={s} size={14} fill="#f59e0b" color="#f59e0b" />
+                      ))}
+                      <Star size={14} fill="rgba(245,158,11,0.25)" color="rgba(245,158,11,0.4)" />
+                    </div>
+                    <span style={{ color: G.slate, fontSize: 11, fontWeight: 600 }}>4.6 · 3 Ratings</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* RIGHT — Book Info */}
+              <div className="book-info-col">
+                <span style={{ color: G.green, fontSize: 11, fontWeight: 900, letterSpacing: "0.14em", textTransform: "uppercase", display: "block", marginBottom: 10 }}>
+                  By Tamerat Gebeyehu · Mirkuz Technologies
+                </span>
+
+                <h2 style={{
+                  fontSize: "clamp(32px, 5vw, 54px)", fontWeight: 900,
+                  lineHeight: 1.05, marginBottom: 6, letterSpacing: "-0.03em", color: "#fff"
+                }}>
+                  Code Ethiopia
+                </h2>
+                <div style={{
+                  fontSize: "clamp(13px, 1.8vw, 15px)", fontWeight: 800,
+                  background: `linear-gradient(135deg, ${G.green} 0%, #06b6d4 100%)`,
+                  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
+                  display: "inline-block", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 20
+                }}>
+                  From Zero to Developer
+                </div>
+
+                <p style={{ color: G.slate, fontSize: 14, lineHeight: 1.6, marginBottom: 22, maxWidth: 480 }}>
+                  A beginner-friendly programming guide for Ethiopian learners — covering Python, JavaScript, problem-solving, and real-world projects.
+                </p>
+
+                {/* Highlights — compact 2×4 grid */}
+                <div className="book-highlights">
+                  {[
+                    { icon: <BookOpen size={13} />, text: "270+ Pages" },
+                    { icon: <CheckCircle2 size={13} />, text: "Beginner Friendly" },
+                    { icon: <Code2 size={13} />, text: "Python & JavaScript" },
+                    { icon: <Terminal size={13} />, text: "Real Coding Exercises" },
+                    { icon: <Sparkles size={13} />, text: "Practical Projects" },
+                    { icon: <GraduationCap size={13} />, text: "Career Guidance" },
+                  ].map((h, i) => (
+                    <div key={i} className="book-highlight-item">
+                      <span style={{ color: G.green }}>{h.icon}</span>
+                      <span style={{ color: G.slateLight, fontSize: 13, fontWeight: 500 }}>{h.text}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Stats Bar */}
+                <div className="book-stats-bar">
+                  {[
+                    { value: "270+", label: "Pages" },
+                    { value: "25+",  label: "Chapters" },
+                    { value: "100%", label: "Beginner" },
+                    { value: "Free", label: "Preview" },
+                  ].map((stat, i) => (
+                    <div key={i} className="book-stat">
+                      <span className="book-stat-value">{stat.value}</span>
+                      <span className="book-stat-label">{stat.label}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="book-cta-row">
+                  {/* Primary — Golden Buy button */}
+                  <motion.a
+                    href="https://ye-buna.com/tameratgebeyehu?ref=product_detail&product=6a23f52684b6e_tameratgebeyehu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    id="buy-code-ethiopia-btn"
+                    className="buy-btn-pulse"
+                    whileHover={{ scale: 1.07, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    style={{
+                      display: "inline-flex", alignItems: "center", gap: 10,
+                      background: `linear-gradient(135deg, #f59e0b 0%, #d97706 55%, #b45309 100%)`,
+                      color: "#1a0a00", padding: "15px 30px", borderRadius: 14,
+                      fontWeight: 900, fontSize: 15, textDecoration: "none",
+                      border: "1px solid rgba(251,191,36,0.4)",
+                      cursor: "pointer", letterSpacing: "0.03em",
+                      position: "relative", overflow: "hidden"
+                    }}
+                  >
+                    <div className="buy-btn-shine" />
+                    <ShoppingCart size={17} strokeWidth={2.5} />
+                    Buy Now on Ye-Buna
+                  </motion.a>
+
+                  {/* Secondary — Learn More → internal /book page */}
+                  <Link
+                    to="/book"
+                    id="learn-more-code-ethiopia-btn"
+                    style={{
+                      display: "inline-flex", alignItems: "center", gap: 8,
+                      background: "rgba(255,255,255,0.03)", color: "rgba(255,255,255,0.75)",
+                      padding: "15px 24px", borderRadius: 14,
+                      fontWeight: 700, fontSize: 14, textDecoration: "none",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      backdropFilter: "blur(10px)",
+                      transition: "color 0.25s ease, border-color 0.25s ease"
+                    }}
+                    onMouseOver={e => { e.currentTarget.style.color = G.green; e.currentTarget.style.borderColor = 'rgba(16,185,129,0.45)'; }}
+                    onMouseOut={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.75)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; }}
+                  >
+                    <ExternalLink size={15} /> Learn More
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ===== TALLPATH EARLY ACCESS SECTION ===== */}
+        <TallPathSignup />
+
+        {/* Latest Insights & Writing — SECOND */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }} 
           whileInView={{ opacity: 1, y: 0 }} 
           viewport={{ once: true, margin: "-100px" }} 
-          transition={{ delay: 0.15 }}
+          transition={{ delay: 0.1 }}
           className="featured-section-card"
           style={{ 
             background: "rgba(255,255,255,0.01)", 
             border: "1px solid rgba(255,255,255,0.05)", 
-            borderRadius: 32, 
-            padding: "40px", 
+            borderRadius: 32, padding: "40px",
             backdropFilter: "blur(20px)",
-            position: "relative",
-            overflow: "hidden",
+            position: "relative", overflow: "hidden",
             boxShadow: `0 10px 30px rgba(0,0,0,0.2)`,
             transition: "border-color 0.3s ease, box-shadow 0.3s ease"
           }}
@@ -354,67 +507,53 @@ export default function Home() {
         >
           {latestPost ? (
             <>
-              <div style={{ display: "flex", gap: 12, marginBottom: 20, flexWrap: "wrap", alignItems: "center" }}>
-                <span className="tech-badge" style={{ background: "rgba(16,185,129,0.1)", color: G.green, borderColor: "rgba(16,185,129,0.2)" }}>LATEST ARTICLE</span>
+              <div style={{ display: "flex", gap: 10, marginBottom: 18, flexWrap: "wrap", alignItems: "center" }}>
+                <span className="tech-badge" style={{ background: "rgba(16,185,129,0.1)", color: G.green, borderColor: "rgba(16,185,129,0.2)" }}>Latest Article</span>
                 {latestPost.tags?.[0] && <span style={tagStyle(G.green)}>#{latestPost.tags[0]}</span>}
-                <span style={{ color: G.slate, fontSize: 13 }}>{formatPostDate(latestPost.date)} · {latestPost.readingTime || latestPost.time}</span>
+                <span style={{ color: G.slate, fontSize: 12 }}>{formatPostDate(latestPost.date)} · {latestPost.readingTime || latestPost.time}</span>
               </div>
-              <h3 style={{ fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 900, marginBottom: 16, color: "#fff", lineHeight: 1.2 }}>
+              <h3 style={{ fontSize: "clamp(20px, 3.5vw, 28px)", fontWeight: 900, marginBottom: 12, color: "#fff", lineHeight: 1.2 }}>
                 {latestPost.title}
               </h3>
-              <p style={{ color: G.slate, fontSize: "clamp(14px, 2vw, 16px)", lineHeight: 1.7, marginBottom: 32, maxWidth: 800 }}>
+              <p style={{ color: G.slate, fontSize: "clamp(13px, 1.8vw, 15px)", lineHeight: 1.65, marginBottom: 28, maxWidth: 700 }}>
                 {latestPost.description}
               </p>
-              <Link to={`/blog/${latestPost.slug}`} style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, color: G.green, fontWeight: 800, fontSize: 14 }}>
-                READ FULL ARTICLE <ArrowRight size={16} />
+              <Link to={`/blog/${latestPost.slug}`} style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 7, color: G.green, fontWeight: 800, fontSize: 13 }}>
+                Read Full Article <ArrowRight size={15} />
               </Link>
             </>
           ) : (
-            <div style={{ color: G.slate }}>Loading latest article...</div>
+            <div style={{ color: G.slate }}>Loading...</div>
           )}
         </motion.div>
 
-        {/* Cinematic Video Showcase (Blue Ocean Pitch) */}
+        {/* Cinematic Video Showcase */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }} 
           whileInView={{ opacity: 1, y: 0 }} 
           viewport={{ once: true, margin: "-100px" }} 
-          transition={{ delay: 0.25 }}
+          transition={{ delay: 0.2 }}
           className="featured-section-card"
           style={{ 
             background: "rgba(255,255,255,0.01)", 
             border: "1px solid rgba(255,255,255,0.05)", 
-            borderRadius: 32, 
-            padding: "40px", 
+            borderRadius: 32, padding: "40px",
             backdropFilter: "blur(20px)",
             boxShadow: `0 10px 30px rgba(0,0,0,0.2)`,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center"
+            display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center"
           }}
         >
           <div style={{ width: "100%", maxWidth: 800 }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, marginBottom: 24, flexWrap: 'wrap' }}>
-               <span style={{ background: '#ef444415', color: '#ef4444', padding: '6px 16px', borderRadius: 100, fontSize: 11, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em', border: '1px solid #ef444430' }}>Featured Pitch</span>
-               <h3 style={{ fontSize: "clamp(20px, 3.5vw, 28px)", fontWeight: 900, margin: 0, color: "#fff" }}>Blue Ocean Entrepreneurial Pitch</h3>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, marginBottom: 20, flexWrap: 'wrap' }}>
+               <span style={{ background: '#ef444415', color: '#ef4444', padding: '5px 14px', borderRadius: 100, fontSize: 10, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em', border: '1px solid #ef444430' }}>Featured Pitch</span>
+               <h3 style={{ fontSize: "clamp(18px, 3vw, 26px)", fontWeight: 900, margin: 0, color: "#fff" }}>Blue Ocean Entrepreneurial Pitch</h3>
             </div>
-            
-            <p style={{ color: G.slate, fontSize: 15, lineHeight: 1.6, marginBottom: 32, maxWidth: 640, margin: "0 auto 32px" }}>
-              Our award-winning strategic pitch for the world's largest virtual entrepreneurship competition, demonstrating localized innovation and high school student leadership.
-            </p>
-
             <div style={{ 
-              width: '100%', 
-              borderRadius: 24, 
-              overflow: 'hidden', 
+              width: '100%', borderRadius: 24, overflow: 'hidden', 
               background: thumbnailUrl ? '#000' : 'linear-gradient(135deg, #0f172a 0%, #1a2744 100%)',
-              aspectRatio: '16/9', 
-              border: '1px solid rgba(255,255,255,0.08)', 
-              outline: '1px solid rgba(16,185,129,0.15)',
-              outlineOffset: '4px',
-              position: 'relative', 
-              boxShadow: "0 20px 50px rgba(0,0,0,0.6)",
+              aspectRatio: '16/9', border: '1px solid rgba(255,255,255,0.08)', 
+              outline: '1px solid rgba(16,185,129,0.15)', outlineOffset: '4px',
+              position: 'relative', boxShadow: "0 20px 50px rgba(0,0,0,0.6)",
               transition: 'background 0.4s ease'
             }} className={!thumbnailUrl ? 'thumb-shimmer' : ''}>
               {!isPlaying ? (
@@ -424,36 +563,22 @@ export default function Home() {
                     position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', 
                     backgroundImage: thumbnailUrl ? `url(${thumbnailUrl})` : 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
                     backgroundSize: 'cover', backgroundPosition: 'center', 
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
-                    transition: 'background-image 0.3s ease'
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
                   }}
                 >
-                  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(6,9,19,0.5)', transition: 'background 0.3s ease' }} className="vid-overlay" />
-                  
-                  {/* HUD Corner Overlays for Cinematic Feel */}
+                  <div style={{ position: 'absolute', inset: 0, background: 'rgba(6,9,19,0.5)' }} className="vid-overlay" />
                   <div style={{ position: 'absolute', top: 16, left: 16, borderLeft: '2px solid rgba(16,185,129,0.6)', borderTop: '2px solid rgba(16,185,129,0.6)', width: 16, height: 16, pointerEvents: 'none', zIndex: 2 }} />
                   <div style={{ position: 'absolute', top: 16, right: 16, borderRight: '2px solid rgba(16,185,129,0.6)', borderTop: '2px solid rgba(16,185,129,0.6)', width: 16, height: 16, pointerEvents: 'none', zIndex: 2 }} />
                   <div style={{ position: 'absolute', bottom: 16, left: 16, borderLeft: '2px solid rgba(16,185,129,0.6)', borderBottom: '2px solid rgba(16,185,129,0.6)', width: 16, height: 16, pointerEvents: 'none', zIndex: 2 }} />
                   <div style={{ position: 'absolute', bottom: 16, right: 16, borderRight: '2px solid rgba(16,185,129,0.6)', borderBottom: '2px solid rgba(16,185,129,0.6)', width: 16, height: 16, pointerEvents: 'none', zIndex: 2 }} />
-                  
-                  {/* REC Camera blinker */}
                   <div style={{ position: 'absolute', top: 18, left: 40, display: 'flex', alignItems: 'center', gap: 6, zIndex: 2, pointerEvents: 'none' }}>
                     <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#ef4444', animation: 'dotPulse 1.5s infinite' }} />
                     <span style={{ fontSize: 9, fontWeight: 900, color: 'rgba(255,255,255,0.6)', letterSpacing: '0.1em', fontFamily: 'monospace' }}>REC</span>
                   </div>
-
-                  {/* Pulsing play button container with concentric ripples */}
                   <motion.div 
-                    whileHover={{ scale: 1.1 }} 
-                    whileTap={{ scale: 0.95 }}
-                    style={{ 
-                      width: 80, height: 80, borderRadius: '50%', 
-                      background: 'rgba(16,185,129,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                      backdropFilter: 'blur(12px)', boxShadow: '0 10px 30px rgba(16,185,129,0.6)', zIndex: 3,
-                      position: 'relative'
-                    }}
+                    whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}
+                    style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(16,185,129,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(12px)', boxShadow: '0 10px 30px rgba(16,185,129,0.6)', zIndex: 3, position: 'relative' }}
                   >
-                    {/* Concentric ripples */}
                     <div className="play-ripple ripple-1" />
                     <div className="play-ripple ripple-2" />
                     <div className="play-ripple ripple-3" />
@@ -462,27 +587,16 @@ export default function Home() {
                 </div>
               ) : (
                 videoType === 'local' ? (
-                  <video 
-                    width="100%" 
-                    height="100%" 
-                    controls 
-                    autoPlay 
-                    style={{ objectFit: 'cover', borderRadius: 24, border: 'none' }}
-                  >
+                  <video width="100%" height="100%" controls autoPlay style={{ objectFit: 'cover', borderRadius: 24, border: 'none' }}>
                     <source src="/pitch.mp4" type="video/mp4" />
-                    Your browser does not support HTML5 video streaming.
                   </video>
                 ) : (
                   <iframe 
-                    width="100%" 
-                    height="100%" 
+                    width="100%" height="100%" 
                     src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1`}
-                    title="Blue Ocean Pitch" 
-                    frameBorder="0" 
+                    title="Blue Ocean Pitch" frameBorder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerPolicy="strict-origin-when-cross-origin" 
-                    allowFullScreen
-                    style={{ border: "none" }}
+                    referrerPolicy="strict-origin-when-cross-origin" allowFullScreen style={{ border: "none" }}
                   ></iframe>
                 )
               )}
@@ -609,7 +723,21 @@ export default function Home() {
           50% { transform: translate(4px, -4px); }
         }
 
-        .marquee-wrapper::-webkit-scrollbar { display: none; }
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+        .marquee-content {
+          animation: marquee 30s linear infinite !important;
+          display: flex;
+          width: max-content;
+        }
+
+        .marquee-wrapper {
+          overflow: hidden;
+          width: 100%;
+        }
 
         .tech-badge {
           background: rgba(255,255,255,0.05);
@@ -649,6 +777,270 @@ export default function Home() {
           .hero-btns { gap: 8px; flex-wrap: wrap; }
           .hero-btns > a { flex: 1; min-width: 140px; }
           .hero-btns .btn-main { width: 100%; justify-content: center; }
+        }
+
+        /* ===== BUY BUTTON — GOLDEN PULSE ===== */
+        .buy-btn-pulse {
+          animation: buyGlow 2.4s ease-in-out infinite;
+        }
+        @keyframes buyGlow {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.7), 0 8px 28px rgba(217,119,6,0.45); }
+          50%       { box-shadow: 0 0 0 12px rgba(245,158,11,0), 0 14px 40px rgba(245,158,11,0.6); }
+        }
+        .buy-btn-shine {
+          position: absolute;
+          top: 0; left: -80%;
+          width: 55%; height: 100%;
+          background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.28) 50%, transparent 100%);
+          animation: btnShine 2.6s ease-in-out infinite;
+          pointer-events: none;
+        }
+        @keyframes btnShine {
+          0%   { left: -80%; }
+          55%  { left: 135%; }
+          100% { left: 135%; }
+        }
+
+        /* ===== FEATURED BOOK STYLES ===== */
+        .book-card {
+          transition: box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+        .book-card:hover {
+          box-shadow: 0 0 80px rgba(16,185,129,0.12), 0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.07) !important;
+          border-color: rgba(16,185,129,0.35) !important;
+        }
+
+        .book-layout {
+          display: grid;
+          grid-template-columns: 300px 1fr;
+          gap: 56px;
+          align-items: start;
+          position: relative;
+          z-index: 2;
+        }
+
+        .book-cover-col {
+          display: flex;
+          justify-content: center;
+        }
+
+        .book-cover-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          position: relative;
+        }
+
+        .book-cover-glow {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 260px;
+          height: 320px;
+          background: radial-gradient(circle, rgba(16,185,129,0.25) 0%, transparent 70%);
+          filter: blur(40px);
+          pointer-events: none;
+          animation: bookGlowPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes bookGlowPulse {
+          0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+          50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+        }
+
+        .book-3d {
+          position: relative;
+          z-index: 2;
+          cursor: default;
+        }
+
+        .book-cover-img {
+          width: 260px;
+          height: auto;
+          border-radius: 12px;
+          box-shadow:
+            0 25px 60px rgba(0,0,0,0.6),
+            0 0 0 1px rgba(255,255,255,0.08),
+            4px 0 20px rgba(0,0,0,0.4);
+          display: block;
+          object-fit: cover;
+        }
+
+        .book-spine {
+          position: absolute;
+          top: 8px;
+          left: -10px;
+          width: 12px;
+          height: calc(100% - 16px);
+          background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2));
+          border-radius: 2px 0 0 2px;
+          transform: rotateY(90deg);
+          transform-origin: right center;
+        }
+
+        .book-info-col {
+          padding-top: 8px;
+        }
+
+        .book-highlights {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 8px 24px;
+          margin-bottom: 28px;
+        }
+
+        .book-highlight-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 0;
+        }
+
+        .book-stats-bar {
+          display: flex;
+          gap: 0;
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 16px;
+          overflow: hidden;
+          margin-bottom: 32px;
+          background: rgba(255,255,255,0.02);
+        }
+
+        .book-stat {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 16px 8px;
+          border-right: 1px solid rgba(255,255,255,0.06);
+          gap: 4px;
+        }
+
+        .book-stat:last-child {
+          border-right: none;
+        }
+
+        .book-stat-value {
+          font-size: 20px;
+          font-weight: 900;
+          color: #10B981;
+          line-height: 1;
+        }
+
+        .book-stat-label {
+          font-size: 11px;
+          color: #94A3B8;
+          font-weight: 600;
+          text-align: center;
+          letter-spacing: 0.03em;
+        }
+
+        .book-cta-row {
+          display: flex;
+          gap: 14px;
+          flex-wrap: wrap;
+          align-items: center;
+          margin-bottom: 0;
+        }
+
+        .book-testimonial {
+          margin-top: 40px;
+          padding: 24px 32px;
+          background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 20px;
+          position: relative;
+          z-index: 2;
+        }
+
+        /* Animated background code symbols */
+        .book-bg-symbols {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        .code-sym {
+          position: absolute;
+          font-family: monospace;
+          font-size: 13px;
+          font-weight: 700;
+          color: rgba(16,185,129,0.06);
+          letter-spacing: 0.1em;
+          animation: floatCodeSym 12s ease-in-out infinite;
+          user-select: none;
+        }
+
+        .code-sym-0  { top:  8%; left:  3%; animation-delay: 0s;    animation-duration: 13s; }
+        .code-sym-1  { top: 15%; right: 5%; animation-delay: 1.5s;  animation-duration: 11s; }
+        .code-sym-2  { top: 35%; left:  7%; animation-delay: 3s;    animation-duration: 14s; }
+        .code-sym-3  { top: 55%; right: 8%; animation-delay: 0.8s;  animation-duration: 10s; }
+        .code-sym-4  { top: 70%; left: 12%; animation-delay: 2.2s;  animation-duration: 15s; }
+        .code-sym-5  { top: 85%; right: 4%; animation-delay: 4s;    animation-duration: 12s; }
+        .code-sym-6  { top: 25%; left: 45%; animation-delay: 1s;    animation-duration: 16s; }
+        .code-sym-7  { top: 60%; left: 60%; animation-delay: 3.5s;  animation-duration: 11s; }
+        .code-sym-8  { top: 90%; left: 35%; animation-delay: 0.5s;  animation-duration: 13s; }
+        .code-sym-9  { top: 45%; right: 20%;animation-delay: 2.8s;  animation-duration: 14s; }
+
+        @keyframes floatCodeSym {
+          0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+          33%       { transform: translateY(-18px) rotate(4deg); opacity: 1; }
+          66%       { transform: translateY(10px) rotate(-3deg); opacity: 0.7; }
+        }
+
+        /* Book Responsive Breakpoints */
+        @media (max-width: 900px) {
+          .book-layout {
+            grid-template-columns: 1fr;
+            gap: 40px;
+          }
+          .book-cover-col {
+            justify-content: center;
+          }
+          .book-cover-img {
+            width: 220px;
+          }
+          .book-card {
+            padding: 32px 24px !important;
+            border-radius: 24px !important;
+          }
+          .book-highlights {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .book-stats-bar {
+            flex-wrap: wrap;
+          }
+          .book-stat {
+            flex: 1 1 45%;
+            border-right: none;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+          }
+          .book-stat:nth-child(odd) {
+            border-right: 1px solid rgba(255,255,255,0.06);
+          }
+          .book-stat:last-child, .book-stat:nth-last-child(2) {
+            border-bottom: none;
+          }
+          .book-cta-row {
+            flex-direction: column;
+            align-items: stretch;
+          }
+          .book-cta-row a {
+            justify-content: center;
+            text-align: center;
+          }
+          .book-cover-img {
+            width: 180px;
+          }
+          .book-testimonial {
+            padding: 20px;
+          }
         }
       `}</style>
     </section>

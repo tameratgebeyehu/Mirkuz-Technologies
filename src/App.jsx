@@ -29,6 +29,7 @@ const Blog = React.lazy(() => import('./pages/Blog'));
 const BlogDetail = React.lazy(() => import('./pages/BlogDetail'));
 const About = React.lazy(() => import('./pages/About'));
 const NotFound = React.lazy(() => import('./pages/NotFound'));
+const BookDetail = React.lazy(() => import('./pages/BookDetail'));
 
 // Modern glassmorphic loading fallback for seamless transitions
 function PageLoadingFallback() {
@@ -111,6 +112,7 @@ function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogDetail />} />
               <Route path="/about" element={<About />} />
+              <Route path="/book" element={<BookDetail />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </React.Suspense>
