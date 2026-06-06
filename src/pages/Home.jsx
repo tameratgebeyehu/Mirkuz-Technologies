@@ -33,6 +33,12 @@ export default function Home() {
   const [latestPost, setLatestPost] = useState(null);
   const [videoType, setVideoType] = useState('youtube');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
+
+  const scrollRef = useRef(null);
+  const isInteracting = useRef(false);
+  const startX = useRef(0);
+  const scrollLeftStart = useRef(0);
 
   const partners = [
     { name: "PRINCETON UNIVERSITY", img: princetonImg },
@@ -45,8 +51,8 @@ export default function Home() {
     { name: "RED CROSS", img: redcrossImg }
   ];
 
-  // Double to ensure seamless hardware-accelerated CSS infinite scroll
-  const infiniteLogos = [...partners, ...partners];
+  // Quadruple to ensure seamless infinite scroll loop space when dragging
+  const infiniteLogos = [...partners, ...partners, ...partners, ...partners];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -137,6 +143,103 @@ export default function Home() {
       checkNext();
     };
     tryThumbnail();
+
+    // Check device size client-side
+    setIsMobile(window.innerWidth < 768);
+
+    // Hybrid auto-scroll + drag-to-scroll controller for logos marquee
+    const el = scrollRef.current;
+    if (el) {
+      let request;
+      const speed = 0.8; // pixels per frame
+      let isDown = false;
+      let startXVal = 0;
+
+      const animate = () => {
+        if (!isInteracting.current) {
+          el.scrollLeft += speed;
+        }
+        request = requestAnimationFrame(animate);
+      };
+
+      // Handle seamless wrapping on scroll
+      const handleScroll = () => {
+        if (isInteracting.current) return;
+        const quarter = el.scrollWidth / 4;
+        if (quarter <= 0) return;
+
+        if (el.scrollLeft >= quarter * 2) {
+          el.scrollLeft -= quarter;
+        } else if (el.scrollLeft <= quarter) {
+          el.scrollLeft += quarter;
+        }
+      };
+
+      // Set initial scroll position to middle zone after layout has settled
+      requestAnimationFrame(() => {
+        if (el && el.scrollWidth) {
+          el.scrollLeft = el.scrollWidth / 4;
+        }
+      });
+
+      request = requestAnimationFrame(animate);
+
+      // Mouse drag handlers
+      const handleMouseDown = (e) => {
+        isDown = true;
+        isInteracting.current = true;
+        startXVal = e.pageX - el.offsetLeft;
+        el.style.cursor = 'grabbing';
+      };
+
+      const handleMouseMove = (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - el.offsetLeft;
+        const walk = (x - startXVal) * 1.2;
+        el.scrollLeft -= walk;
+        startXVal = x;
+      };
+
+      const handleMouseUpOrLeave = () => {
+        if (!isDown) return;
+        isDown = false;
+        isInteracting.current = false;
+        el.style.cursor = 'grab';
+        handleScroll();
+      };
+
+      // Touch drag handlers
+      const handleTouchStart = () => {
+        isInteracting.current = true;
+      };
+
+      const handleTouchEnd = () => {
+        isInteracting.current = false;
+        handleScroll();
+      };
+
+      el.addEventListener('scroll', handleScroll);
+      el.addEventListener('mousedown', handleMouseDown);
+      el.addEventListener('mousemove', handleMouseMove);
+      el.addEventListener('mouseup', handleMouseUpOrLeave);
+      el.addEventListener('mouseleave', handleMouseUpOrLeave);
+
+      el.addEventListener('touchstart', handleTouchStart, { passive: true });
+      el.addEventListener('touchend', handleTouchEnd);
+
+      // Clean up event listeners
+      return () => {
+        cancelAnimationFrame(request);
+        el.removeEventListener('scroll', handleScroll);
+        el.removeEventListener('mousedown', handleMouseDown);
+        el.removeEventListener('mousemove', handleMouseMove);
+        el.removeEventListener('mouseup', handleMouseUpOrLeave);
+        el.removeEventListener('mouseleave', handleMouseUpOrLeave);
+        el.removeEventListener('touchstart', handleTouchStart);
+        el.removeEventListener('touchend', handleTouchEnd);
+      };
+    }
   }, []);
 
   return (
@@ -149,14 +252,16 @@ export default function Home() {
       {/* Dynamic Background Glow */}
       <div style={{ position: "absolute", inset: 0, overflow: "hidden", zIndex: 0, pointerEvents: "none" }}>
         <motion.div 
-          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3], x: [0, 50, 0], y: [0, -50, 0] }}
+          animate={!isMobile ? { scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3], x: [0, 50, 0], y: [0, -50, 0] } : {}}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          style={{ position: "absolute", top: "10%", left: "-5%", width: "40vw", height: "40vw", background: `radial-gradient(circle, ${G.green}25 0%, transparent 70%)`, filter: "blur(80px)" }} 
+          className="home-glow-1"
+          style={{ position: "absolute", top: "10%", left: "-5%", width: "40vw", height: "40vw", background: `radial-gradient(circle, ${G.green}25 0%, transparent 70%)` }} 
         />
         <motion.div 
-          animate={{ scale: [1, 1.5, 1], opacity: [0.2, 0.4, 0.2], x: [0, -30, 0], y: [0, 60, 0] }}
+          animate={!isMobile ? { scale: [1, 1.5, 1], opacity: [0.2, 0.4, 0.2], x: [0, -30, 0], y: [0, 60, 0] } : {}}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          style={{ position: "absolute", bottom: "-10%", right: "-5%", width: "50vw", height: "50vw", background: "radial-gradient(circle, rgba(6,182,212,0.15) 0%, transparent 70%)", filter: "blur(100px)" }} 
+          className="home-glow-2"
+          style={{ position: "absolute", bottom: "-10%", right: "-5%", width: "50vw", height: "50vw", background: "radial-gradient(circle, rgba(6,182,212,0.15) 0%, transparent 70%)" }} 
         />
       </div>
       
@@ -178,12 +283,11 @@ export default function Home() {
           <Lock size={14} color="#f472b6" /> Security Expert
         </motion.div>
 
-        <motion.div variants={itemVariants} style={{ 
+        <motion.div variants={itemVariants} className="badge-glass" style={{ 
           display: "inline-flex", alignItems: "center", gap: 8, 
           background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)", 
           borderRadius: 100, padding: "8px 16px", marginBottom: 32,
-          color: G.green, fontSize: 11, fontWeight: 800, letterSpacing: "0.05em",
-          backdropFilter: "blur(10px)"
+          color: G.green, fontSize: 11, fontWeight: 800, letterSpacing: "0.05em"
         }}>
           <div className="pulse-dot" /> Grade 11 Developer · Ethiopia
         </motion.div>
@@ -224,25 +328,28 @@ export default function Home() {
             </motion.div>
           </Link>
           <Link to="/about" style={{ textDecoration: 'none' }}>
-            <motion.div whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.1)" }} whileTap={{ scale: 0.95 }} className="btn-main secondary" style={{ backdropFilter: "blur(10px)" }}>
+            <motion.div whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.1)" }} whileTap={{ scale: 0.95 }} className="btn-main secondary">
               ABOUT ME
             </motion.div>
           </Link>
         </motion.div>
       </motion.div>
 
-      {/* Hardware-Accelerated CSS Infinite Marquee Ribbon */}
+      {/* Hybrid Scrolling Logo Ribbon (Auto + Manual Drag) */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
+        ref={scrollRef}
         className="marquee-wrapper" 
         style={{ 
           marginTop: 100, 
           position: "relative", 
           zIndex: 1, 
           width: "100%", 
-          overflow: "hidden",
+          overflowX: "auto",
+          cursor: "grab",
+          WebkitOverflowScrolling: "touch",
           WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
           maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
         }}
@@ -317,10 +424,8 @@ export default function Home() {
 
           {/* Book Card */}
           <div className="book-card" style={{
-            background: "linear-gradient(135deg, rgba(16,185,129,0.04) 0%, rgba(6,9,19,0.7) 50%, rgba(6,182,212,0.04) 100%)",
             border: "1px solid rgba(16,185,129,0.18)",
             borderRadius: 32, padding: "44px",
-            backdropFilter: "blur(20px)",
             boxShadow: "0 0 60px rgba(16,185,129,0.07), 0 20px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04)",
             position: "relative", overflow: "hidden"
           }}>
@@ -342,9 +447,8 @@ export default function Home() {
                 <div className="book-cover-wrapper">
                   <div className="book-cover-glow" />
                   <motion.div
-                    whileHover={{ rotateY: -8, rotateX: 3, scale: 1.04, y: -8 }}
+                    whileHover={!isMobile ? { rotateY: -8, rotateX: 3, scale: 1.04, y: -8 } : {}}
                     transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    style={{ transformStyle: "preserve-3d" }}
                     className="book-3d"
                   >
                     <img
@@ -463,7 +567,6 @@ export default function Home() {
                       padding: "15px 24px", borderRadius: 14,
                       fontWeight: 700, fontSize: 14, textDecoration: "none",
                       border: "1px solid rgba(255,255,255,0.1)",
-                      backdropFilter: "blur(10px)",
                       transition: "color 0.25s ease, border-color 0.25s ease"
                     }}
                     onMouseOver={e => { e.currentTarget.style.color = G.green; e.currentTarget.style.borderColor = 'rgba(16,185,129,0.45)'; }}
@@ -488,13 +591,7 @@ export default function Home() {
           transition={{ delay: 0.1 }}
           className="featured-section-card"
           style={{ 
-            background: "rgba(255,255,255,0.01)", 
-            border: "1px solid rgba(255,255,255,0.05)", 
-            borderRadius: 32, padding: "40px",
-            backdropFilter: "blur(20px)",
-            position: "relative", overflow: "hidden",
-            boxShadow: `0 10px 30px rgba(0,0,0,0.2)`,
-            transition: "border-color 0.3s ease, box-shadow 0.3s ease"
+            position: "relative", overflow: "hidden"
           }}
           onMouseOver={(e) => {
             e.currentTarget.style.borderColor = G.green + "40";
@@ -535,11 +632,6 @@ export default function Home() {
           transition={{ delay: 0.2 }}
           className="featured-section-card"
           style={{ 
-            background: "rgba(255,255,255,0.01)", 
-            border: "1px solid rgba(255,255,255,0.05)", 
-            borderRadius: 32, padding: "40px",
-            backdropFilter: "blur(20px)",
-            boxShadow: `0 10px 30px rgba(0,0,0,0.2)`,
             display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center"
           }}
         >
@@ -577,7 +669,7 @@ export default function Home() {
                   </div>
                   <motion.div 
                     whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}
-                    style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(16,185,129,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(12px)', boxShadow: '0 10px 30px rgba(16,185,129,0.6)', zIndex: 3, position: 'relative' }}
+                    style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(16,185,129,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 10px 30px rgba(16,185,129,0.6)', zIndex: 3, position: 'relative' }}
                   >
                     <div className="play-ripple ripple-1" />
                     <div className="play-ripple ripple-2" />
@@ -723,20 +815,73 @@ export default function Home() {
           50% { transform: translate(4px, -4px); }
         }
 
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-
         .marquee-content {
-          animation: marquee 30s linear infinite !important;
           display: flex;
           width: max-content;
         }
 
         .marquee-wrapper {
-          overflow: hidden;
+          overflow-x: auto;
+          scrollbar-width: none; /* Hide scrollbar for Firefox */
+          cursor: grab;
+          user-select: none;
           width: 100%;
+        }
+
+        .marquee-wrapper::-webkit-scrollbar {
+          display: none; /* Hide scrollbar for Chrome/Safari */
+        }
+
+        .home-glow-1, .home-glow-2 {
+          filter: blur(80px);
+        }
+
+        @media (max-width: 768px) {
+          .home-glow-1, .home-glow-2 {
+            filter: none !important;
+            opacity: 0.4;
+          }
+        }
+
+        .badge-glass {
+          backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 768px) {
+          .badge-glass {
+            background: rgba(16, 185, 129, 0.15) !important;
+            backdrop-filter: none !important;
+          }
+        }
+
+        .btn-main.secondary {
+          backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 768px) {
+          .btn-main.secondary {
+            backdrop-filter: none !important;
+            background: rgba(255, 255, 255, 0.05) !important;
+          }
+        }
+
+        .featured-section-card {
+          background: rgba(255, 255, 255, 0.01);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          border-radius: 32px;
+          padding: 40px;
+          backdrop-filter: blur(20px);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+          .featured-section-card {
+            background: rgba(15, 23, 42, 0.95) !important;
+            backdrop-filter: none !important;
+            padding: 32px 24px !important;
+            border-radius: 24px !important;
+          }
         }
 
         .tech-badge {
@@ -770,7 +915,6 @@ export default function Home() {
           .hero-btns { gap: 12px; }
           section { padding: 40px 0; }
           .floating-badge { display: none; }
-          .featured-section-card { padding: 32px 24px !important; border-radius: 24px !important; }
         }
 
         @media (max-width: 480px) {
@@ -803,11 +947,19 @@ export default function Home() {
 
         /* ===== FEATURED BOOK STYLES ===== */
         .book-card {
+          background: linear-gradient(135deg, rgba(16,185,129,0.04) 0%, rgba(6,9,19,0.7) 50%, rgba(6,182,212,0.04) 100%);
+          backdrop-filter: blur(20px);
           transition: box-shadow 0.4s ease, border-color 0.4s ease;
         }
         .book-card:hover {
           box-shadow: 0 0 80px rgba(16,185,129,0.12), 0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.07) !important;
           border-color: rgba(16,185,129,0.35) !important;
+        }
+        @media (max-width: 768px) {
+          .book-card {
+            background: rgba(6, 9, 19, 0.95) !important;
+            backdrop-filter: none !important;
+          }
         }
 
         .book-layout {
@@ -848,11 +1000,26 @@ export default function Home() {
           0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
           50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
         }
+        @media (max-width: 768px) {
+          .book-cover-glow {
+            filter: none !important;
+            background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%) !important;
+            animation: none !important;
+          }
+        }
 
         .book-3d {
           position: relative;
           z-index: 2;
           cursor: default;
+          transform-style: preserve-3d;
+          perspective: 1000px;
+        }
+        @media (max-width: 768px) {
+          .book-3d {
+            transform-style: flat !important;
+            perspective: none !important;
+          }
         }
 
         .book-cover-img {

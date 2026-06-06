@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
@@ -52,8 +52,6 @@ function ChapterCard({ chapter, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05, duration: 0.4 }}
       style={{
-        background: 'rgba(255, 255, 255, 0.015)',
-        backdropFilter: 'blur(8px)',
         border: open ? '1px solid rgba(16, 185, 129, 0.25)' : '1px solid rgba(255,255,255,0.05)',
         borderRadius: 16,
         overflow: 'hidden',
@@ -129,6 +127,10 @@ function ChapterCard({ chapter, index }) {
 
 // ── Main Page Component ───────────────────────────────────────
 export default function BookDetail() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
   return (
     <div style={{
       minHeight: '100vh',
@@ -140,24 +142,22 @@ export default function BookDetail() {
     }}>
 
       {/* Decorative Radial Background Glows */}
-      <div style={{
+      <div className="bg-glow-1" style={{
         position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)',
         width: '80vw', height: '60vh',
         background: 'radial-gradient(ellipse at center, rgba(16,185,129,0.07) 0%, transparent 60%)',
-        filter: 'blur(80px)', zIndex: 0, pointerEvents: 'none',
+        zIndex: 0, pointerEvents: 'none',
       }} />
-      <div style={{
+      <div className="bg-glow-2" style={{
         position: 'absolute', top: '40%', right: '-10%',
         width: '40vw', height: '40vh',
         background: 'radial-gradient(circle, rgba(245,158,11,0.04) 0%, transparent 70%)',
-        filter: 'blur(100px)', zIndex: 0, pointerEvents: 'none',
+        zIndex: 0, pointerEvents: 'none',
       }} />
 
       {/* ── Top Floating Glass Navigation ── */}
-      <div style={{
+      <div className="book-detail-nav" style={{
         position: 'sticky', top: 0, zIndex: 50,
-        background: 'rgba(6, 9, 19, 0.75)',
-        backdropFilter: 'blur(20px)',
         borderBottom: '1px solid rgba(255,255,255,0.06)',
         padding: '16px 24px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -218,18 +218,17 @@ export default function BookDetail() {
           >
             <div style={{ position: 'relative', width: '100%' }}>
               {/* Backlight effect */}
-              <div style={{
+              <div className="book-backlight" style={{
                 position: 'absolute', inset: -20,
                 background: 'radial-gradient(circle, rgba(16,185,129,0.25) 0%, transparent 70%)',
-                filter: 'blur(30px)', zIndex: 0,
+                zIndex: 0,
               }} />
               
               <motion.div
-                whileHover={{ rotateY: -10, rotateX: 5, scale: 1.03, y: -5 }}
+                whileHover={!isMobile ? { rotateY: -10, rotateX: 5, scale: 1.03, y: -5 } : {}}
                 transition={{ type: "spring", stiffness: 180, damping: 15 }}
+                className="book-cover-3d"
                 style={{
-                  transformStyle: "preserve-3d",
-                  perspective: 1000,
                   position: 'relative', zIndex: 1,
                   cursor: 'pointer',
                   borderRadius: 20,
@@ -251,13 +250,11 @@ export default function BookDetail() {
             </div>
 
             {/* Premium Rating and Meta Card */}
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.02)',
+            <div className="premium-rating-card" style={{
               border: '1px solid rgba(255,255,255,0.06)',
               borderRadius: 24,
               padding: '24px',
               textAlign: 'center',
-              backdropFilter: 'blur(10px)',
             }}>
               <div style={{ display: 'flex', justifyContent: 'center', gap: 4, marginBottom: 8 }}>
                 {[1, 2, 3, 4].map(s => (
@@ -364,8 +361,7 @@ export default function BookDetail() {
             </div>
 
             {/* Premium Buying CTA Block */}
-            <div style={{
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.005) 100%)',
+            <div className="book-cta-block" style={{
               border: '1px solid rgba(255,255,255,0.06)',
               borderRadius: 28,
               padding: '32px',
@@ -592,6 +588,82 @@ export default function BookDetail() {
 
       {/* Styles for hover highlights and responsive grids */}
       <style>{`
+        .bg-glow-1, .bg-glow-2 {
+          filter: blur(80px);
+        }
+        @media (max-width: 768px) {
+          .bg-glow-1, .bg-glow-2 {
+            filter: none !important;
+            opacity: 0.4;
+          }
+        }
+
+        .book-detail-nav {
+          background: rgba(6, 9, 19, 0.75);
+          backdrop-filter: blur(20px);
+        }
+        @media (max-width: 768px) {
+          .book-detail-nav {
+            background: rgba(6, 9, 19, 0.95) !important;
+            backdrop-filter: none !important;
+          }
+        }
+
+        .book-backlight {
+          filter: blur(30px);
+        }
+        @media (max-width: 768px) {
+          .book-backlight {
+            filter: none !important;
+            background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%) !important;
+          }
+        }
+
+        .book-cover-3d {
+          transform-style: preserve-3d;
+          perspective: 1000px;
+        }
+        @media (max-width: 768px) {
+          .book-cover-3d {
+            transform-style: flat !important;
+            perspective: none !important;
+          }
+        }
+
+        .premium-rating-card {
+          background: rgba(255, 255, 255, 0.02);
+          backdrop-filter: blur(10px);
+        }
+        @media (max-width: 768px) {
+          .premium-rating-card {
+            background: rgba(10, 15, 30, 0.95) !important;
+            backdrop-filter: none !important;
+          }
+        }
+
+        .book-cta-block {
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.005) 100%);
+          backdrop-filter: blur(10px);
+        }
+        @media (max-width: 768px) {
+          .book-cta-block {
+            background: rgba(15, 23, 42, 0.95) !important;
+            backdrop-filter: none !important;
+            padding: 24px 20px !important;
+          }
+        }
+
+        .chapter-card {
+          background: rgba(255, 255, 255, 0.015);
+          backdrop-filter: blur(8px);
+        }
+        @media (max-width: 768px) {
+          .chapter-card {
+            background: rgba(15, 23, 42, 0.95) !important;
+            backdrop-filter: none !important;
+          }
+        }
+
         .chapter-card:hover {
           background: rgba(255, 255, 255, 0.035) !important;
           border-color: rgba(255, 255, 255, 0.12) !important;

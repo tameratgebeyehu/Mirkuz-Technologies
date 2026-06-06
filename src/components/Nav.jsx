@@ -18,11 +18,7 @@ export default function Nav() {
   const activeLink = (path) => location.pathname === path || (path !== "/" && location.pathname.startsWith(path));
 
   return (
-    <nav style={{ 
-      position: "fixed", top: 0, left: 0, width: "100%", zIndex: 1000, 
-      background: "rgba(6,9,19,0.85)", backdropFilter: "blur(20px)", 
-      borderBottom: "1px solid rgba(255,255,255,0.05)" 
-    }}>
+    <nav className="nav-bar">
       <div className="container" style={{ height: 72, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         
         {/* Logo */}
@@ -60,8 +56,22 @@ export default function Nav() {
       </div>
 
       <style>{`
+        .nav-bar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          z-index: 1000;
+          background: rgba(6, 9, 19, 0.85);
+          backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
+          .nav-bar {
+            background: rgba(6, 9, 19, 0.96) !important;
+            backdrop-filter: none !important;
+          }
         }
       `}</style>
     </nav>

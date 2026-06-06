@@ -64,7 +64,6 @@ export default function BottomNav() {
           z-index: 100; /* Set to 100 as per Task */
           padding: 12px 6px calc(12px + env(safe-area-inset-bottom));
           background: rgba(6, 9, 19, 0.95);
-          backdrop-filter: blur(20px);
           border-top: 1px solid rgba(255,255,255,0.08);
           box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
         }
