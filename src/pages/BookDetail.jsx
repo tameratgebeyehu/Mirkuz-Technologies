@@ -238,7 +238,7 @@ export default function BookDetail() {
                 }}
               >
                 <img
-                  src="/code-ethiopia-cover.png"
+                  src="/code-ethiopia-cover.webp"
                   alt="Code Ethiopia Book Cover"
                   style={{
                     width: '100%',

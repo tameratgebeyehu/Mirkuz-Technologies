@@ -67,14 +67,7 @@ Thank you.`;
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="glass-card"
-          style={{
-            padding: '50px 40px',
-            background: 'rgba(255, 255, 255, 0.01)',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
-            borderRadius: 32,
-            boxShadow: '0 25px 60px rgba(0, 0, 0, 0.35)',
-          }}
+          className="glass-card tallpath-card"
         >
           {/* Main Layout Grid */}
           <div style={{
@@ -154,12 +147,7 @@ Thank you.`;
             </div>
 
             {/* RIGHT: Validation Form Container */}
-            <div style={{
-              background: 'rgba(0, 0, 0, 0.15)',
-              border: '1px solid rgba(255, 255, 255, 0.03)',
-              borderRadius: 24,
-              padding: '36px',
-            }}>
+            <div className="tallpath-form-container">
               
               <AnimatePresence mode="wait">
                 {!success ? (
@@ -345,6 +333,19 @@ Thank you.`;
 
       {/* Local style classes */}
       <style>{`
+        .tallpath-card {
+          padding: 50px 40px;
+          background: rgba(255, 255, 255, 0.01) !important;
+          border: 1px solid rgba(255, 255, 255, 0.06) !important;
+          border-radius: 32px !important;
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35) !important;
+        }
+        .tallpath-form-container {
+          background: rgba(0, 0, 0, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.03);
+          border-radius: 24px;
+          padding: 36px;
+        }
         @keyframes spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
@@ -352,7 +353,25 @@ Thank you.`;
         @media (max-width: 880px) {
           .tallpath-layout-grid {
             grid-template-columns: 1fr !important;
-            gap: 40px !important;
+            gap: 32px !important;
+          }
+          .tallpath-card {
+            padding: 32px 24px !important;
+            border-radius: 24px !important;
+          }
+          .tallpath-form-container {
+            padding: 24px !important;
+            border-radius: 20px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .tallpath-card {
+            padding: 24px 16px !important;
+            border-radius: 20px !important;
+          }
+          .tallpath-form-container {
+            padding: 20px 16px !important;
+            border-radius: 16px !important;
           }
         }
       `}</style>

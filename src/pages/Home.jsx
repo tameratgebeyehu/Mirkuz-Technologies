@@ -85,7 +85,7 @@ export default function Home() {
         "inLanguage": "en",
         "genre": "Computer Science / Programming",
         "publisher": { "@type": "Organization", "name": "Mirkuz Technologies" },
-        "image": "/books/code-ethiopia-cover.png",
+        "image": "/books/code-ethiopia-cover.webp",
         "offers": { "@type": "Offer", "availability": "https://schema.org/InStock" }
       });
       document.head.appendChild(script);
@@ -348,7 +348,7 @@ export default function Home() {
                     className="book-3d"
                   >
                     <img
-                      src="/books/code-ethiopia-cover.png"
+                      src="/books/code-ethiopia-cover.webp"
                       alt="Code Ethiopia: From Zero to Developer — by Tamerat Gebeyehu"
                       className="book-cover-img"
                       loading="lazy"
