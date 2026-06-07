@@ -3,12 +3,23 @@ import { ArrowUp } from 'lucide-react';
 import { G } from '../data/portfolioData';
 
 export default function BackToTop() {
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
   const [isVisible, setIsVisible] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const [isNearBottom, setIsNearBottom] = useState(false);
   const scrollTimeout = useRef(null);
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
+
     const handleScroll = () => {
       // 1. Visibility Check (300px)
       const scrolled = window.pageYOffset;
@@ -33,7 +44,9 @@ export default function BackToTop() {
       window.removeEventListener('scroll', handleScroll);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) return null;
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

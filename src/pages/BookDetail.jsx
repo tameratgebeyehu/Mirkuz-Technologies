@@ -45,9 +45,10 @@ const HIGHLIGHTS = [
 // ── Accordion Chapter Component ──────────────────────────────
 function ChapterCard({ chapter, index, isMobile }) {
   const [open, setOpen] = useState(false);
+  const MotionDiv = isMobile ? 'div' : motion.div;
 
   return (
-    <motion.div
+    <MotionDiv
       {...(!isMobile && {
         initial: { opacity: 0, y: 15 },
         animate: { opacity: 1, y: 0 },
@@ -102,11 +103,13 @@ function ChapterCard({ chapter, index, isMobile }) {
 
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={isMobile ? { opacity: 0 } : { height: 0, opacity: 0 }}
-            animate={isMobile ? { opacity: 1 } : { height: 'auto', opacity: 1 }}
-            exit={isMobile ? { opacity: 0 } : { height: 0, opacity: 0 }}
-            transition={isMobile ? { duration: 0.15 } : { duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          <MotionDiv
+            {...(!isMobile && {
+              initial: { height: 0, opacity: 0 },
+              animate: { height: 'auto', opacity: 1 },
+              exit: { height: 0, opacity: 0 },
+              transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
+            })}
             style={{ overflow: 'hidden' }}
           >
             <div style={{
@@ -120,10 +123,10 @@ function ChapterCard({ chapter, index, isMobile }) {
             }}>
               {chapter.desc}
             </div>
-          </motion.div>
+          </MotionDiv>
         )}
       </AnimatePresence>
-    </motion.div>
+    </MotionDiv>
   );
 }
 
@@ -137,6 +140,10 @@ export default function BookDetail() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+  const MotionDiv = isMobile ? 'div' : motion.div;
+  const MotionSection = isMobile ? 'section' : motion.section;
+  const MotionA = isMobile ? 'a' : motion.a;
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -144,7 +151,7 @@ export default function BookDetail() {
       color: '#F8FAFC',
       fontFamily: "'Inter', -apple-system, sans-serif",
       position: 'relative',
-      overflow: 'hidden',
+      overflow: isMobile ? 'visible' : 'hidden',
     }}>
 
       {/* Decorative Radial Background Glows */}
@@ -216,7 +223,7 @@ export default function BookDetail() {
         }} className="book-hero-container">
 
           {/* LEFT: 3D Book Cover & Rating Card */}
-          <motion.div
+          <MotionDiv
             {...(!isMobile && {
               initial: { opacity: 0, x: -30 },
               animate: { opacity: 1, x: 0 },
@@ -232,7 +239,7 @@ export default function BookDetail() {
                 zIndex: 0,
               }} />
               
-              <motion.div
+              <MotionDiv
                 {...(!isMobile && {
                   whileHover: { rotateY: -10, rotateX: 5, scale: 1.03, y: -5 },
                   transition: { type: "spring", stiffness: 180, damping: 15 }
@@ -258,7 +265,7 @@ export default function BookDetail() {
                     borderRadius: 20,
                   }}
                 />
-              </motion.div>
+              </MotionDiv>
             </div>
 
             {/* Premium Rating and Meta Card */}
@@ -291,10 +298,10 @@ export default function BookDetail() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </MotionDiv>
 
           {/* RIGHT: Main Details & Price Block */}
-          <motion.div
+          <MotionDiv
             {...(!isMobile && {
               initial: { opacity: 0, x: 30 },
               animate: { opacity: 1, x: 0 },
@@ -413,7 +420,7 @@ export default function BookDetail() {
                 </span>
               </div>
 
-              <motion.a
+              <MotionA
                 href={BUY_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -433,7 +440,7 @@ export default function BookDetail() {
               >
                 <ShoppingCart size={20} strokeWidth={2.5} />
                 Get Ebook via Ye-Buna
-              </motion.a>
+              </MotionA>
             </div>
 
             {/* Direct Marketplace Link */}
@@ -454,13 +461,13 @@ export default function BookDetail() {
               </a>
             </div>
 
-          </motion.div>
+          </MotionDiv>
         </div>
 
         <hr style={{ border: 0, height: 1, background: 'rgba(255,255,255,0.06)', margin: '60px 0' }} />
 
         {/* ── Features List Section ── */}
-        <motion.section
+        <MotionSection
           {...(!isMobile && {
             initial: { opacity: 0, y: 20 },
             whileInView: { opacity: 1, y: 0 },
@@ -512,12 +519,12 @@ export default function BookDetail() {
               </div>
             ))}
           </div>
-        </motion.section>
+        </MotionSection>
 
         <hr style={{ border: 0, height: 1, background: 'rgba(255,255,255,0.06)', margin: '60px 0' }} />
 
         {/* ── Table of Contents Section ── */}
-        <motion.section
+        <MotionSection
           {...(!isMobile && {
             initial: { opacity: 0, y: 20 },
             whileInView: { opacity: 1, y: 0 },
@@ -540,10 +547,10 @@ export default function BookDetail() {
               <ChapterCard key={ch.num} chapter={ch} index={i} isMobile={isMobile} />
             ))}
           </div>
-        </motion.section>
+        </MotionSection>
 
         {/* ── Dynamic Bottom Call to Action ── */}
-        <motion.div
+        <MotionDiv
           {...(!isMobile && {
             initial: { opacity: 0, y: 30 },
             whileInView: { opacity: 1, y: 0 },
@@ -588,7 +595,7 @@ export default function BookDetail() {
               Grab the full 270+ page PDF download containing all interactive modules, exercises, project guides, and solutions.
             </p>
 
-            <motion.a
+            <MotionA
               href={BUY_LINK}
               target="_blank"
               rel="noopener noreferrer"
@@ -606,9 +613,9 @@ export default function BookDetail() {
             >
               <ShoppingCart size={22} strokeWidth={2.5} />
               Download Guide — 299 ETB
-            </motion.a>
+            </MotionA>
           </div>
-        </motion.div>
+        </MotionDiv>
 
       </div>
 
@@ -626,14 +633,38 @@ export default function BookDetail() {
           }
         }
 
-        .book-detail-nav {
-          background: rgba(6, 9, 19, 0.75);
-          backdrop-filter: blur(20px);
+        @media (min-width: 769px) {
+          .book-detail-nav {
+            background: rgba(6, 9, 19, 0.75);
+            backdrop-filter: blur(20px);
+          }
+          .premium-rating-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+          }
+          .book-cta-block {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.005) 100%);
+            backdrop-filter: blur(10px);
+          }
+          .chapter-card {
+            background: rgba(255, 255, 255, 0.015);
+            backdrop-filter: blur(8px);
+          }
         }
+
         @media (max-width: 768px) {
           .book-detail-nav {
-            background: rgba(6, 9, 19, 0.95) !important;
-            backdrop-filter: none !important;
+            background: rgba(6, 9, 19, 0.98);
+          }
+          .premium-rating-card {
+            background: rgba(10, 15, 30, 0.98);
+          }
+          .book-cta-block {
+            background: rgba(15, 23, 42, 0.98);
+            padding: 24px 20px !important;
+          }
+          .chapter-card {
+            background: rgba(15, 23, 42, 0.98);
           }
         }
 
@@ -645,40 +676,6 @@ export default function BookDetail() {
           .book-cover-3d {
             transform-style: flat !important;
             perspective: none !important;
-          }
-        }
-
-        .premium-rating-card {
-          background: rgba(255, 255, 255, 0.02);
-          backdrop-filter: blur(10px);
-        }
-        @media (max-width: 768px) {
-          .premium-rating-card {
-            background: rgba(10, 15, 30, 0.95) !important;
-            backdrop-filter: none !important;
-          }
-        }
-
-        .book-cta-block {
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.005) 100%);
-          backdrop-filter: blur(10px);
-        }
-        @media (max-width: 768px) {
-          .book-cta-block {
-            background: rgba(15, 23, 42, 0.95) !important;
-            backdrop-filter: none !important;
-            padding: 24px 20px !important;
-          }
-        }
-
-        .chapter-card {
-          background: rgba(255, 255, 255, 0.015);
-          backdrop-filter: blur(8px);
-        }
-        @media (max-width: 768px) {
-          .chapter-card {
-            background: rgba(15, 23, 42, 0.95) !important;
-            backdrop-filter: none !important;
           }
         }
 
