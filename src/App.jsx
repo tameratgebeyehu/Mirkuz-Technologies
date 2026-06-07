@@ -83,70 +83,79 @@ function PageLoadingFallback() {
   );
 }
 
+function AppContent() {
+  const location = useLocation();
+  const hideNav = location.pathname === '/book';
+
+  return (
+    <div style={{ 
+      background: "#060913", 
+      minHeight: "100vh", 
+      color: "#F8FAFC",
+      display: "flex",
+      flexDirection: "column"
+    }}>
+      {/* Top Header */}
+      {!hideNav && <Nav />}
+
+      {/* Global Page Layout */}
+      <main className="main-content" style={{ flex: 1, paddingTop: hideNav ? 0 : 72 }}>
+        <React.Suspense fallback={<PageLoadingFallback />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
+            <Route path="/education" element={<Education />} />
+            <Route path="/education/certificates/:slug" element={<CertificateDetail />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/gallery/:slug" element={<AlbumDetail />} />
+            <Route path="/lab" element={<Lab />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogDetail />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/book" element={<BookDetail />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </React.Suspense>
+      </main>
+      
+      <Footer />
+      
+      {/* Global UI Overlays */}
+      <BackToTop />
+      <BottomNav />
+
+      <style>{`
+        /* Global Layout Integration */
+        @media (max-width: 768px) {
+          .main-content { 
+            /* Account for bottom nav (72px) + safe area + extra breathing room */
+            padding-bottom: calc(80px + env(safe-area-inset-bottom)) !important; 
+          }
+          footer { 
+            /* Ensure footer is pushed above the fixed nav bar */
+            margin-bottom: calc(72px + env(safe-area-inset-bottom)) !important;
+            padding-bottom: 40px !important;
+          }
+        }
+
+        /* Ensure smooth rendering across all pages */
+        .container {
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 24px;
+        }
+      `}</style>
+    </div>
+  );
+}
+
 function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div style={{ 
-        background: "#060913", 
-        minHeight: "100vh", 
-        color: "#F8FAFC",
-        display: "flex",
-        flexDirection: "column"
-      }}>
-        {/* Top Header */}
-        <Nav />
-
-        {/* Global Page Layout */}
-        <main className="main-content" style={{ flex: 1, paddingTop: 72 }}>
-          <React.Suspense fallback={<PageLoadingFallback />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/projects/:slug" element={<ProjectDetail />} />
-              <Route path="/education" element={<Education />} />
-              <Route path="/education/certificates/:slug" element={<CertificateDetail />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/gallery/:slug" element={<AlbumDetail />} />
-              <Route path="/lab" element={<Lab />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogDetail />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/book" element={<BookDetail />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </React.Suspense>
-        </main>
-        
-        <Footer />
-        
-        {/* Global UI Overlays */}
-        <BackToTop />
-        <BottomNav />
-
-        <style>{`
-          /* Global Layout Integration */
-          @media (max-width: 768px) {
-            .main-content { 
-              /* Account for bottom nav (72px) + safe area + extra breathing room */
-              padding-bottom: calc(80px + env(safe-area-inset-bottom)) !important; 
-            }
-            footer { 
-              /* Ensure footer is pushed above the fixed nav bar */
-              margin-bottom: calc(72px + env(safe-area-inset-bottom)) !important;
-              padding-bottom: 40px !important;
-            }
-          }
-
-          /* Ensure smooth rendering across all pages */
-          .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-          }
-        `}</style>
-      </div>
+      <AppContent />
     </Router>
   );
 }

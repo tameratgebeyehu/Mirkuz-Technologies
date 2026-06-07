@@ -43,14 +43,16 @@ const HIGHLIGHTS = [
 ];
 
 // ── Accordion Chapter Component ──────────────────────────────
-function ChapterCard({ chapter, index }) {
+function ChapterCard({ chapter, index, isMobile }) {
   const [open, setOpen] = useState(false);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.05, duration: 0.4 }}
+      {...(!isMobile && {
+        initial: { opacity: 0, y: 15 },
+        animate: { opacity: 1, y: 0 },
+        transition: { delay: index * 0.05, duration: 0.4 }
+      })}
       style={{
         border: open ? '1px solid rgba(16, 185, 129, 0.25)' : '1px solid rgba(255,255,255,0.05)',
         borderRadius: 16,
@@ -101,10 +103,10 @@ function ChapterCard({ chapter, index }) {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            initial={isMobile ? { opacity: 0 } : { height: 0, opacity: 0 }}
+            animate={isMobile ? { opacity: 1 } : { height: 'auto', opacity: 1 }}
+            exit={isMobile ? { opacity: 0 } : { height: 0, opacity: 0 }}
+            transition={isMobile ? { duration: 0.15 } : { duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             style={{ overflow: 'hidden' }}
           >
             <div style={{
@@ -127,9 +129,13 @@ function ChapterCard({ chapter, index }) {
 
 // ── Main Page Component ───────────────────────────────────────
 export default function BookDetail() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
   return (
     <div style={{
@@ -211,9 +217,11 @@ export default function BookDetail() {
 
           {/* LEFT: 3D Book Cover & Rating Card */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            {...(!isMobile && {
+              initial: { opacity: 0, x: -30 },
+              animate: { opacity: 1, x: 0 },
+              transition: { duration: 0.6 }
+            })}
             style={{ display: 'flex', flexDirection: 'column', gap: 32 }}
           >
             <div style={{ position: 'relative', width: '100%' }}>
@@ -225,20 +233,24 @@ export default function BookDetail() {
               }} />
               
               <motion.div
-                whileHover={!isMobile ? { rotateY: -10, rotateX: 5, scale: 1.03, y: -5 } : {}}
-                transition={{ type: "spring", stiffness: 180, damping: 15 }}
+                {...(!isMobile && {
+                  whileHover: { rotateY: -10, rotateX: 5, scale: 1.03, y: -5 },
+                  transition: { type: "spring", stiffness: 180, damping: 15 }
+                })}
                 className="book-cover-3d"
                 style={{
                   position: 'relative', zIndex: 1,
                   cursor: 'pointer',
                   borderRadius: 20,
                   overflow: 'hidden',
-                  boxShadow: '0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(16,185,129,0.1)',
+                  boxShadow: isMobile ? '0 15px 30px rgba(0,0,0,0.6)' : '0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(16,185,129,0.1)',
                 }}
               >
                 <img
                   src="/code-ethiopia-cover.webp"
                   alt="Code Ethiopia Book Cover"
+                  loading="eager"
+                  fetchPriority="high"
                   style={{
                     width: '100%',
                     height: 'auto',
@@ -283,9 +295,11 @@ export default function BookDetail() {
 
           {/* RIGHT: Main Details & Price Block */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            {...(!isMobile && {
+              initial: { opacity: 0, x: 30 },
+              animate: { opacity: 1, x: 0 },
+              transition: { duration: 0.6, delay: 0.1 }
+            })}
             style={{ display: 'flex', flexDirection: 'column', gap: 32 }}
           >
             {/* Category / Badge */}
@@ -375,11 +389,13 @@ export default function BookDetail() {
               overflow: 'hidden',
             }}>
               {/* Subtle background glow */}
-              <div style={{
-                position: 'absolute', bottom: '-40%', right: '-10%',
-                width: 150, height: 150, borderRadius: '50%',
-                background: 'rgba(245, 158, 11, 0.08)', filter: 'blur(40px)', zIndex: 0
-              }} />
+              {!isMobile && (
+                <div style={{
+                  position: 'absolute', bottom: '-40%', right: '-10%',
+                  width: 150, height: 150, borderRadius: '50%',
+                  background: 'rgba(245, 158, 11, 0.08)', filter: 'blur(40px)', zIndex: 0
+                }} />
+              )}
 
               <div style={{ position: 'relative', zIndex: 1 }}>
                 <span style={{
@@ -401,8 +417,10 @@ export default function BookDetail() {
                 href={BUY_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.04, y: -2, boxShadow: '0 15px 35px rgba(245,158,11,0.4)' }}
-                whileTap={{ scale: 0.96 }}
+                {...(!isMobile && {
+                  whileHover: { scale: 1.04, y: -2, boxShadow: '0 15px 35px rgba(245,158,11,0.4)' },
+                  whileTap: { scale: 0.96 }
+                })}
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: 10,
                   background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 60%, #b45309 100%)',
@@ -443,10 +461,12 @@ export default function BookDetail() {
 
         {/* ── Features List Section ── */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
+          {...(!isMobile && {
+            initial: { opacity: 0, y: 20 },
+            whileInView: { opacity: 1, y: 0 },
+            viewport: { once: true, margin: "-100px" },
+            transition: { duration: 0.5 }
+          })}
           style={{ marginBottom: 80 }}
         >
           <div style={{ textAlign: 'center', marginBottom: 40 }}>
@@ -498,10 +518,12 @@ export default function BookDetail() {
 
         {/* ── Table of Contents Section ── */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
+          {...(!isMobile && {
+            initial: { opacity: 0, y: 20 },
+            whileInView: { opacity: 1, y: 0 },
+            viewport: { once: true, margin: "-100px" },
+            transition: { duration: 0.5 }
+          })}
           style={{ marginBottom: 80 }}
         >
           <div style={{ textAlign: 'center', marginBottom: 40 }}>
@@ -515,17 +537,19 @@ export default function BookDetail() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 800, margin: '0 auto' }}>
             {CHAPTERS.map((ch, i) => (
-              <ChapterCard key={ch.num} chapter={ch} index={i} />
+              <ChapterCard key={ch.num} chapter={ch} index={i} isMobile={isMobile} />
             ))}
           </div>
         </motion.section>
 
         {/* ── Dynamic Bottom Call to Action ── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          {...(!isMobile && {
+            initial: { opacity: 0, y: 30 },
+            whileInView: { opacity: 1, y: 0 },
+            viewport: { once: true, margin: "-100px" },
+            transition: { duration: 0.6 }
+          })}
           style={{
             background: 'linear-gradient(135deg, rgba(16,185,129,0.04) 0%, rgba(245,158,11,0.04) 100%)',
             border: '1px solid rgba(16, 185, 129, 0.15)',
@@ -568,8 +592,10 @@ export default function BookDetail() {
               href={BUY_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.05, y: -3, boxShadow: '0 15px 35px rgba(245,158,11,0.45)' }}
-              whileTap={{ scale: 0.95 }}
+              {...(!isMobile && {
+                whileHover: { scale: 1.05, y: -3, boxShadow: '0 15px 35px rgba(245,158,11,0.45)' },
+                whileTap: { scale: 0.95 }
+              })}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 12,
                 background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 60%, #b45309 100%)',
@@ -591,10 +617,12 @@ export default function BookDetail() {
         .bg-glow-1, .bg-glow-2 {
           filter: blur(80px);
         }
+        .book-backlight {
+          filter: blur(30px);
+        }
         @media (max-width: 768px) {
-          .bg-glow-1, .bg-glow-2 {
-            filter: none !important;
-            opacity: 0.4;
+          .bg-glow-1, .bg-glow-2, .book-backlight {
+            display: none !important;
           }
         }
 
@@ -606,16 +634,6 @@ export default function BookDetail() {
           .book-detail-nav {
             background: rgba(6, 9, 19, 0.95) !important;
             backdrop-filter: none !important;
-          }
-        }
-
-        .book-backlight {
-          filter: blur(30px);
-        }
-        @media (max-width: 768px) {
-          .book-backlight {
-            filter: none !important;
-            background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%) !important;
           }
         }
 
