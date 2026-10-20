@@ -155,12 +155,13 @@ export const PROJECTS = [
   {
     slug: "abaykey",
     title: "AbayKey",
-    oneLine: "An Amharic keyboard idea: tap a letter, then swipe to choose its form.",
+    oneLine: "An Amharic keyboard: tap a letter, then swipe to choose its form. More Ethiopian languages are planned.",
     status: "In progress",
     year: "2026",
     tech: ["Android", "Kotlin", "Java"],
     what: [
       "Each Ge'ez letter has about seven forms (for example ሀ ሁ ሂ ሃ ሄ ህ ሆ). In AbayKey you tap the base letter and swipe in a direction to pick the form, instead of tapping many times.",
+      "Right now it supports Amharic. I plan to add Tigrinya, Afaan Oromoo, Somali and English later.",
     ],
     why: "Typing Amharic on a phone is slow for me and for most people I know. I want our language to be easy to type.",
     learned: [
@@ -212,6 +213,7 @@ export const CERTIFICATES = [
   { title: "Certificate of Recognition – for taking part in the Blue Ocean student pitch competition", org: "Blue Ocean Strategy", link: "https://credsverse.com/credentials/ff1642d5-7519-44e5-9d1c-5919299ab5e6" },
   { title: "Basic computer course (6 months)", org: "Victory Wisdom (after-school centre, Dodola)", date: "June 2024", paper: true },
   { title: "Volunteer training (first aid and basic disaster response)", org: "Ethiopian Red Cross Society", paper: true },
+  { title: "Aerospace and Aviation Intensive Training", org: "Admas Aero Nexus", date: "2026", paper: true },
 ];
 
 // Online courses I have started but not finished. No certificate yet.
@@ -220,12 +222,11 @@ export const IN_PROGRESS = [
   { title: "Machine Learning: Concepts and Applications", org: "University of Chicago (online course)" },
   { title: "Applied Data Science Lab", org: "WorldQuant University (online)" },
   { title: "Google IT Support Professional Certificate", org: "Google (Coursera)" },
-  { title: "Full-stack web development", org: "Evangadi Tech (online)" },
 ];
 
 export const HONORS = [
   {
-    title: "Bronze medal – Computer Skills Competition",
+    title: "Bronze medal – Computer Skills Competition (beginner level)",
     org: "Victory Wisdom (after-school centre, Dodola)",
     date: "January 2024",
   },

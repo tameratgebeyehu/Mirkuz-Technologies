@@ -92,7 +92,7 @@ export default function Home() {
         <h3 style={{ marginTop: 28 }}>Courses I finished</h3>
         <p className="muted small" style={{ margin: '4px 0 14px' }}>
           {onlineCount} of these have a public page where you can check the certificate. The other{' '}
-          {CERTIFICATES.length - onlineCount} are paper certificates.
+          {CERTIFICATES.length - onlineCount} have no online page, but I have the certificate.
         </p>
         <ul className="list">
           {CERTIFICATES.map((c) => (
@@ -108,7 +108,7 @@ export default function Home() {
                     Check certificate ↗
                   </a>
                 ) : (
-                  <span className="muted small">Paper certificate</span>
+                  <span className="muted small">No online link</span>
                 )}
               </div>
             </li>
