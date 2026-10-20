@@ -211,7 +211,7 @@ export const CERTIFICATES = [
   { title: "Idea Generation", org: "Nestlé Youth Entrepreneurship Platform", link: "https://mycourse.app/MZMSt0aHLIdb7hedy" },
   { title: "Student Entrepreneurship", org: "Blue Ocean Strategy", link: "https://credsverse.com/credentials/abe66077-feb7-4692-8aeb-f96dd747a525" },
   { title: "Certificate of Recognition – for taking part in the Blue Ocean student pitch competition", org: "Blue Ocean Strategy", link: "https://credsverse.com/credentials/ff1642d5-7519-44e5-9d1c-5919299ab5e6" },
-  { title: "Basic computer course (6 months)", org: "Victory Wisdom (after-school centre, Dodola)", date: "June 2024", paper: true },
+  { title: "6-month basic computer training program (academic year 2024)", org: "Victory Wisdom (after-school centre, Dodola)", date: "awarded 30 June 2024", paper: true },
   { title: "Volunteer training (first aid and basic disaster response)", org: "Ethiopian Red Cross Society", paper: true },
   { title: "Aerospace and Aviation Intensive Training", org: "Admas Aero Nexus", date: "2026", paper: true },
 ];
@@ -220,7 +220,6 @@ export const CERTIFICATES = [
 export const IN_PROGRESS = [
   { title: "Computer Science: Programming with a Purpose", org: "Princeton University (online course)" },
   { title: "Machine Learning: Concepts and Applications", org: "University of Chicago (online course)" },
-  { title: "Applied Data Science Lab", org: "WorldQuant University (online)" },
   { title: "Google IT Support Professional Certificate", org: "Google (Coursera)" },
 ];
 
