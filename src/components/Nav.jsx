@@ -1,79 +1,19 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { G } from '../data/portfolioData';
+import { Link } from 'react-router-dom';
 
 export default function Nav() {
-  const location = useLocation();
-
-  const links = [
-    { name: "Home", path: "/" },
-    { name: "Projects", path: "/projects" },
-    { name: "Education", path: "/education" },
-    { name: "Gallery", path: "/gallery" },
-    { name: "Lab", path: "/lab" },
-    { name: "Blog", path: "/blog" },
-    { name: "About", path: "/about" },
-  ];
-
-  const activeLink = (path) => location.pathname === path || (path !== "/" && location.pathname.startsWith(path));
-
   return (
-    <nav className="nav-bar">
-      <div className="container" style={{ height: 72, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        
-        {/* Logo */}
-        <Link to="/" className="nav-logo" aria-label="Tamerat Gebeyehu Home" style={{ 
-          fontSize: 20, 
-          fontWeight: 900, 
-          color: "#fff", 
-          textDecoration: "none", 
-          letterSpacing: "0.1em" 
-        }}>
-          TAMERAT<span style={{ color: G.green }}>.</span>
-        </Link>
-
-        {/* Desktop Navigation - Semantic Structure */}
-        <div className="desktop-nav">
-          <ul style={{ display: "flex", gap: 32, listStyle: "none", margin: 0, padding: 0, alignItems: "center" }}>
-            {links.map(link => (
-              <li key={link.name}>
-                <Link 
-                  to={link.path}
-                  aria-label={`Navigate to ${link.name}`}
-                  style={{ 
-                    color: activeLink(link.path) ? G.green : G.slate, 
-                    textDecoration: "none", fontSize: 13, fontWeight: 700, 
-                    textTransform: "uppercase", letterSpacing: "0.05em",
-                    transition: "color 0.2s"
-                  }}
-                >
-                  {link.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+    <header className="site-header">
+      <div className="wrap">
+        <Link to="/" className="name">Tamerat Gebeyehu</Link>
+        <nav>
+          <Link to="/#projects">Projects</Link>
+          <Link to="/book">Book</Link>
+          <Link to="/#learning">Learning</Link>
+          <Link to="/blog">Writing</Link>
+          <Link to="/#contact">Contact</Link>
+        </nav>
       </div>
-
-      <style>{`
-        .nav-bar {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          z-index: 1000;
-          background: rgba(6, 9, 19, 0.85);
-          backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        @media (max-width: 768px) {
-          .desktop-nav { display: none !important; }
-          .nav-bar {
-            background: rgba(6, 9, 19, 0.96) !important;
-            backdrop-filter: none !important;
-          }
-        }
-      `}</style>
-    </nav>
+    </header>
   );
 }

@@ -1,5 +1,5 @@
 ---
-title: "Vibe Coding: How I Built 13+ Projects in Grade 11"
+title: "Vibe Coding: How AI Helped Me Start Building in Grade 11"
 date: "2026-05-25 23:14:00"
 description: "How AI-assisted development changed the way I learn, build, and think about software as a student in Ethiopia."
 tags: ["AI", "VibeCoding", "Ethiopia", "SelfLearning"]
@@ -11,7 +11,7 @@ But honestly, my journey looked very different.
 
 I’m still a Grade 11 student. And instead of waiting until university to start building, I decided to learn by creating real projects.
 
-Over time, I built more than 13 projects — from finance apps and study platforms to payment systems, multilingual keyboards, productivity tools, and educational apps designed for Ethiopian students.
+Over time, I started more than 13 projects. Some became real apps — a quiz app, a study guide, a privacy app, a tourism guide. Many others are small prototypes or ideas I have not finished yet.
 
 The crazy part?
 
@@ -120,6 +120,6 @@ What matters now is **speed of learning, adaptability, creativity, and execution
 
 I’m still learning. I still make mistakes. I still get stuck. I still rebuild things over and over again.
 
-But building 13+ projects during Grade 11 completely changed how I see technology and my future.
+But building so many projects during Grade 11, even the unfinished ones, completely changed how I see technology and my future.
 
 The biggest lesson? **You don’t need permission to start building. You just need to start.**

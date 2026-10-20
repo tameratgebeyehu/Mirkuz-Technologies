@@ -13,11 +13,11 @@ export default defineConfig({
         globIgnores: ['apks/**/*']
       },
       manifest: {
-        name: 'Tamerat Portfolio',
+        name: 'Tamerat Gebeyehu',
         short_name: 'Tamerat',
-        description: 'Tamerat Gebeyehu - Personal Portfolio',
-        theme_color: '#000000',
-        background_color: '#000000',
+        description: 'Tamerat Gebeyehu - personal website',
+        theme_color: '#0b7a53',
+        background_color: '#fbfaf7',
         display: 'standalone',
         icons: [
           {

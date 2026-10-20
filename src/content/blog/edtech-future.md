@@ -13,6 +13,6 @@ Education is the backbone of any nation, but in many parts of Africa, access to 
 We don't need 5G to learn math. By building applications that store data locally (using SQLite or IndexedDB), we can provide a high-quality tutoring experience that works even in the most remote villages.
 
 ## What I'm Building
-Projects like **Zemen Academy** are focused on this exactly. 5,000+ curriculum-aligned questions, available entirely offline.
+My app **Zemen Academy** tries to do exactly this. Students download a unit of quiz questions once, and then they can practise without internet.
 
-Stay tuned for more updates on our journey to digitize education in Ethiopia.
+I will write more as I learn what works for students and what does not.

@@ -13,11 +13,11 @@ Typing in Amharic (Ge'ez script) has always been a challenge on digital devices.
 Most keyboards try to fit everything into a QWERTY-style grid, which doesn't work for our phonetic system. This leads to slow typing speeds and a high error rate.
 
 ## The Solution: Gesture-Based Typing
-With tools like **AbayKey**, we are introducing gesture-based variation selection. Instead of multiple taps, a single swipe can select the correct vowel variation.
+In **AbayKey**, the keyboard I am building (it is not finished yet), you tap a base letter and then swipe to choose the vowel form. Instead of several taps, one swipe picks the right form.
 
-### Benefits:
-- **Speed**: Up to 3x faster than traditional methods.
-- **Accuracy**: Reduces accidental character selections.
-- **Ergonomics**: Designed for the way we move our thumbs on mobile.
+### What I hope it improves:
+- **Speed**: Fewer taps for each letter. I have not measured this yet.
+- **Accuracy**: Fewer wrong characters from tapping small keys.
+- **Comfort**: Designed for the way we move our thumbs on a phone.
 
 Building this is more than just a coding task; it's about making our language a first-class citizen in the digital world.
