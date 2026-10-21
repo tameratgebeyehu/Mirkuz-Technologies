@@ -3,16 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tamerat Gebeyehu</title>
-    <meta name="description" content="Tamerat Gebeyehu is a Grade 12 student in Dodola, Ethiopia, who builds offline learning apps for Ethiopian students. His app Zemen Academy is on Google Play." />
+    <title>Tamerat Gebeyehu – Student developer from Dodola, Ethiopia</title>
+    <meta name="description" content="Tamerat Gebeyehu is a Grade 12 student in Dodola, Ethiopia, who builds offline learning apps for Ethiopian students. His quiz app Zemen Academy is on Google Play." />
+    <meta name="author" content="Tamerat Gebeyehu" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://mirkuztechnologies.com/" />
     <meta name="theme-color" content="#133a2e" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#14171a" media="(prefers-color-scheme: dark)" />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="profile" />
     <meta property="og:site_name" content="Tamerat Gebeyehu" />
-    <meta property="og:title" content="Tamerat Gebeyehu" />
+    <meta property="og:title" content="Tamerat Gebeyehu – Student developer from Dodola, Ethiopia" />
     <meta property="og:description" content="Grade 12 student in Dodola, Ethiopia · I build learning apps for Ethiopian students · Zemen Academy (on Google Play)" />
-    <meta property="og:image" content="/logos/profile.jpg" />
+    <meta property="og:url" content="https://mirkuztechnologies.com/" />
+    <meta property="og:image" content="https://mirkuztechnologies.com/logos/profile.jpg" />
+    <meta property="og:image:alt" content="Photo of Tamerat Gebeyehu" />
+    <meta property="profile:first_name" content="Tamerat" />
+    <meta property="profile:last_name" content="Gebeyehu" />
     <meta name="twitter:card" content="summary" />
 
     <link rel="icon" type="image/png" sizes="192x192" href="/logos/pwa-192.png" />
@@ -20,6 +27,8 @@
     <link rel="apple-touch-icon" href="/logos/pwa-192.png" />
     <link rel="manifest" href="/manifest.json" />
 
+    <!-- Start loading the photo early: it is the biggest thing on the first screen. -->
+    <link rel="preload" as="image" href="/logos/profile.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -28,24 +37,58 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Tamerat Gebeyehu",
-        "url": "https://www.mirkuztechnologies.com",
-        "description": "Secondary school student and self-taught app developer",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Dodola",
-          "addressCountry": "Ethiopia"
-        },
-        "sameAs": [
-          "https://github.com/tameratgebeyehu",
-          "https://linkedin.com/in/tamerat-gebeyehu-39074a367"
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://mirkuztechnologies.com/#tamerat",
+            "name": "Tamerat Gebeyehu",
+            "url": "https://mirkuztechnologies.com/",
+            "image": "https://mirkuztechnologies.com/logos/profile.jpg",
+            "jobTitle": "Student developer",
+            "description": "Grade 12 student in Dodola, Ethiopia, who builds offline learning apps for Ethiopian students.",
+            "email": "mailto:tameratgebeyehu1@gmail.com",
+            "address": { "@type": "PostalAddress", "addressLocality": "Dodola", "addressRegion": "Oromia", "addressCountry": "ET" },
+            "affiliation": { "@type": "HighSchool", "name": "Hawiko Academy Secondary School", "address": "Dodola, Ethiopia" },
+            "knowsLanguage": ["om", "am", "en"],
+            "knowsAbout": ["Mobile app development", "React Native", "JavaScript", "TypeScript", "Kotlin", "Offline-first apps"],
+            "sameAs": [
+              "https://github.com/tameratgebeyehu",
+              "https://linkedin.com/in/tamerat-gebeyehu-39074a367"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://mirkuztechnologies.com/#website",
+            "url": "https://mirkuztechnologies.com/",
+            "name": "Tamerat Gebeyehu",
+            "author": { "@id": "https://mirkuztechnologies.com/#tamerat" }
+          },
+          {
+            "@type": "MobileApplication",
+            "name": "Zemen Academy",
+            "operatingSystem": "Android",
+            "applicationCategory": "EducationalApplication",
+            "url": "https://play.google.com/store/apps/details?id=com.zemenacademy.app",
+            "author": { "@id": "https://mirkuztechnologies.com/#tamerat" }
+          },
+          {
+            "@type": "Book",
+            "name": "Code Ethiopia: From Zero to Developer",
+            "author": { "@id": "https://mirkuztechnologies.com/#tamerat" },
+            "url": "https://mirkuztechnologies.com/book"
+          }
         ]
       }
     </script>
   </head>
   <body>
     <div id="root"></div>
+    <!-- Shown only if JavaScript is off; also gives search engines a plain summary. -->
+    <noscript>
+      <h1>Tamerat Gebeyehu – Student developer from Dodola, Ethiopia</h1>
+      <p>I'm a Grade 12 student at Hawiko Academy Secondary School in Dodola, Ethiopia. I build offline learning apps for Ethiopian students. My quiz app, Zemen Academy, is on Google Play.</p>
+      <p><a href="/projects">Projects</a> · <a href="/certificates">Certificates</a> · <a href="/about">About</a> · <a href="/book">Book</a> · <a href="mailto:tameratgebeyehu1@gmail.com">Email</a></p>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

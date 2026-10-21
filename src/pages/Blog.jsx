@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import { getPosts, formatPostDate } from '../utils/blogUtils';
 import PageHero from '../components/PageHero';
 import Reveal from '../components/Reveal';
+import usePageMeta from '../components/usePageMeta';
 
 export default function Blog() {
   const [posts, setPosts] = useState([]);
 
+  usePageMeta('Writing', 'Short posts by Tamerat Gebeyehu about building apps, AI and learning in Ethiopia.');
+
   useEffect(() => {
-    document.title = 'Writing · Tamerat Gebeyehu';
     getPosts().then(setPosts);
   }, []);
 

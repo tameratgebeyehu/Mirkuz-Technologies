@@ -6,6 +6,7 @@ import PageHero from '../components/PageHero';
 import StatusPill from '../components/StatusPill';
 import Reveal from '../components/Reveal';
 import NotFound from './NotFound';
+import usePageMeta from '../components/usePageMeta';
 
 // Full-screen screenshot viewer. Arrow keys move, Escape closes.
 function Lightbox({ shots, index, onClose, onMove }) {
@@ -40,9 +41,7 @@ export default function ProjectDetail() {
   const project = PROJECTS.find((p) => p.slug === slug);
   const [open, setOpen] = useState(null);
 
-  useEffect(() => {
-    if (project) document.title = `${project.title} · Tamerat Gebeyehu`;
-  }, [project]);
+  usePageMeta(project?.title ?? 'Projects', project ? `${project.title} by Tamerat Gebeyehu: ${project.oneLine}` : undefined);
 
   const groups = project ? screenshotGroups(project) : [];
   // One flat list for the viewer, so the arrows move through every group.
@@ -58,7 +57,14 @@ export default function ProjectDetail() {
 
   return (
     <>
-      <PageHero eyebrow={<Link to="/projects">← All projects</Link>} title={project.title}>
+      <PageHero
+        eyebrow={(
+          <Link to="/projects" className="back-pill">
+            <span className="back-arrow" aria-hidden="true">←</span> All projects
+          </Link>
+        )}
+        title={project.title}
+      >
         <div className="project-hero-row">
           <img className="project-logo" src={`/projects/${slug}/${project.logo}`} alt="" />
           <div>

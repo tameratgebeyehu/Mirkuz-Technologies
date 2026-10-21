@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BOOK } from '../data/portfolioData';
 import PageHero from '../components/PageHero';
 import Reveal from '../components/Reveal';
+import usePageMeta from '../components/usePageMeta';
 
 export default function BookDetail() {
-  useEffect(() => {
-    document.title = `${BOOK.title} · Tamerat Gebeyehu`;
-  }, []);
+  usePageMeta(BOOK.title, `${BOOK.oneLine} By Tamerat Gebeyehu.`);
 
   return (
     <>

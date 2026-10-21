@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { CERTIFICATES, HONORS } from '../data/portfolioData';
 import PageHero from '../components/PageHero';
 import Reveal from '../components/Reveal';
+import usePageMeta from '../components/usePageMeta';
 
 // A simple colour and short letters for each organisation. These are not their logos,
 // so the page does not look like a partnership.
@@ -29,25 +30,36 @@ const FILTERS = [
 
 function CertificateCard({ cert }) {
   const { mark, color } = styleFor(cert.org);
+  // "Main title – detail" becomes a title with a smaller line under it.
+  const [title, subtitle] = cert.title.split(' – ');
   const body = (
     <>
       <div className="cert-frame">
-        <div className="cert-top">
-          <span className="cert-seal" style={{ '--seal': color }}>{mark}</span>
+        <span className="cert-corner tl" aria-hidden="true" />
+        <span className="cert-corner tr" aria-hidden="true" />
+        <span className="cert-corner bl" aria-hidden="true" />
+        <span className="cert-corner br" aria-hidden="true" />
+        <div className="cert-head">
           <span className="cert-label">Certificate</span>
           {cert.date && <span className="cert-date">{cert.date}</span>}
         </div>
-        <h3 className="cert-title">{cert.title}</h3>
-        <p className="cert-org">{cert.org}</p>
+        <span className="cert-seal">{mark}</span>
+        <h3 className="cert-title">{title}</h3>
+        {subtitle && <p className="cert-subtitle">{subtitle}</p>}
+        <div className="cert-rule" aria-hidden="true"><span /><i>◆</i><span /></div>
+        <p className="cert-issuer">
+          <span>Issued by</span>
+          <strong>{cert.org}</strong>
+        </p>
       </div>
       <div className={`cert-foot ${cert.link ? 'online' : 'paper'}`}>
         {cert.link ? (
           <>
-            <span>✓ Can be checked online</span>
+            <span className="cert-badge">✓ Check online</span>
             <span className="cert-go">Open ↗</span>
           </>
         ) : (
-          <span>📄 Paper or PDF certificate · no online page</span>
+          <span className="cert-badge">Paper / PDF · no online page</span>
         )}
       </div>
     </>
@@ -65,9 +77,7 @@ function CertificateCard({ cert }) {
 export default function Certificates() {
   const [filter, setFilter] = useState('all');
 
-  useEffect(() => {
-    document.title = 'Certificates · Tamerat Gebeyehu';
-  }, []);
+  usePageMeta('Certificates', "Tamerat Gebeyehu's certificates from Google, Macquarie University, Udacity, HP LIFE, Blue Ocean Strategy and more, with links to check them.");
 
   const online = CERTIFICATES.filter((c) => c.link).length;
   const active = FILTERS.find((f) => f.id === filter);
