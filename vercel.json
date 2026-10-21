@@ -1,5 +1,4 @@
 {
-  "cleanUrls": true,
   "headers": [
     {
       "source": "/(.*)",
@@ -33,7 +32,7 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!assets/|apks/|logos/|projects/|favicon.ico|manifest.json|robots.txt|sitemap.xml|sw.js|workbox-.*).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
