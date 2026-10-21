@@ -28,7 +28,8 @@ export const PROJECTS = [
     tech: ["React Native", "Expo", "Google Apps Script", "Google Sheets"],
     what: [
       "Students choose their grade, subject and unit, then take a quiz. In Instant Mode they see the right answer and an explanation after each question. In Exam Mode they get one minute per question and see the score at the end.",
-      "A student can download a unit once and then practise without internet. The app is in English and Amharic.",
+      "A student can download quizzes and notes once and then study without internet. The app is in English and Amharic.",
+      "It also has study notes with diagrams, a four-week study timetable, a daily goal, and a progress page that shows scores week by week.",
     ],
     why: "I'm a student. After reading my textbooks, I wanted to test myself before exams, but I had no preparation tool. So I asked myself: why not build a quiz app that helps me study? That is how Zemen Academy started. Internet in my town is slow and expensive, so I made it work offline too.",
     learned: [
@@ -43,10 +44,15 @@ export const PROJECTS = [
       github: "https://github.com/tameratgebeyehu/zemen-academy",
     },
     images: 4,
-    // Screenshot groups, newest first. When new screenshots arrive, put them in
-    // public/projects/zemen-academy/v2/1.jpg, 2.jpg, ... and add a group above this one:
-    //   { label: "Today", folder: "v2", count: 5 },
+    // Screenshot groups, newest first.
     screenshotGroups: [
+      {
+        label: "Today",
+        note: "The app as it is now on Google Play.",
+        folder: "v2",
+        count: 8,
+        ext: "webp",
+      },
       {
         label: "First version",
         note: "These are the first screens of Zemen Academy. I keep them here as a memory of where it started.",
@@ -89,7 +95,7 @@ export const PROJECTS = [
       "You can encrypt a message before you send it in any chat app, keep encrypted notes, and store files in a locked vault. The app has no accounts and makes no internet requests.",
       "It also blocks screenshots and hides its content when you switch apps.",
     ],
-    why: "Many people in Ethiopia share one phone or hand their phone to others. I wanted a simple way to keep a few things private.",
+    why: "This started as a hobby. My friend and I chat on Telegram, but sometimes our phones are not in our hands, and other people try to read our chats. So I built an app for it: I type my message, the app turns it into encrypted text, and I send that text on Telegram. My friend opens it in the app with a password we agreed on in person, and only then can he read it.",
     learned: [
       "The basics of encryption on a phone, and why you should use well-tested libraries instead of writing your own.",
       "How Android screenshots and the app-switcher preview work, and how to block them.",
@@ -158,7 +164,7 @@ export const PROJECTS = [
     what: [
       "You make your own daily routine (sleep time, stretching, exercise). The app reminds you, counts your streak, and shows a 365-day grid of the days you finished everything. It works fully offline, with no account.",
     ],
-    why: "I wanted to build good daily habits myself, and I wanted to practise making an app that keeps all data on the phone.",
+    why: "I wanted to exercise every day, but I was not disciplined about it. So I built an app that reminds me every day and shows me which exercises to do and how. That is how TallPath started.",
     learned: [
       "How to schedule local notifications on Android and iOS.",
       "How to calculate streaks correctly when days are missed.",
@@ -197,7 +203,7 @@ export function screenshotGroups(project) {
   const groups = project.screenshotGroups ?? [{ label: null, folder: "", count: project.images }];
   return groups.map((g) => ({
     ...g,
-    files: Array.from({ length: g.count }, (_, i) => `/projects/${project.slug}/${g.folder ? `${g.folder}/` : ""}${i + 1}.jpg`),
+    files: Array.from({ length: g.count }, (_, i) => `/projects/${project.slug}/${g.folder ? `${g.folder}/` : ""}${i + 1}.${g.ext ?? "jpg"}`),
   }));
 }
 
