@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { getPosts, formatPostDate } from '../utils/blogUtils';
 import NotFound from './NotFound';
 import usePageMeta from '../components/usePageMeta';
+import Icon from '../components/Icon';
 
 export default function BlogDetail() {
   const { slug } = useParams();
@@ -20,7 +21,7 @@ export default function BlogDetail() {
   return (
     <div className="wrap">
       <Link to="/blog" className="back-pill light">
-        <span className="back-arrow" aria-hidden="true">←</span> All posts
+        <span className="back-arrow"><Icon name="arrowLeft" size={14} stroke={2.4} /></span> All posts
       </Link>
       <article className="post">
         <h1>{post.title}</h1>

@@ -539,6 +539,98 @@ article.post .body figure { margin: 20px 0; }
 
 .tile-shot img.poster { width: 146px; height: auto; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 12px; }
 
+
+/* ---------- Project page header: logo + status in one row, then the text ---------- */
+.project-hero-row .hero-meta { margin-top: 0; }
+.project-hero-row { margin-top: 16px; }
+.project-hero-row + .hero-sub { margin-top: 14px; }
+.project-actions .btn .icon { opacity: .9; }
+
+/* ---------- Phones and small tablets: calmer sizes ---------- */
+@media (max-width: 600px) {
+  body { font-size: 16px; line-height: 1.6; }
+  h1 { font-size: 30px; }
+  h2 { font-size: 21px; margin-bottom: 12px; }
+  h3 { font-size: 16.5px; }
+  section { padding-top: 36px; }
+  .wrap { padding: 0 18px; }
+
+  /* Hero */
+  .hero-inner { padding-top: 32px; padding-bottom: 64px; }
+  .home-hero-grid { padding-top: 24px; padding-bottom: 72px; gap: 20px; }
+  .hero-eyebrow { font-size: 14px; margin-bottom: 10px; }
+  .dots { gap: 5px; margin-bottom: 14px; }
+  .dots span { width: 5px; height: 5px; }
+  .hero-title { font-size: 28px; line-height: 1.18; }
+  .hero-sub { font-size: 16px; line-height: 1.55; margin-top: 12px; }
+  .hero-meta { font-size: 14px; }
+
+  /* Buttons: smaller and lighter */
+  .buttons { gap: 8px; margin-top: 18px; }
+  .btn { padding: 8px 14px; font-size: 14px; gap: 6px; }
+  .btn-icon { width: 20px; height: 20px; }
+  .back-pill { font-size: 13.5px; padding: 4px 12px 4px 4px; gap: 7px; }
+  .back-arrow { width: 24px; height: 24px; }
+
+  /* Project page: compact two-column action buttons, main one full width */
+  .project-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .project-actions .btn { justify-content: center; padding: 9px 10px; }
+  .project-actions .btn.primary { grid-column: 1 / -1; }
+  /* The main button takes the first row, so an even-numbered last button would sit alone: let it fill the row. */
+  .project-actions .btn:last-child:nth-child(even) { grid-column: 1 / -1; }
+  .project-actions .hero-note { grid-column: 1 / -1; font-size: 14px; }
+  .project-logo { width: 52px; height: 52px; border-radius: 14px; border-width: 2px; }
+  .project-hero-row { gap: 12px; margin-top: 12px; }
+  .shot img { height: 300px; }
+  .shots { margin-top: -44px; gap: 12px; }
+  .detail-grid { gap: 14px; margin-top: 24px; }
+  .detail-card { padding: 20px; }
+  .detail-card h2 { font-size: 18px; }
+  .detail-icon { width: 38px; height: 38px; border-radius: 11px; }
+  .detail-icon .icon { width: 19px; height: 19px; }
+  .note { font-size: 14px; }
+  .next-project a { padding: 16px 18px; }
+  .next-project strong { font-size: 17px; }
+
+  /* Home */
+  .stats { margin-top: -36px; }
+  .stat { padding: 14px 10px; }
+  .stat strong { font-size: 26px; }
+  .stat span { font-size: 13px; }
+  .featured-body { padding: 16px 18px 18px; }
+  .explore-card { padding: 18px; }
+  .explore-icon, .now-icon { width: 40px; height: 40px; border-radius: 12px; }
+  .now-item { padding: 14px 16px; gap: 14px; font-size: 15px; }
+  .quote-band blockquote { font-size: 19px; }
+  .quote-mark { font-size: 80px; top: -12px; left: 20px; }
+  .book-band { padding: 20px; gap: 18px; }
+  .book-band img { width: 110px; }
+  .contact-band { padding: 32px 20px 52px; }
+
+  /* Filters */
+  .filters { gap: 6px; margin: -22px 0 22px; }
+  .filters button { padding: 7px 12px; font-size: 13.5px; }
+
+  /* Certificates */
+  .cert-title { font-size: 18px; }
+  .cert-seal { width: 48px; height: 48px; font-size: 14px; }
+  .award-card { padding: 18px; gap: 16px; }
+  .medal { width: 50px; height: 50px; }
+
+  /* Lists, cards, text */
+  .tile-body p, .featured-body p, .explore-card p { font-size: 15px; }
+  .side-card { padding: 18px; }
+  .timeline li p { font-size: 14.5px; }
+  .chapters li { padding: 10px 14px; font-size: 15px; }
+  .post-card { padding: 18px; }
+  .post-card h3 { font-size: 18px; }
+  article.post h1 { font-size: 26px; }
+  article.post .body h2 { font-size: 20px; }
+  .name-text { font-size: 15px; }
+  .name-text small { font-size: 11.5px; }
+  .logo-mark { width: 34px; height: 34px; }
+}
+
 /* Less motion for people who ask for it. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
