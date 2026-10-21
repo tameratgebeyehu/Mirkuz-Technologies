@@ -5,6 +5,7 @@ import { PROJECTS, screenshotGroups } from '../data/portfolioData';
 import PageHero from '../components/PageHero';
 import StatusPill from '../components/StatusPill';
 import Reveal from '../components/Reveal';
+import Icon from '../components/Icon';
 import NotFound from './NotFound';
 import usePageMeta from '../components/usePageMeta';
 
@@ -78,7 +79,7 @@ export default function ProjectDetail() {
         <div className="buttons">
           {links.play && <a className="btn primary" href={links.play} target="_blank" rel="noopener noreferrer">Get it on Google Play</a>}
           {links.apk && <a className={`btn ${links.play ? 'ghost' : 'primary'}`} href={links.apk} download>Download APK (Android)</a>}
-          {links.video && <a className="btn ghost" href={links.video} target="_blank" rel="noopener noreferrer">▶ Watch the pitch video</a>}
+          {links.video && <a className="btn ghost" href={links.video} target="_blank" rel="noopener noreferrer"><Icon name="play" size={14} stroke={2.2} /> Watch the pitch video</a>}
           {links.website && <a className="btn ghost" href={links.website} target="_blank" rel="noopener noreferrer">Website</a>}
           {links.github && <a className="btn ghost" href={links.github} target="_blank" rel="noopener noreferrer">Code on GitHub</a>}
           {!links.play && !links.apk && <span className="hero-note">No download yet. I am still building it.</span>}
@@ -109,22 +110,22 @@ export default function ProjectDetail() {
 
         <div className="detail-grid">
           <Reveal className="detail-card">
-            <span className="detail-icon" aria-hidden="true">🛠️</span>
+            <span className="detail-icon"><Icon name="layers" size={22} /></span>
             <h2>What it does</h2>
             {project.what.map((t) => <p key={t}>{t}</p>)}
           </Reveal>
           <Reveal className="detail-card" delay={80}>
-            <span className="detail-icon" aria-hidden="true">💡</span>
+            <span className="detail-icon"><Icon name="bulb" size={22} /></span>
             <h2>Why I built it</h2>
             <p>{project.why}</p>
           </Reveal>
           <Reveal className="detail-card" delay={160}>
-            <span className="detail-icon" aria-hidden="true">📚</span>
+            <span className="detail-icon"><Icon name="learn" size={22} /></span>
             <h2>What I learned</h2>
             <ul>{project.learned.map((t) => <li key={t}>{t}</li>)}</ul>
           </Reveal>
           <Reveal className="detail-card" delay={240}>
-            <span className="detail-icon" aria-hidden="true">🧩</span>
+            <span className="detail-icon"><Icon name="code" size={22} /></span>
             <h2>Built with</h2>
             <div className="tags">{project.tech.map((t) => <span key={t} className="tag">{t}</span>)}</div>
           </Reveal>

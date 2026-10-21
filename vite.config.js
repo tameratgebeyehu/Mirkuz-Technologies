@@ -8,7 +8,12 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      // The old offline cache made visitors see an old version after an update.
+      // This service worker removes itself and its caches, so every visit gets the
+      // newest site straight away (HTML is never cached by Vercel; JS/CSS files are
+      // versioned by name).
+      selfDestroying: true,
+      includeAssets: ['favicon.ico'],
       workbox: {
         globIgnores: ['apks/**/*']
       },

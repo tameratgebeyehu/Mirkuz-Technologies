@@ -5,15 +5,16 @@ import {
 } from '../data/portfolioData';
 import Mountains from '../components/Mountains';
 import StatusPill from '../components/StatusPill';
+import Icon from '../components/Icon';
 import Reveal from '../components/Reveal';
 import CountUp from '../components/CountUp';
 import usePageMeta from '../components/usePageMeta';
 
 const EXPLORE = [
-  { to: '/projects', title: 'Projects', text: 'Every app I have built, with screenshots and downloads.', icon: '📱' },
-  { to: '/certificates', title: 'Certificates', text: 'My courses and awards, with links to check them.', icon: '🎓' },
-  { to: '/about', title: 'About me', text: 'My school, my story, my skills and my languages.', icon: '🙂' },
-  { to: '/book', title: 'My book', text: 'Code Ethiopia: a programming book for beginners.', icon: '📘' },
+  { to: '/projects', title: 'Projects', text: 'Every app I have built, with screenshots and downloads.', icon: 'grid' },
+  { to: '/certificates', title: 'Certificates', text: 'My courses and awards, with links to check them.', icon: 'cap' },
+  { to: '/about', title: 'About me', text: 'My school, my story, my skills and my languages.', icon: 'user' },
+  { to: '/book', title: 'My book', text: 'Code Ethiopia: a programming book for beginners.', icon: 'book' },
 ];
 
 // Changes the highlighted words every few seconds.
@@ -51,7 +52,7 @@ export default function Home() {
         <div className="glow glow-2" aria-hidden="true" />
         <div className="wrap wide home-hero-grid">
           <div>
-            <div className="hero-eyebrow">Hi, I'm Tamerat 👋</div>
+            <div className="hero-eyebrow">Hi, I'm Tamerat</div>
             <div className="dots" aria-hidden="true">
               {Array.from({ length: 16 }, (_, i) => <span key={i} style={{ animationDelay: `${i * 70}ms` }} />)}
             </div>
@@ -62,7 +63,7 @@ export default function Home() {
             </p>
             <div className="buttons">
               <a className="btn primary" href={zemen.links.play} target="_blank" rel="noopener noreferrer">
-                <span className="btn-icon" aria-hidden="true">▶</span> Zemen Academy on Google Play
+                <span className="btn-icon"><Icon name="play" size={12} stroke={2.4} /></span> Zemen Academy on Google Play
               </a>
               <Link className="btn ghost" to="/projects">
                 See my projects <span className="arrow" aria-hidden="true">→</span>
@@ -73,9 +74,9 @@ export default function Home() {
           <div className="portrait">
             <div className="portrait-ring" aria-hidden="true" />
             <img src={PROFILE.photo} alt="Tamerat Gebeyehu" width="240" height="240" />
-            <span className="chip chip-1">📱 On Google Play</span>
-            <span className="chip chip-2">📶 Works offline</span>
-            <span className="chip chip-3">📍 Dodola, Ethiopia</span>
+            <span className="chip chip-1"><Icon name="play" size={14} stroke={2.2} /> On Google Play</span>
+            <span className="chip chip-2"><Icon name="download" size={14} stroke={2.2} /> Works offline</span>
+            <span className="chip chip-3"><Icon name="pin" size={14} stroke={2.2} /> Dodola, Ethiopia</span>
           </div>
         </div>
       </header>
@@ -140,7 +141,7 @@ export default function Home() {
             {NOW.map((n, i) => (
               <Reveal key={n.text} delay={i * 90}>
                 <Link to={n.link} className="now-item">
-                  <span className="now-icon" aria-hidden="true">{n.icon}</span>
+                  <span className="now-icon"><Icon name={n.icon} size={22} /></span>
                   <span>{n.text}</span>
                   <span className="arrow" aria-hidden="true">→</span>
                 </Link>
@@ -158,7 +159,7 @@ export default function Home() {
             {EXPLORE.map((e, i) => (
               <Reveal key={e.to} delay={i * 80}>
                 <Link to={e.to} className="explore-card">
-                  <span className="explore-icon" aria-hidden="true">{e.icon}</span>
+                  <span className="explore-icon"><Icon name={e.icon} size={22} /></span>
                   <h3>{e.title}</h3>
                   <p>{e.text}</p>
                   <span className="arrow">→</span>
@@ -189,7 +190,7 @@ export default function Home() {
             <h2>Want to talk?</h2>
             <p>Email is the best way to reach me.</p>
             <div className="buttons">
-              <a className="btn primary" href={`mailto:${PROFILE.email}`}>✉ {PROFILE.email}</a>
+              <a className="btn primary" href={`mailto:${PROFILE.email}`}><Icon name="mail" size={18} /> Email me</a>
               <a className="btn ghost" href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
               <a className="btn ghost" href={PROFILE.github} target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
