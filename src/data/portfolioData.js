@@ -15,14 +15,16 @@ export const PROFILE = {
 // Status words used on the site:
 //   "On Google Play" – public on the Play Store
 //   "Prototype"      – works and can be installed from the APK, but has no real user base
-//   "In progress"    – not finished, no download yet
+//   "In development" – not finished, no download yet
+// "featured: true" projects are shown big at the top of the home page.
 export const PROJECTS = [
   {
     slug: "zemen-academy",
     title: "Zemen Academy",
-    oneLine: "My main project: a quiz app for Ethiopian students in Grades 9–12. It is live on Google Play and works offline.",
+    oneLine: "A quiz app for Ethiopian students in Grades 9–12. It works offline, and it has been on Google Play since October 2026.",
     status: "On Google Play",
-    year: "2026",
+    year: "Dec 2025 – now",
+    featured: true,
     tech: ["React Native", "Expo", "Google Apps Script", "Google Sheets"],
     what: [
       "Students choose their grade, subject and unit, then take a quiz. In Instant Mode they see the right answer and an explanation after each question. In Exam Mode they get one minute per question and see the score at the end.",
@@ -114,13 +116,14 @@ export const PROJECTS = [
   {
     slug: "sindetrack",
     title: "SindeTrack",
-    oneLine: "An offline record book for local wheat traders, with Bluetooth receipt printing.",
+    oneLine: "An offline record book for local wheat traders, with Bluetooth receipt printing. I pitched it at the Blue Ocean competition in 2026.",
     status: "Prototype",
     year: "2026",
+    featured: true,
     tech: ["Kotlin", "Jetpack Compose", "Android"],
     what: [
       "A wheat buyer records each farmer, the amount of grain and the price. The app adds everything up and shows a daily summary. It works offline and can print a receipt on a small Bluetooth printer.",
-      "I pitched SindeTrack in the Blue Ocean student entrepreneurship competition in 2026.",
+      "I pitched SindeTrack in the Blue Ocean student entrepreneurship competition in 2026. You can watch the pitch video below.",
     ],
     why: "Wheat is very important in our area, and many local traders still keep their records in paper notebooks that can get lost or damaged.",
     learned: [
@@ -128,6 +131,7 @@ export const PROJECTS = [
     ],
     links: {
       apk: "/apks/sindetrack.apk",
+      video: "https://youtu.be/Ww-EElGvb68",
     },
     images: 4,
     logo: "logo.jpg",
@@ -199,44 +203,59 @@ export const SCHOOL = {
   name: "Hawiko Academy Secondary School",
   town: "Dodola, Ethiopia",
   detail: "Grade 12, Natural Science stream",
-  years: "Grades 9–12, 2023–2027 · finishing in June 2027",
+  years: "Sep 2023 – Jun 2027",
 };
 
-// Finished courses. Each one with a link has a public page where anyone can check it.
-export const CERTIFICATES = [
-  { title: "AI Fundamentals", org: "Google (Coursera)", link: "https://coursera.org/share/715a24a86008fc1b9ca8ca0b36fc2970" },
-  { title: "Excel Skills for Business: Essentials", org: "Macquarie University (Coursera)", date: "2026", link: "https://www.coursera.org/account/accomplishments/verify/JKZ23217P292" },
-  { title: "AI Fundamentals", org: "Udacity", link: "https://www.udacity.com/certificate/lp/4b49a7b0-6de3-4822-9324-3f27ff503205" },
-  { title: "AI for Business Professionals", org: "HP LIFE", link: "https://www.life-global.org/certificate/fcb202f9-af69-4764-80ee-830179eb52a4" },
-  { title: "Data Science & Analytics", org: "HP LIFE", link: "https://www.life-global.org/certificate/793e630d-a24d-4b48-ba77-4a59b9a62fa5" },
-  { title: "Professional Networking", org: "HP LIFE", link: "https://www.life-global.org/certificate/b374fc87-c911-4f5b-a473-54b8c8d448f9" },
-  { title: "Idea Generation", org: "Nestlé Youth Entrepreneurship Platform", link: "https://mycourse.app/MZMSt0aHLIdb7hedy" },
-  { title: "Student Entrepreneurship", org: "Blue Ocean Strategy", link: "https://credsverse.com/credentials/abe66077-feb7-4692-8aeb-f96dd747a525" },
-  { title: "Certificate of Recognition – for taking part in the Blue Ocean student pitch competition", org: "Blue Ocean Strategy", link: "https://credsverse.com/credentials/ff1642d5-7519-44e5-9d1c-5919299ab5e6" },
-  { title: "6-month basic computer training program (academic year 2024)", org: "Victory Wisdom (after-school centre, Dodola)", date: "awarded 30 June 2024", paper: true },
-  { title: "Volunteer training (first aid and basic disaster response)", org: "Ethiopian Red Cross Society", paper: true },
-  { title: "Aerospace and Aviation Intensive Training", org: "Admas Aero Nexus", date: "2026", paper: true },
+export const EXPERIENCE = [
+  {
+    title: "Student Developer – Zemen Academy",
+    detail: "Personal project, self-employed",
+    years: "Dec 2025 – now",
+    text: "I design, build and publish the Zemen Academy app on my own, while I am in school.",
+    link: "/projects/zemen-academy",
+  },
 ];
 
-// Online courses I have started but not finished. No certificate yet.
-export const IN_PROGRESS = [
-  { title: "Computer Science: Programming with a Purpose", org: "Princeton University (online course)" },
-  { title: "Machine Learning: Concepts and Applications", org: "University of Chicago (online course)" },
-  { title: "Google IT Support Professional Certificate", org: "Google (Coursera)" },
+// Finished courses, newest first. Each one with a link has a public page where anyone can check it.
+export const CERTIFICATES = [
+  { title: "IgniteAI Expo – participation", org: "IgniteAI Expo", date: "Oct 2026", paper: true },
+  { title: "Aerospace and Aviation Intensive Training", org: "Admas Aero Nexus", date: "Jun 2026", paper: true },
+  { title: "Certificate of Recognition – Blue Ocean student pitch competition", org: "Blue Ocean Strategy", date: "May 2026", link: "https://credsverse.com/credentials/ff1642d5-7519-44e5-9d1c-5919299ab5e6" },
+  { title: "Excel Skills for Business: Essentials", org: "Macquarie University (Coursera)", date: "Apr 2026", link: "https://www.coursera.org/account/accomplishments/verify/JKZ23217P292" },
+  { title: "AI Fundamentals", org: "Google (Coursera)", date: "Feb 2026", link: "https://coursera.org/share/715a24a86008fc1b9ca8ca0b36fc2970" },
+  { title: "Student Entrepreneurship", org: "Blue Ocean Strategy", date: "Feb 2026", link: "https://credsverse.com/credentials/abe66077-feb7-4692-8aeb-f96dd747a525" },
+  { title: "AI Fundamentals", org: "Udacity", link: "https://www.udacity.com/certificate/lp/4b49a7b0-6de3-4822-9324-3f27ff503205" },
+  { title: "Idea Generation", org: "Nestlé Youth Entrepreneurship Platform", link: "https://mycourse.app/MZMSt0aHLIdb7hedy" },
+  { title: "Data Science & Analytics", org: "HP LIFE", link: "https://www.life-global.org/certificate/793e630d-a24d-4b48-ba77-4a59b9a62fa5" },
+  { title: "AI for Business Professionals", org: "HP LIFE", link: "https://www.life-global.org/certificate/fcb202f9-af69-4764-80ee-830179eb52a4" },
+  { title: "Professional Networking", org: "HP LIFE", link: "https://www.life-global.org/certificate/b374fc87-c911-4f5b-a473-54b8c8d448f9" },
+  { title: "6-month basic computer training program", org: "Victory Wisdom (after-school centre, Dodola)", date: "Jun 2024", paper: true },
 ];
 
 export const HONORS = [
   {
     title: "Bronze medal – Computer Skills Competition (beginner level)",
     org: "Victory Wisdom (after-school centre, Dodola)",
-    date: "January 2024",
+    date: "Jan 2024",
   },
+];
+
+// Only skills I have used in a real project or have a certificate for.
+export const SKILLS = [
+  { group: "Building apps", items: ["Mobile app development", "React Native & Expo", "Kotlin (one Android app)", "JavaScript", "TypeScript", "Web development (React)", "Supabase", "Google Apps Script"] },
+  { group: "Other", items: ["AI-assisted development", "Excel", "Video editing", "Lean Canvas"] },
+];
+
+export const LANGUAGES = [
+  { name: "Afaan Oromoo", level: "native" },
+  { name: "Amharic", level: "native" },
+  { name: "English", level: "limited working – I am still improving" },
 ];
 
 export const VOLUNTEERING = [
   {
-    title: "Volunteer, Ethiopian Red Cross Society (past)",
-    place: "Dodola",
+    title: "Volunteer, Ethiopian Red Cross Society",
+    place: "Dodola · past",
     text: "I volunteered with the Ethiopian Red Cross Society in Dodola. I did the volunteer training in first aid and basic disaster response, and I helped with community activities.",
   },
 ];

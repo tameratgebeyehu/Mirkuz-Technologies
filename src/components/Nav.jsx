@@ -9,7 +9,7 @@ export default function Nav() {
         <nav>
           <Link to="/#projects">Projects</Link>
           <Link to="/book">Book</Link>
-          <Link to="/#learning">Learning</Link>
+          <Link to="/#learning">School</Link>
           <Link to="/blog">Writing</Link>
           <Link to="/#contact">Contact</Link>
         </nav>

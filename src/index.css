@@ -4,8 +4,11 @@
   --text: #1f2328;
   --muted: #5b6168;
   --line: #e6e2da;
-  --accent: #0b7a53;
-  --accent-soft: #e5f3ec;
+  --accent: #17694f;
+  --accent-soft: #e3f1ea;
+  --hero: #133a2e;
+  --hero-2: #1d4a3c;
+  --gold: #e3b505;
   --warn-soft: #fff4dc;
   --warn-text: #7a5300;
   --radius: 14px;
@@ -20,8 +23,10 @@
     --text: #e8e6e1;
     --muted: #a3a8ae;
     --line: #2c3238;
-    --accent: #4cc797;
+    --accent: #5fcc9f;
     --accent-soft: #173328;
+    --hero: #0f2c23;
+    --hero-2: #173d31;
     --warn-soft: #3a2e14;
     --warn-text: #f3cf86;
     color-scheme: dark;
@@ -161,3 +166,42 @@ article.post .body figure { margin: 20px 0; }
 
 footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
 footer p + p { margin-top: 8px; }
+
+/* Home hero – dark green with mountain shapes, like the LinkedIn banner */
+.hero {
+  position: relative; overflow: hidden; margin-top: -48px; margin-bottom: 40px;
+  background: linear-gradient(180deg, var(--hero) 0%, var(--hero-2) 100%); color: #fff;
+}
+.hero-mountains { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 55%; }
+.hero-mountains path:first-child { fill: rgba(255,255,255,.06); }
+.hero-mountains path:last-child { fill: rgba(255,255,255,.08); }
+.hero-inner { position: relative; padding-top: 56px; padding-bottom: 64px; }
+.hero-photo { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,.85); margin-bottom: 22px; }
+.dots { width: 200px; height: 6px; margin-bottom: 16px; background: radial-gradient(circle, var(--gold) 2.5px, transparent 3px) 0 0 / 12px 6px repeat-x; }
+.hero h1 { color: #fff; max-width: 640px; }
+.hero-sub { margin-top: 14px; font-size: 19px; color: rgba(255,255,255,.85); max-width: 600px; }
+.hero-sub a { color: #fff; }
+.hero .btn.primary { background: #fff; border-color: #fff; color: var(--hero); }
+.hero .btn.ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.5); }
+.hero .btn.ghost:hover { border-color: #fff; }
+#about { border-top: 0; padding-top: 0; }
+
+/* Featured projects */
+.featured-list { display: grid; gap: 18px; }
+.featured-card {
+  display: flex; gap: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+  background: var(--surface); color: inherit; text-decoration: none; transition: border-color .15s, transform .15s;
+}
+.featured-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.featured-shot { width: 150px; height: 230px; object-fit: cover; object-position: top; flex-shrink: 0; background: var(--line); }
+.featured-body { padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+.featured-body .top { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.featured-body .logo { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; }
+.featured-body p { color: var(--muted); }
+.featured-body .more { margin-top: auto; color: var(--accent); font-weight: 600; font-size: 15px; }
+@media (max-width: 520px) {
+  .featured-card { flex-direction: column; }
+  .featured-shot { width: 100%; height: 200px; }
+}
+
+.small-heading { font-size: 14px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }

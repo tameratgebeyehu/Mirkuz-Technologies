@@ -36,6 +36,7 @@ export default function ProjectDetail() {
       <div className="buttons">
         {links.play && <a className="btn primary" href={links.play} target="_blank" rel="noopener noreferrer">Get it on Google Play</a>}
         {links.apk && <a className={`btn ${links.play ? '' : 'primary'}`} href={links.apk} download>Download APK (Android)</a>}
+        {links.video && <a className="btn" href={links.video} target="_blank" rel="noopener noreferrer">Watch the pitch video</a>}
         {links.website && <a className="btn" href={links.website} target="_blank" rel="noopener noreferrer">Website</a>}
         {links.github && <a className="btn" href={links.github} target="_blank" rel="noopener noreferrer">Code on GitHub</a>}
         {!links.play && !links.apk && <span className="muted small">No download yet. I am still building it.</span>}
