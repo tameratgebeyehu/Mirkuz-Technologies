@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PROJECTS } from '../data/portfolioData';
+import { PROJECTS, coverShot } from '../data/portfolioData';
 import PageHero from '../components/PageHero';
 import StatusPill from '../components/StatusPill';
 import Reveal from '../components/Reveal';
@@ -48,7 +48,7 @@ export default function Projects() {
             <Reveal key={p.slug} delay={i * 70} className={p.featured ? 'span-2' : ''}>
               <Link to={`/projects/${p.slug}`} className="project-tile">
                 <div className="tile-shot">
-                  <img src={`/projects/${p.slug}/1.jpg`} alt="" loading="lazy" />
+                  <img src={coverShot(p)} alt="" loading="lazy" />
                 </div>
                 <div className="tile-body">
                   <div className="top">

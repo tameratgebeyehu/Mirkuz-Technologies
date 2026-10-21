@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useParams } from 'react-router-dom';
-import { PROJECTS } from '../data/portfolioData';
+import { PROJECTS, screenshotGroups } from '../data/portfolioData';
 import PageHero from '../components/PageHero';
 import StatusPill from '../components/StatusPill';
 import Reveal from '../components/Reveal';
@@ -44,7 +44,9 @@ export default function ProjectDetail() {
     if (project) document.title = `${project.title} · Tamerat Gebeyehu`;
   }, [project]);
 
-  const shots = project ? Array.from({ length: project.images }, (_, i) => `/projects/${slug}/${i + 1}.jpg`) : [];
+  const groups = project ? screenshotGroups(project) : [];
+  // One flat list for the viewer, so the arrows move through every group.
+  const shots = groups.flatMap((g) => g.files);
   const move = useCallback((d) => setOpen((i) => (i + d + shots.length) % shots.length), [shots.length]);
   const close = useCallback(() => setOpen(null), []);
 
@@ -78,14 +80,26 @@ export default function ProjectDetail() {
       </PageHero>
 
       <div className="wrap wide">
-        <Reveal className="shots">
-          {shots.map((src, i) => (
-            <button key={src} className="shot" onClick={() => setOpen(i)} aria-label={`Open screenshot ${i + 1}`}>
-              <img src={src} alt={`${project.title} screenshot ${i + 1}`} loading="lazy" />
-            </button>
-          ))}
-        </Reveal>
-        <p className="muted small center">Tap a screenshot to see it bigger.</p>
+        {groups.map((g, gi) => {
+          const offset = groups.slice(0, gi).reduce((n, x) => n + x.files.length, 0);
+          return (
+            <div key={g.label ?? gi} className={gi > 0 ? 'shot-group later' : 'shot-group'}>
+              {gi > 0 && <Reveal><h2>{g.label}</h2></Reveal>}
+              <Reveal className={`shots ${gi > 0 ? 'plain' : ''}`}>
+                {g.files.map((src, i) => (
+                  <button key={src} className="shot" onClick={() => setOpen(offset + i)} aria-label={`Open screenshot ${offset + i + 1}`}>
+                    <img src={src} alt={`${project.title} screenshot ${offset + i + 1}`} loading="lazy" />
+                  </button>
+                ))}
+              </Reveal>
+              {gi === 0 && g.label ? (
+                <p className="shot-caption"><span className="pill">{g.label}</span> {g.note}</p>
+              ) : (
+                <p className="muted small center">{g.note ?? 'Tap a screenshot to see it bigger.'}</p>
+              )}
+            </div>
+          );
+        })}
 
         <div className="detail-grid">
           <Reveal className="detail-card">

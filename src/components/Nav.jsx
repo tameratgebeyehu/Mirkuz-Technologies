@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import LogoMark from './LogoMark';
 
 const LINKS = [
   { to: '/projects', label: 'Projects' },
@@ -27,8 +28,11 @@ export default function Nav() {
     <header className={`site-header ${scrolled ? 'scrolled' : ''} ${open ? 'open' : ''}`}>
       <div className="wrap wide bar">
         <Link to="/" className="name">
-          <span className="name-mark" aria-hidden="true">T</span>
-          Tamerat Gebeyehu
+          <LogoMark />
+          <span className="name-text">
+            Tamerat Gebeyehu
+            <small>Student developer · Dodola</small>
+          </span>
         </Link>
         <button
           className="menu-btn"

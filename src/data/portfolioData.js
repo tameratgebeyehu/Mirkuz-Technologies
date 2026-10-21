@@ -30,7 +30,7 @@ export const PROJECTS = [
       "Students choose their grade, subject and unit, then take a quiz. In Instant Mode they see the right answer and an explanation after each question. In Exam Mode they get one minute per question and see the score at the end.",
       "A student can download a unit once and then practise without internet. The app is in English and Amharic.",
     ],
-    why: "Internet in my town is slow and expensive, and good practice questions for the new curriculum are hard to find. I wanted something that still works when the connection does not.",
+    why: "I'm a student. After reading my textbooks, I wanted to test myself before exams, but I had no preparation tool. So I asked myself: why not build a quiz app that helps me study? That is how Zemen Academy started. Internet in my town is slow and expensive, so I made it work offline too.",
     learned: [
       "This is my first app on Google Play, so I learned the whole publishing and review process.",
       "How to save quizzes on the phone and send results to the server later, when the phone is online again.",
@@ -43,6 +43,17 @@ export const PROJECTS = [
       github: "https://github.com/tameratgebeyehu/zemen-academy",
     },
     images: 4,
+    // Screenshot groups, newest first. When new screenshots arrive, put them in
+    // public/projects/zemen-academy/v2/1.jpg, 2.jpg, ... and add a group above this one:
+    //   { label: "Today", folder: "v2", count: 5 },
+    screenshotGroups: [
+      {
+        label: "First version",
+        note: "These are the first screens of Zemen Academy. I keep them here as a memory of where it started.",
+        folder: "",
+        count: 4,
+      },
+    ],
     logo: "logo.png",
   },
   {
@@ -55,7 +66,7 @@ export const PROJECTS = [
     what: [
       "A roadmap from Grade 9 to the visa interview: what to do each year, a glossary of admissions words, a GPA calculator, and tips for essays and recommendation letters.",
     ],
-    why: "I am going through this process myself. Most of the information is spread across many English websites, and I did not know that preparation should start in Grade 9. I built the guide I wished I had.",
+    why: "My dream is to study at a top university in the U.S. In Grade 9, I started searching by myself: what is a scholarship? By Grade 10 I was only halfway. I was still learning about internships, fellowships, research, volunteering, sports, competitions, club leadership, projects, teaching other students, building a portfolio, work experience and hobbies. Then came the application itself: the SAT, the Duolingo English Test, the CSS Profile and interviews. Nobody showed me the path: what comes first, what is important and what is not. It took me a long time. I built Zemen Scholar so the next students can see the whole path clearly, step by step.",
     learned: [
       "How to use Supabase for log-in and a database.",
       "How to organise a lot of text so it is easy to read on a small phone screen.",
@@ -99,9 +110,10 @@ export const PROJECTS = [
     year: "2026",
     tech: ["React Native", "Expo"],
     what: [
-      "Places to visit, lodges and walking trails around Dodola, with a map. The app works in English, Amharic and Afaan Oromoo.",
+      "Places to visit around Dodola, plus banks, hotels and restaurants, with a map. The app works in English, Amharic and Afaan Oromoo.",
+      "I am now adding a new feature: tap a word, and the app says it with a local accent.",
     ],
-    why: "Dodola is close to the Bale Mountains, but information for visitors is hard to find. I am proud of where I come from and I want more people to see it.",
+    why: "This started as a hobby app. Many tourists pass through Dodola on their way to the Bale Mountains. They stop to eat, drink and rest, and they want to know about our town. Some of them decide to stay. I built this app so they can find what Dodola has: places to visit, banks, hotels and restaurants.",
     learned: [
       "How to support three languages in one app.",
       "How to make many photos load fast on a slow connection.",
@@ -125,7 +137,7 @@ export const PROJECTS = [
       "A wheat buyer records each farmer, the amount of grain and the price. The app adds everything up and shows a daily summary. It works offline and can print a receipt on a small Bluetooth printer.",
       "I pitched SindeTrack in the Blue Ocean student entrepreneurship competition in 2026. You can watch the pitch video below.",
     ],
-    why: "Wheat is very important in our area, and many local traders still keep their records in paper notebooks that can get lost or damaged.",
+    why: "My brother is a farmer. He buys wheat from other farmers and sells it. He used to write every purchase in a cheap paper notebook, and those records got lost. I kept thinking about an app that would keep his records safe, even if he changes his phone. That is how SindeTrack started.",
     learned: [
       "This was my first native Android app in Kotlin. It felt very different from React Native.",
     ],
@@ -168,8 +180,9 @@ export const PROJECTS = [
     what: [
       "Each Ge'ez letter has about seven forms (for example ሀ ሁ ሂ ሃ ሄ ህ ሆ). In AbayKey you tap the base letter and swipe in a direction to pick the form, instead of tapping many times.",
       "It is not working yet. I am starting with Amharic. Later I want to add Tigrinya, Afaan Oromoo, Somali and English.",
+      "Next, I want to add real-time Amharic voice typing (speech to text). I am studying open-source speech models that people share on Hugging Face. I could not find an Amharic keyboard that already does real-time voice typing.",
     ],
-    why: "Typing Amharic on a phone is slow for me and for most people I know. I want our language to be easy to type.",
+    why: "Most Amharic keyboards are not comfortable to use. So I started building my own, and I keep improving it. I want our language to be easy to type, and later to speak.",
     learned: [
       "Building a keyboard on Android is much harder than building a normal app. I am still learning how the Android input system works.",
     ],
@@ -178,6 +191,20 @@ export const PROJECTS = [
     logo: "logo.png",
   },
 ];
+
+// All screenshot groups of a project. Most projects have one group.
+export function screenshotGroups(project) {
+  const groups = project.screenshotGroups ?? [{ label: null, folder: "", count: project.images }];
+  return groups.map((g) => ({
+    ...g,
+    files: Array.from({ length: g.count }, (_, i) => `/projects/${project.slug}/${g.folder ? `${g.folder}/` : ""}${i + 1}.jpg`),
+  }));
+}
+
+// The screenshot used on cards: the first one of the newest group.
+export function coverShot(project) {
+  return screenshotGroups(project)[0].files[0];
+}
 
 export const BOOK = {
   title: "Code Ethiopia: From Zero to Developer",
@@ -258,6 +285,21 @@ export const VOLUNTEERING = [
     place: "Dodola · past",
     text: "I volunteered with the Ethiopian Red Cross Society in Dodola. I did the volunteer training in first aid and basic disaster response, and I helped with community activities.",
   },
+];
+
+// What I am working on right now (home page). Update this when it changes.
+export const NOW = [
+  { icon: "📱", text: "Improving Zemen Academy, now that it is on Google Play.", link: "/projects/zemen-academy" },
+  { icon: "🔊", text: "Adding a feature to Visit Dodola: tap a word and hear it with a local accent.", link: "/projects/visit-dodola" },
+  { icon: "🎙️", text: "Studying open-source speech models for Amharic voice typing in AbayKey.", link: "/projects/abaykey" },
+];
+
+// Who my apps are for (the rotating line on the home page). Each one matches a real project.
+export const BUILDING_FOR = [
+  "students preparing for exams",
+  "students who dream of studying abroad",
+  "visitors to my town, Dodola",
+  "wheat traders like my brother",
 ];
 
 // Key moments, oldest first. Only things with a date I can prove.
