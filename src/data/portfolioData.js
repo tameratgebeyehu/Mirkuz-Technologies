@@ -52,6 +52,8 @@ export const PROJECTS = [
         folder: "v2",
         count: 8,
         ext: "webp",
+        // Play Store images: 9:16, with their own phone frame and title text, so show them whole.
+        poster: true,
       },
       {
         label: "First version",
@@ -210,6 +212,11 @@ export function screenshotGroups(project) {
 // The screenshot used on cards: the first one of the newest group.
 export function coverShot(project) {
   return screenshotGroups(project)[0].files[0];
+}
+
+// True when the newest screenshots are Play Store images (shown whole, without an extra phone frame).
+export function coverIsPoster(project) {
+  return Boolean(screenshotGroups(project)[0].poster);
 }
 
 export const BOOK = {

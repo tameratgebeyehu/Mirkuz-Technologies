@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  PROFILE, PROJECTS, BOOK, CERTIFICATES, NOW, BUILDING_FOR, screenshotGroups,
+  PROFILE, PROJECTS, BOOK, CERTIFICATES, NOW, BUILDING_FOR, screenshotGroups, coverIsPoster,
 } from '../data/portfolioData';
 import Mountains from '../components/Mountains';
 import StatusPill from '../components/StatusPill';
 import Reveal from '../components/Reveal';
 import CountUp from '../components/CountUp';
+import usePageMeta from '../components/usePageMeta';
 
 const EXPLORE = [
   { to: '/projects', title: 'Projects', text: 'Every app I have built, with screenshots and downloads.', icon: '📱' },
@@ -31,9 +32,7 @@ function Rotator({ items, every = 2600 }) {
 }
 
 export default function Home() {
-  useEffect(() => {
-    document.title = 'Tamerat Gebeyehu';
-  }, []);
+  usePageMeta(null, "Tamerat Gebeyehu is a Grade 12 student in Dodola, Ethiopia, who builds offline learning apps for Ethiopian students. His quiz app Zemen Academy is on Google Play.");
 
   const zemen = PROJECTS.find((p) => p.slug === 'zemen-academy');
   const featured = PROJECTS.filter((p) => p.featured);
@@ -103,9 +102,9 @@ export default function Home() {
             {featured.map((p, i) => (
               <Reveal key={p.slug} delay={i * 120}>
                 <Link to={`/projects/${p.slug}`} className="featured-card">
-                  <div className="featured-shots">
+                  <div className={`featured-shots ${coverIsPoster(p) ? 'posters' : ''}`}>
                     {screenshotGroups(p)[0].files.slice(0, 3).map((src) => (
-                      <span key={src} className="phone"><img src={src} alt="" loading="lazy" /></span>
+                      <span key={src} className={coverIsPoster(p) ? 'poster' : 'phone'}><img src={src} alt="" loading="lazy" /></span>
                     ))}
                   </div>
                   <div className="featured-body">

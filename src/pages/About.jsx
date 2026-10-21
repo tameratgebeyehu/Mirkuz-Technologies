@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   PROFILE, SCHOOL, EXPERIENCE, SKILLS, LANGUAGES, VOLUNTEERING, TIMELINE,
 } from '../data/portfolioData';
 import PageHero from '../components/PageHero';
 import Reveal from '../components/Reveal';
+import usePageMeta from '../components/usePageMeta';
 
 export default function About() {
-  useEffect(() => {
-    document.title = 'About · Tamerat Gebeyehu';
-  }, []);
+  usePageMeta('About', "About Tamerat Gebeyehu: a Grade 12 Natural Science student at Hawiko Academy in Dodola, Ethiopia, who teaches himself to build apps.");
 
   return (
     <>
