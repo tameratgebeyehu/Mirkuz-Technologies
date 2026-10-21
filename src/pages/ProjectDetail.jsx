@@ -61,27 +61,25 @@ export default function ProjectDetail() {
       <PageHero
         eyebrow={(
           <Link to="/projects" className="back-pill">
-            <span className="back-arrow" aria-hidden="true">←</span> All projects
+            <span className="back-arrow"><Icon name="arrowLeft" size={14} stroke={2.4} /></span> All projects
           </Link>
         )}
         title={project.title}
       >
         <div className="project-hero-row">
           <img className="project-logo" src={`/projects/${slug}/${project.logo}`} alt="" />
-          <div>
-            <p className="hero-sub" style={{ marginTop: 0 }}>{project.oneLine}</p>
-            <div className="hero-meta">
-              <StatusPill status={project.status} />
-              <span>{project.year}</span>
-            </div>
+          <div className="hero-meta">
+            <StatusPill status={project.status} />
+            <span>{project.year}</span>
           </div>
         </div>
-        <div className="buttons">
-          {links.play && <a className="btn primary" href={links.play} target="_blank" rel="noopener noreferrer">Get it on Google Play</a>}
-          {links.apk && <a className={`btn ${links.play ? 'ghost' : 'primary'}`} href={links.apk} download>Download APK (Android)</a>}
-          {links.video && <a className="btn ghost" href={links.video} target="_blank" rel="noopener noreferrer"><Icon name="play" size={14} stroke={2.2} /> Watch the pitch video</a>}
-          {links.website && <a className="btn ghost" href={links.website} target="_blank" rel="noopener noreferrer">Website</a>}
-          {links.github && <a className="btn ghost" href={links.github} target="_blank" rel="noopener noreferrer">Code on GitHub</a>}
+        <p className="hero-sub">{project.oneLine}</p>
+        <div className="buttons project-actions">
+          {links.play && <a className="btn primary" href={links.play} target="_blank" rel="noopener noreferrer"><Icon name="play" size={15} stroke={2.2} /> Get it on Google Play</a>}
+          {links.apk && <a className={`btn ${links.play ? 'ghost' : 'primary'}`} href={links.apk} download><Icon name="download" size={16} /> Download APK</a>}
+          {links.video && <a className="btn ghost" href={links.video} target="_blank" rel="noopener noreferrer"><Icon name="play" size={15} stroke={2.2} /> Pitch video</a>}
+          {links.website && <a className="btn ghost" href={links.website} target="_blank" rel="noopener noreferrer"><Icon name="globe" size={16} /> Website</a>}
+          {links.github && <a className="btn ghost" href={links.github} target="_blank" rel="noopener noreferrer"><Icon name="github" size={16} /> GitHub</a>}
           {!links.play && !links.apk && <span className="hero-note">No download yet. I am still building it.</span>}
         </div>
       </PageHero>
