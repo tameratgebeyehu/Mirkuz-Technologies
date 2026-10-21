@@ -1,11 +1,11 @@
 {
-  "name": "Tamerat Gebeyehu | Digital Headquarters",
+  "name": "Tamerat Gebeyehu",
   "short_name": "Tamerat",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#060913",
-  "theme_color": "#10B981",
-  "description": "Professional portfolio of Tamerat Gebeyehu, a software developer from Ethiopia.",
+  "background_color": "#fbfaf7",
+  "theme_color": "#0b7a53",
+  "description": "Personal website of Tamerat Gebeyehu, a Grade 12 student and app builder in Dodola, Ethiopia.",
   "icons": [
     {
       "src": "/logos/pwa-192.png",

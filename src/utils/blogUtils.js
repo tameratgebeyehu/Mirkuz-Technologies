@@ -2,7 +2,9 @@
  * A lightweight utility to parse Markdown files with frontmatter.
  */
 
-export const parseMarkdown = (content) => {
+export const parseMarkdown = (rawContent) => {
+  // Windows checkouts can have CRLF line endings; the parser expects LF.
+  const content = rawContent.replace(/\r\n/g, '\n');
   const frontmatterRegex = /^---\n([\s\S]*?)\n---/;
   const match = content.match(frontmatterRegex);
   const frontmatter = {};

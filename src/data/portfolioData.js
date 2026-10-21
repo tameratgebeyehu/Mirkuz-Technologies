@@ -1,609 +1,322 @@
-export const G = {
-  green: "#10B981",
-  greenGlow: "rgba(16,185,129,0.1)",
-  dark: "#060913",
-  card: "rgba(255,255,255,0.02)",
-  slate: "#94A3B8",
-  slateLight: "#CBD5E1",
-  white: "#F8FAFC",
-  
-  // Social & Contact Links
+// All text on the site lives here. Rule for this file: only write things
+// that are true today and that someone could check. If something is not
+// finished, say "in progress". If there is no proof yet, leave it out.
+
+export const PROFILE = {
+  name: "Tamerat Gebeyehu",
+  town: "Dodola, Oromia, Ethiopia",
   email: "tameratgebeyehu1@gmail.com",
   github: "https://github.com/tameratgebeyehu",
   linkedin: "https://linkedin.com/in/tamerat-gebeyehu-39074a367",
   telegram: "https://t.me/silencewarrenty",
-  phone1: "+251938520306",
-  phone2: "+251725520306"
+  photo: "/logos/profile.jpg",
 };
 
+// Status words used on the site:
+//   "On Google Play" – public on the Play Store
+//   "Prototype"      – works and can be installed from the APK, but has no real user base
+//   "In development" – not finished, no download yet
+// "featured: true" projects are shown big at the top of the home page.
 export const PROJECTS = [
   {
-    id: 1,
-    title: "ADEVeil",
-    slug: "adeveil",
-    category: "Privacy Tool",
-    status: "Production",
-    description: "A runtime privacy and security platform for Android.",
-    fullDescription: {
-      problem: "Standard mobile applications leak sensitive data through OS-level mechanics like background snapshots and clipboard access. Users have no control over their runtime privacy.",
-      solution: "A multi-layered Runtime Protection System that hardens input fields, prevents screen captures, and blurs sensitive app content during background transitions.",
-      features: [
-        { name: "Offline-first privacy", desc: "All encryption happens locally. No cloud dependencies." },
-        { name: "Secure vault", desc: "A military-grade encrypted storage system for sensitive documents." },
-        { name: "Runtime protection", desc: "Actively prevents OS-level data leakage and screen recording." }
-      ],
-      impact: "Successfully compiled and deployed as a production-ready APK.",
-      why: "Privacy is a fundamental human right, not a premium feature."
-    },
-    tech: ["React Native", "Expo", "TypeScript"],
-    type: "Mobile",
-    color: "#6366F1",
-    icon: "Shield",
-    gallery: [5, 4, 1, 2, 3],
-    links: { download: null, demo: null, github: null },
-    timeline: [
-      { date: "May 2026", event: "Production APK Compilation" },
-      { date: "April 2026", event: "Runtime Protection implementation" }
-    ]
-  },
-  {
-    id: 2,
-    title: "Zemen Scholar",
-    slug: "zemen-scholar",
-    category: "EdTech",
-    status: "Version 1.0",
-    description: "The Digital Gateway for Ethiopian Students to US Higher Education.",
-    fullDescription: {
-      problem: "In the Ethiopian education system, many students don't realize that US university preparation starts long before Grade 12.",
-      solution: "I built Zemen Scholar to be the mentor I wish I had. It is a comprehensive roadmap that guides students through every milestone from Grade 9 to the day they receive their visa.",
-      features: [
-        { name: "The 'Scholar’s Glossary'", desc: "A curated dictionary of essential admissions terminology." },
-        { name: "The 4-Year Roadmap", desc: "A strategic timeline that tells students exactly what to do and when." }
-      ],
-      impact: "Currently deployed among a peer group of Ethiopian students.",
-      why: "I believe that a student's potential should not be limited by where they were born."
-    },
-    tech: ["Flutter", "Supabase", "Dart"],
-    type: "Mobile",
-    color: "#059669",
-    icon: "GraduationCap",
-    links: { download: null, demo: null, github: "https://github.com/tameratgebeyehu" }
-  },
-  {
-    id: 2.5,
-    title: "Zemen Academy",
     slug: "zemen-academy",
-    category: "EdTech",
-    status: "Active Beta",
-    description: "Offline-first mastery for the New Ethiopian Curriculum.",
-    fullDescription: {
-      problem: "The transition to the 'New Curriculum' in Ethiopia left many students without adequate practice materials. Moreover, reliable internet access is still a luxury in many regions, making most online learning platforms unusable for the students who need them most.",
-      solution: "Zemen Academy provides 5,000+ curriculum-aligned practice questions and AI-powered explanations that work entirely offline. It's designed to bring high-quality tutoring to every village.",
-      features: [
-        { name: "Offline Mastery", desc: "Download once, learn forever. No internet required for daily practice or progress tracking." },
-        { name: "New Curriculum Focus", desc: "Every question is mapped strictly to the latest Ethiopian Ministry of Education standards." },
-        { name: "AI Feedback", desc: "Local LLM integration that explains why an answer is wrong, even when disconnected from the cloud." }
-      ],
-      impact: "Testing with students in the West Arsi Zone to refine the offline sync mechanism.",
-      why: "Education is a right, not a privilege of the connected."
+    title: "Zemen Academy",
+    oneLine: "A quiz app for Ethiopian students in Grades 9–12. It works offline, and it has been on Google Play since October 2026.",
+    status: "On Google Play",
+    year: "Dec 2025 – now",
+    featured: true,
+    tech: ["React Native", "Expo", "Google Apps Script", "Google Sheets"],
+    what: [
+      "Students choose their grade, subject and unit, then take a quiz. In Instant Mode they see the right answer and an explanation after each question. In Exam Mode they get one minute per question and see the score at the end.",
+      "A student can download quizzes and notes once and then study without internet. The app is in English and Amharic.",
+      "It also has study notes with diagrams, a four-week study timetable, a daily goal, and a progress page that shows scores week by week.",
+    ],
+    why: "I'm a student. After reading my textbooks, I wanted to test myself before exams, but I had no preparation tool. So I asked myself: why not build a quiz app that helps me study? That is how Zemen Academy started. Internet in my town is slow and expensive, so I made it work offline too.",
+    learned: [
+      "This is my first app on Google Play, so I learned the whole publishing and review process.",
+      "How to save quizzes on the phone and send results to the server later, when the phone is online again.",
+      "How to use Google Sheets as a simple back end, so I can add questions without changing the app.",
+    ],
+    links: {
+      play: "https://play.google.com/store/apps/details?id=com.zemenacademy.app",
+      website: "https://zemenacademy.com",
+      apk: "/apks/zemen-academy.apk",
+      github: "https://github.com/tameratgebeyehu/zemen-academy",
     },
-    tech: ["React Native", "SQLite", "Node.js"],
-    type: "Mobile",
-    color: "#10B981",
-    icon: "BookOpen",
-    links: { download: null, demo: null, github: null }
+    images: 4,
+    // Screenshot groups, newest first.
+    screenshotGroups: [
+      {
+        label: "Today",
+        note: "The app as it is now on Google Play.",
+        folder: "v2",
+        count: 8,
+        ext: "webp",
+      },
+      {
+        label: "First version",
+        note: "These are the first screens of Zemen Academy. I keep them here as a memory of where it started.",
+        folder: "",
+        count: 4,
+      },
+    ],
+    logo: "logo.png",
   },
   {
-    id: 3,
-    title: "SindeTrack",
-    slug: "sindetrack",
-    category: "AgriTech",
-    status: "Production",
-    description: "Digitizing agricultural logistics for local wheat trade.",
-    fullDescription: {
-      problem: "Local wheat traders in Ethiopia rely on paper ledgers, which lead to significant data loss and slow bookkeeping.",
-      solution: "A mobile logistics engine that tracks grain collection, automates bookkeeping, and prints physical receipts.",
-      features: [
-        { name: "Thermal Print Integration", desc: "Instant physical proof of transaction." },
-        { name: "Daily Reporting", desc: "Reduced bookkeeping time by 80%." }
-      ],
-      impact: "Eliminated paper-based data loss for early-adopter traders.",
-      why: "To modernize the backbone of our economy—agriculture."
+    slug: "zemen-scholar",
+    title: "Zemen Scholar",
+    oneLine: "A step-by-step guide for Ethiopian students who want to study in the U.S.",
+    status: "Prototype",
+    year: "2026",
+    tech: ["React Native", "Expo", "TypeScript", "Supabase"],
+    what: [
+      "A roadmap from Grade 9 to the visa interview: what to do each year, a glossary of admissions words, a GPA calculator, and tips for essays and recommendation letters.",
+    ],
+    why: "My dream is to study at a top university in the U.S. In Grade 9, I started searching by myself: what is a scholarship? By Grade 10 I was only halfway. I was still learning about internships, fellowships, research, volunteering, sports, competitions, club leadership, projects, teaching other students, building a portfolio, work experience and hobbies. Then came the application itself: the SAT, the Duolingo English Test, the CSS Profile and interviews. Nobody showed me the path: what comes first, what is important and what is not. It took me a long time. I built Zemen Scholar so the next students can see the whole path clearly, step by step.",
+    learned: [
+      "How to use Supabase for log-in and a database.",
+      "How to organise a lot of text so it is easy to read on a small phone screen.",
+    ],
+    links: {
+      apk: "/apks/zemen-scholar.apk",
+      github: "https://github.com/tameratgebeyehu/zemen-scholar",
     },
-    tech: ["Flutter", "Bluetooth API", "FastAPI"],
-    type: "Logistics",
-    color: "#D97706",
-    icon: "Wheat",
-    links: { download: null, demo: null, github: null }
+    images: 5,
+    logo: "logo.png",
   },
   {
-    id: 4,
-    title: "AbayKey",
-    slug: "abaykey",
-    category: "System Tool",
-    status: "RC-1",
-    description: "Ethiopia's first gesture-family keyboard engine.",
-    fullDescription: {
-      problem: "Ethiopic scripts are complex. Existing keyboards are either too slow or too cramped.",
-      solution: "A 'Gesture-Family' engine where users press a base character and swipe to select variations.",
-      features: [
-        { name: "Gesture Engine", desc: "Slide to select the correct vowel variation instantly." },
-        { name: "Clipboard Manager", desc: "Privacy-first, offline-only clipboard history for productivity." }
-      ],
-      impact: "Aiming to become the standard input method for Ge'ez scripts on Android.",
-      why: "Our digital world should speak our language as fluently as we do."
+    slug: "adeveil",
+    title: "ADEVeil",
+    oneLine: "An offline privacy app: encrypted notes, messages and a locked vault.",
+    status: "Prototype",
+    year: "2026",
+    tech: ["React Native", "Expo", "TypeScript"],
+    what: [
+      "You can encrypt a message before you send it in any chat app, keep encrypted notes, and store files in a locked vault. The app has no accounts and makes no internet requests.",
+      "It also blocks screenshots and hides its content when you switch apps.",
+    ],
+    why: "This started as a hobby. My friend and I chat on Telegram, but sometimes our phones are not in our hands, and other people try to read our chats. So I built an app for it: I type my message, the app turns it into encrypted text, and I send that text on Telegram. My friend opens it in the app with a password we agreed on in person, and only then can he read it.",
+    learned: [
+      "The basics of encryption on a phone, and why you should use well-tested libraries instead of writing your own.",
+      "How Android screenshots and the app-switcher preview work, and how to block them.",
+    ],
+    note: "This is a learning project. Nobody has done a security audit of it, so please do not use it for very important secrets.",
+    links: {
+      apk: "/apks/adeveil.apk",
+      github: "https://github.com/tameratgebeyehu/ADEVEIL",
     },
-    tech: ["Android SDK", "Kotlin", "Java"],
-    type: "OS Tool",
-    color: "#DB2777",
-    icon: "Keyboard",
-    links: { download: null, demo: null, github: null }
+    images: 5,
+    logo: "logo.png",
   },
   {
-    id: 5,
-    title: "Visit Dodola",
     slug: "visit-dodola",
-    category: "Tourism",
-    status: "Live",
-    description: "The official digital guide to the gateway of the Bale Mountains.",
-    fullDescription: {
-      problem: "Dodola is a hidden gem, but information for international tourists was scattered.",
-      solution: "A comprehensive digital portal showcasing the best of Dodola.",
-      features: [],
-      impact: "Professionalizing the digital presence of local tourism.",
-      why: "I'm proud of where I come from. I want the world to see it too."
+    title: "Visit Dodola",
+    oneLine: "A travel guide app for my town and the Bale Mountains area.",
+    status: "Prototype",
+    year: "2026",
+    tech: ["React Native", "Expo"],
+    what: [
+      "Places to visit around Dodola, plus banks, hotels and restaurants, with a map. The app works in English, Amharic and Afaan Oromoo.",
+      "I am now adding a new feature: tap a word, and the app says it with a local accent.",
+    ],
+    why: "This started as a hobby app. Many tourists pass through Dodola on their way to the Bale Mountains. They stop to eat, drink and rest, and they want to know about our town. Some of them decide to stay. I built this app so they can find what Dodola has: places to visit, banks, hotels and restaurants.",
+    learned: [
+      "How to support three languages in one app.",
+      "How to make many photos load fast on a slow connection.",
+    ],
+    links: {
+      apk: "/apks/visit-dodola.apk",
+      github: "https://github.com/tameratgebeyehu/visit-dodola",
     },
-    tech: ["React", "CSS3", "Vite"],
-    type: "Web App",
-    color: "#2563EB",
-    icon: "Mountain",
-    links: { download: null, demo: "https://mirkuztechnologies.com", github: null }
+    images: 5,
+    logo: "logo.png",
   },
   {
-    id: 6,
-    title: "TallPath",
+    slug: "sindetrack",
+    title: "SindeTrack",
+    oneLine: "An offline record book for local wheat traders, with Bluetooth receipt printing. I pitched it at the Blue Ocean competition in 2026.",
+    status: "Prototype",
+    year: "2026",
+    featured: true,
+    tech: ["Kotlin", "Jetpack Compose", "Android"],
+    what: [
+      "A wheat buyer records each farmer, the amount of grain and the price. The app adds everything up and shows a daily summary. It works offline and can print a receipt on a small Bluetooth printer.",
+      "I pitched SindeTrack in the Blue Ocean student entrepreneurship competition in 2026. You can watch the pitch video below.",
+    ],
+    why: "My brother is a farmer. He buys wheat from other farmers and sells it. He used to write every purchase in a cheap paper notebook, and those records got lost. I kept thinking about an app that would keep his records safe, even if he changes his phone. That is how SindeTrack started.",
+    learned: [
+      "This was my first native Android app in Kotlin. It felt very different from React Native.",
+    ],
+    links: {
+      apk: "/apks/sindetrack.apk",
+      video: "https://youtu.be/Ww-EElGvb68",
+    },
+    images: 4,
+    logo: "logo.jpg",
+  },
+  {
     slug: "tallpath",
-    category: "EdTech",
-    status: "Beta",
-    description: "Simplifying complex learning journeys for high-achievers.",
-    fullDescription: {
-      problem: "Advanced learners often get lost in a 'sea of content' without a clear path to mastery.",
-      solution: "A path-finding engine that curates resources based on end-goals.",
-      features: [],
-      impact: "Helping students in my community find their way in the global classroom.",
-      why: "The shortest distance between potential and achievement is a clear path."
+    title: "TallPath",
+    oneLine: "A daily routine tracker for sleep, stretching and posture.",
+    status: "Prototype",
+    year: "2026",
+    tech: ["React Native", "Expo", "AsyncStorage"],
+    what: [
+      "You make your own daily routine (sleep time, stretching, exercise). The app reminds you, counts your streak, and shows a 365-day grid of the days you finished everything. It works fully offline, with no account.",
+    ],
+    why: "I wanted to exercise every day, but I was not disciplined about it. So I built an app that reminds me every day and shows me which exercises to do and how. That is how TallPath started.",
+    learned: [
+      "How to schedule local notifications on Android and iOS.",
+      "How to calculate streaks correctly when days are missed.",
+    ],
+    links: {
+      apk: "/apks/tallpath.apk",
+      github: "https://github.com/tameratgebeyehu/tallpath-app",
     },
-    tech: ["React", "PostgreSQL", "Tailwind"],
-    type: "Platform",
-    color: "#7C3AED",
-    icon: "Rocket",
-    links: { download: null, demo: null, github: null }
-  }
-];
-
-export const LAB_PROJECTS = [
-  {
-    id: 7,
-    title: "TDA Trading Bot",
-    status: "Active Testing",
-    progress: 75,
-    icon: "Bot",
-    tech: ["Python", "Mathematical Modeling", "Real-market Data"],
-    problem: "High-frequency trading is often driven by human emotion and fatigue, leading to inconsistent results.",
-    solution: "An algorithmic engine designed to execute strategies based on cold data, removing the 'human element' from entry and exit points.",
-    statusDetail: "Currently in a sandbox environment to validate the mathematical model before real-market capital deployment."
+    images: 4,
+    logo: "logo.png",
   },
   {
-    id: 8,
-    title: "DELALA",
-    status: "Prototyping",
-    progress: 40,
-    icon: "Handshake",
-    tech: ["React Native", "Trust Architecture", "Verified Listings"],
-    problem: "Ethiopia's informal brokerage (Delala) system is unorganized and lacks transparency.",
-    solution: "A transparent digital brokerage platform that professionalizes the middleman role with verified listings and clear communication channels.",
-    statusDetail: "Focusing on the trust-verification module to prevent fraudulent listings."
+    slug: "abaykey",
+    title: "AbayKey",
+    oneLine: "An Amharic keyboard I am still building: tap a letter, then swipe to choose its form. It does not work yet.",
+    status: "In development",
+    year: "2026",
+    tech: ["Android", "Kotlin", "Java"],
+    what: [
+      "Each Ge'ez letter has about seven forms (for example ሀ ሁ ሂ ሃ ሄ ህ ሆ). In AbayKey you tap the base letter and swipe in a direction to pick the form, instead of tapping many times.",
+      "It is not working yet. I am starting with Amharic. Later I want to add Tigrinya, Afaan Oromoo, Somali and English.",
+      "Next, I want to add real-time Amharic voice typing (speech to text). I am studying open-source speech models that people share on Hugging Face. I could not find an Amharic keyboard that already does real-time voice typing.",
+    ],
+    why: "Most Amharic keyboards are not comfortable to use. So I started building my own, and I keep improving it. I want our language to be easy to type, and later to speak.",
+    learned: [
+      "Building a keyboard on Android is much harder than building a normal app. I am still learning how the Android input system works.",
+    ],
+    links: {},
+    images: 4,
+    logo: "logo.png",
   },
+];
+
+// All screenshot groups of a project. Most projects have one group.
+export function screenshotGroups(project) {
+  const groups = project.screenshotGroups ?? [{ label: null, folder: "", count: project.images }];
+  return groups.map((g) => ({
+    ...g,
+    files: Array.from({ length: g.count }, (_, i) => `/projects/${project.slug}/${g.folder ? `${g.folder}/` : ""}${i + 1}.${g.ext ?? "jpg"}`),
+  }));
+}
+
+// The screenshot used on cards: the first one of the newest group.
+export function coverShot(project) {
+  return screenshotGroups(project)[0].files[0];
+}
+
+export const BOOK = {
+  title: "Code Ethiopia: From Zero to Developer",
+  cover: "/books/code-ethiopia-cover.webp",
+  buy: "https://ye-buna.com/tameratgebeyehu?ref=product_detail&product=6a23f52684b6e_tameratgebeyehu",
+  shop: "Ye-Buna",
+  oneLine: "A beginner's book about programming, written for Ethiopian students who are starting from zero.",
+  topics: [
+    "What programming is, and how to set up your computer",
+    "Python basics: variables, data types, input and output",
+    "Making decisions and loops",
+    "Functions and modules",
+    "Lists, tuples, dictionaries and sets",
+    "Object-oriented programming",
+    "JavaScript basics for the browser",
+    "Problem solving and debugging",
+    "Building small real projects",
+    "Next steps: portfolios, freelancing and learning on your own",
+  ],
+};
+
+export const SCHOOL = {
+  name: "Hawiko Academy Secondary School",
+  town: "Dodola, Ethiopia",
+  detail: "Grade 12, Natural Science stream",
+  years: "Sep 2023 – Jun 2027",
+};
+
+export const EXPERIENCE = [
   {
-    id: 9,
-    title: "QOTABI & QOTABI Pay",
-    status: "Researching",
-    progress: 30,
-    icon: "Coins",
-    tech: ["Fintech", "Micro-savings", "Offline-logic"],
-    problem: "Saving small amounts is difficult without disciplined tools or accessible digital banking.",
-    solution: "A micro-savings platform following the 'Frugal Living' philosophy. Includes QOTABI Pay for secure, small-scale transactions.",
-    statusDetail: "Designing the offline transaction sync mechanism for rural areas."
+    title: "Student Developer – Zemen Academy",
+    detail: "Personal project, self-employed",
+    years: "Dec 2025 – now",
+    text: "I design, build and publish the Zemen Academy app on my own, while I am in school.",
+    link: "/projects/zemen-academy",
   },
-  {
-    id: 10,
-    title: "ADE Coffee",
-    status: "Concept",
-    progress: 20,
-    icon: "Coffee",
-    tech: ["Traceability", "Logistics", "Direct-to-Consumer"],
-    problem: "Coffee farmers often lack direct access to global markets and consumers miss the true 'story' of the bean.",
-    solution: "A traceability-focused logistics engine that connects the origin of the coffee directly to the final consumer.",
-    statusDetail: "Mapping the supply chain nodes for transparent tracking."
-  },
-  {
-    id: 11,
-    title: "ADDE",
-    status: "Alpha",
-    progress: 15,
-    icon: "Package",
-    tech: ["Premium Logistics", "Resell Ecosystem", "UI/UX"],
-    problem: "The secondary resell market in Ethiopia lacks a premium, high-trust logistics experience.",
-    solution: "A premium resell platform that treats every delivery with 'Apple-level' care and transparency.",
-    statusDetail: "Crafting the visual identity and packaging standards."
-  }
 ];
 
-export const ACADEMIC_FOUNDATION = [
-  { org: "Hawiko Academy Secondary School", location: "Dodola, Oromia, Ethiopia", role: "Grade 11 Student (Current)", desc: "Focusing on Natural Sciences and advanced mathematics, maintaining a high academic standing while pursuing international certifications." },
-  { org: "Victory Wisdom School", location: "General Secondary Education", role: "2022 – 2024", desc: "Core foundation in secondary education." }
-];
-
-export const TECHNICAL_SPECIALIZATIONS = [
-  { org: "WorldQuant University", title: "Applied Data Science Lab", date: "Jan 2025 – Present", desc: "Developing skills in large-scale data analysis and statistical modeling.", color: "#1E3A5F", logo: "WQ" },
-  { org: "University of Chicago", title: "Machine Learning: Concepts & Applications", date: "Current", desc: "Studying the mathematical foundations and practical deployment of ML models.", color: "#8B0000", logo: "UC" },
-  { org: "Princeton University", title: "Computer Science: Programming with a Purpose", date: "Current", desc: "Focusing on scientific computing, algorithm design, and fundamental CS principles.", color: "#F97316", logo: "P" },
-  { org: "Evangadi Tech", title: "Full-Stack Software Engineering", date: "2024 – Present", desc: "The core foundation for building mobile and web applications (React, Node.js).", color: "#059669", logo: "ET" },
-  { org: "Google", title: "IT Support Professional Certificate", date: "Current", desc: "Mastering troubleshooting, networking, operating systems, and security.", color: "#4285F4", logo: "G" },
-  { org: "Admas Aero Nexus", title: "Aerospace Engineering & Aircraft Design", date: "March 2026 – Present", desc: "Exploring aerodynamics, structural design, and flight mechanics.", color: "#64748B", logo: "AN" },
-  { org: "Macquarie University", title: "Excel Skills for Business", date: "Feb 2026 – March 2026", desc: "Advanced spreadsheet modeling and business intelligence techniques.", color: "#C41E3A", logo: "MQ" }
-];
-
-export const CERTIFICATIONS = [
-  { 
-    id: 10, 
-    title: "Certificate of Recognition", 
-    org: "Blue Ocean Strategy", 
-    slug: "recognition-blue-ocean",
-    link: "https://credsverse.com/credentials/ff1642d5-7519-44e5-9d1c-5919299ab5e6", 
-    desc: "Awarded for participating in the world's largest virtual entrepreneurship pitch competition for high school students.",
-    fullDescription: {
-      overview: "Awarded for participating in the world's largest virtual entrepreneurship pitch competition for high school students. This recognition validates my leadership in drafting a complete strategic pitch, analyzing market boundaries, and creating a 'Blue Ocean' offering to bypass competition.",
-      skills: ["Strategic Planning", "Blue Ocean Strategy Formulation", "Value Curve Design", "Competitive Pitching"],
-      modules: ["The Strategy Canvas", "Eliminate-Reduce-Raise-Create (ERRC) Grid", "Four Actions Framework", "Utility, Price, and Cost Test"],
-      credentialId: "ff1642d5-7519-44e5-9d1c-5919299ab5e6",
-      syllabus: "Focuses on identifying uncontested market spaces, analyzing value curves, and pitching innovations to global evaluators. Applied these methodologies directly to localized problems in Ethiopia."
-    }
-  },
-  { 
-    id: 8, 
-    title: "Student Entrepreneurship", 
-    org: "Blue Ocean Strategy", 
-    slug: "entrepreneurship-blue-ocean",
-    link: "https://credsverse.com/credentials/abe66077-feb7-4692-8aeb-f96dd747a525", 
-    desc: "Strategic innovation and market-creation principles.",
-    fullDescription: {
-      overview: "A dedicated credential demonstrating deep understanding of strategic innovation, value creation, and entrepreneurship. Covers the foundational rules of Blue Ocean theory and competitive analysis.",
-      skills: ["Value Innovation", "Strategic Positioning", "Niche Identification", "Business Model Design"],
-      modules: ["Introduction to Blue Ocean Strategy", "Red Ocean vs. Blue Ocean Dynamics", "The Three Tiers of Non-Customers", "Value-Cost Trade-off"],
-      credentialId: "abe66077-feb7-4692-8aeb-f96dd747a525",
-      syllabus: "Curriculum covers structural assumptions, value innovation principles, and defining target customer segments while creating uncontested market space."
-    }
-  },
-  { 
-    id: 5, 
-    title: "Excel Skills for Business: Essentials", 
-    org: "Macquarie University", 
-    slug: "excel-essentials-macquarie",
-    link: "https://www.coursera.org/account/accomplishments/verify/JKZ23217P292", 
-    desc: "Professional spreadsheet management and data logic.",
-    fullDescription: {
-      overview: "A professional course certifying expert-level spreadsheet management, data logic, and operational modeling. Issued by Macquarie University, this training establishes high competency in business intelligence.",
-      skills: ["Spreadsheet Modeling", "Data Analysis", "Mathematical Formulas", "Chart Design"],
-      modules: ["Introduction to Spreadsheet Layout", "Managing Data with Logic & Sorting", "Fundamental Formulas (SUM, AVERAGE, standard operators)", "Essential Functions (VLOOKUP, IF, nested statements)", "Charts & Data Visualization"],
-      credentialId: "JKZ23217P292",
-      syllabus: "Detailed training on spreadsheet design, mathematical modeling, conditional logic, complex functions, and professional data visualization practices."
-    }
-  },
-  { 
-    id: 9, 
-    title: "Red Cross Volunteer", 
-    org: "ERCS", 
-    slug: "red-cross-volunteer",
-    link: "#", 
-    desc: "Certified in community service and emergency response.",
-    fullDescription: {
-      overview: "Certified volunteer training completed under the Ethiopian Red Cross Society (ERCS). Equips participants with operational capability in community first aid, disaster response, and humanitarian support.",
-      skills: ["First Aid & CPR", "Disaster Preparedness", "Emergency Coordination", "Civic Leadership"],
-      modules: ["History of the Red Cross & Red Crescent Movement", "First Aid Essentials (wound care, fractures, choking, CPR)", "Community Disaster Risk Reduction", "Humanitarian Principles and Volunteer Ethics"],
-      credentialId: "N/A (Local Paper Record)",
-      syllabus: "Hands-on training covering emergency healthcare response, disaster resilience, first aid procedures, and community advocacy under local ERCS guidelines."
-    }
-  },
-  { 
-    id: 1, 
-    title: "AI Fundamentals", 
-    org: "Google", 
-    slug: "google-ai-fundamentals",
-    link: "https://coursera.org/share/715a24a86008fc1b9ca8ca0b36fc2970", 
-    desc: "Core concepts of neural networks and generative AI models.",
-    fullDescription: {
-      overview: "A professional credential issued by Google certifying foundational understanding of machine learning algorithms, deep neural network concepts, and generative AI models.",
-      skills: ["Machine Learning", "Generative AI", "Neural Networks", "Responsible AI"],
-      modules: ["Introduction to Generative AI", "Introduction to Large Language Models", "Introduction to Image Generation", "Responsible AI Principles and Ethics"],
-      credentialId: "715a24a86008fc1b9ca8ca0b36fc2970",
-      syllabus: "Focuses on modern neural networks, predictive analytics, natural language models, semantic search, and structural differences between standard programming and AI-driven development."
-    }
-  },
-  { 
-    id: 3, 
-    title: "AI for Business Professionals", 
-    org: "HP Life", 
-    slug: "hp-life-ai-business",
-    link: "https://www.life-global.org/certificate/fcb202f9-af69-4764-80ee-830179eb52a4", 
-    desc: "Strategic implementation of AI in business workflows.",
-    fullDescription: {
-      overview: "HP Life certification validating knowledge of AI integration, automation, and workflow enhancement in small-to-medium business operations.",
-      skills: ["Business Automation", "Workflow Optimization", "AI Integration", "Strategic Innovation"],
-      modules: ["Introduction to AI in Business", "Process Mapping and Automation Tools", "Ethical AI Considerations for SMBs", "Practical Implementation Roadmap"],
-      credentialId: "fcb202f9-af69-4764-80ee-830179eb52a4",
-      syllabus: "Examines the practical application of artificial intelligence tools to streamline sales, customer service, operations, and technical infrastructure in corporate environments."
-    }
-  },
-  { 
-    id: 4, 
-    title: "Data Science & Analytics", 
-    org: "HP Life", 
-    slug: "hp-life-data-science",
-    link: "https://www.life-global.org/certificate/793e630d-a24d-4b48-ba77-4a59b9a62fa5", 
-    desc: "Techniques for data processing and predictive analysis.",
-    fullDescription: {
-      overview: "An analytical credential focused on descriptive and predictive analytics, data cleaning, and statistical metrics to drive data-informed decision-making.",
-      skills: ["Descriptive Analytics", "Data Cleaning", "Data Visualization", "Predictive Modeling"],
-      modules: ["Understanding Structured and Unstructured Data", "Descriptive vs. Predictive Modeling", "Visualizing and Interpreting Insights", "Actionable Decision Frameworks"],
-      credentialId: "793e630d-a24d-4b48-ba77-4a59b9a62fa5",
-      syllabus: "Covers techniques for collecting business data, preprocessing and cleaning data, building simple predictive curves, and translating findings into strategic projects."
-    }
-  },
-  { 
-    id: 6, 
-    title: "Professional Networking", 
-    org: "HP Life", 
-    slug: "hp-life-networking",
-    link: "https://www.life-global.org/certificate/b374fc87-c911-4f5b-a473-54b8c8d448f9", 
-    desc: "Strategies for global career growth and collaboration.",
-    fullDescription: {
-      overview: "Focuses on professional networking, collaboration strategy, and creating strong institutional alliances for business and technology projects.",
-      skills: ["Strategic Collaboration", "Business Communication", "Relationship Building", "Global Outreach"],
-      modules: ["The Psychology of Networking", "Designing a Professional Networking Plan", "Online and Offline Branding", "Collaborative Project Management"],
-      credentialId: "b374fc87-c911-4f5b-a473-54b8c8d448f9",
-      syllabus: "Teaches methodologies for identifying strategic partners, managing professional communications, establishing business presence, and building long-term alliances."
-    }
-  },
-  { 
-    id: 2, 
-    title: "AI Fundamentals", 
-    org: "Udacity", 
-    slug: "udacity-ai-fundamentals",
-    link: "https://www.udacity.com/certificate/lp/4b49a7b0-6de3-4822-9324-3f27ff503205", 
-    desc: "Practical applications of artificial intelligence in software.",
-    fullDescription: {
-      overview: "Practical, hands-on certification from Udacity validating deep understanding of artificial intelligence basics, search algorithms, and machine learning models in Python.",
-      skills: ["Python for AI", "Supervised Learning", "Search Algorithms", "Data Science Libraries"],
-      modules: ["Introduction to AI Search (BFS, DFS, A*)", "Intro to Supervised Learning (Regression, Classification)", "Model Selection & Hyperparameter Tuning", "Ethical Implications of Intelligent Systems"],
-      credentialId: "lp/4b49a7b0-6de3-4822-9324-3f27ff503205",
-      syllabus: "Covers Python script programming for AI models, search and optimization algorithms, classification/regression models, and statistical data validation."
-    }
-  },
-  { 
-    id: 7, 
-    title: "Idea Generation", 
-    org: "Nestlé", 
-    slug: "nestle-idea-generation",
-    link: "https://mycourse.app/MZMSt0aHLIdb7hedy", 
-    desc: "Creative problem-solving and conceptual thinking for enterprise.",
-    fullDescription: {
-      overview: "Nestlé business credential verifying capability in design thinking, idea pitching, creative problem solving, and concept prototyping.",
-      skills: ["Design Thinking", "Idea Pitching", "Problem Identification", "Concept Prototyping"],
-      modules: ["Problem Definition & Empathy Mapping", "Brainstorming and Ideation Frameworks", "Pitch Development & Communication", "Feedback Incorporation & Iteration"],
-      credentialId: "MZMSt0aHLIdb7hedy",
-      syllabus: "Focuses on customer-centric design, creative brainstorming techniques, formulating business propositions, and pitching concepts to corporate stakeholders."
-    }
-  }
-];
-
-export const SKILLS_DETAILED = [
-  { category: "AI-Driven Development", items: ["AI-Assisted Architecture: Expert in 'Vibe Coding'", "Advanced Prompt Engineering", "Infrastructure Engineering (Flutter, React, Supabase)"] },
-  { category: "Data & Strategic Analysis", items: ["Excel Data Analyst (Certified)", "Applied Data Science (WorldQuant)", "Systems Thinking for Digital Workflows"] },
-  { category: "Digital Communication", items: ["Video Production & Editing", "Presentation & Pitch Design", "Multilingual Localization (Amharic, Afaan Oromoo)"] },
-  { category: "Humanitarian Leadership", items: ["Emergency Response (ERCS Training)", "Civic Responsibility & Community Projects"] }
+// Finished courses, newest first. Each one with a link has a public page where anyone can check it.
+export const CERTIFICATES = [
+  { title: "IgniteAI Expo – participation", org: "IgniteAI Expo", date: "Oct 2026", paper: true },
+  { title: "Aerospace and Aviation Intensive Training", org: "Admas Aero Nexus", date: "Jun 2026", paper: true },
+  { title: "Certificate of Recognition – Blue Ocean student pitch competition", org: "Blue Ocean Strategy", date: "May 2026", link: "https://credsverse.com/credentials/ff1642d5-7519-44e5-9d1c-5919299ab5e6" },
+  { title: "Excel Skills for Business: Essentials", org: "Macquarie University (Coursera)", date: "Apr 2026", link: "https://www.coursera.org/account/accomplishments/verify/JKZ23217P292" },
+  { title: "AI Fundamentals", org: "Google (Coursera)", date: "Feb 2026", link: "https://coursera.org/share/715a24a86008fc1b9ca8ca0b36fc2970" },
+  { title: "Student Entrepreneurship", org: "Blue Ocean Strategy", date: "Feb 2026", link: "https://credsverse.com/credentials/abe66077-feb7-4692-8aeb-f96dd747a525" },
+  { title: "AI Fundamentals", org: "Udacity", link: "https://www.udacity.com/certificate/lp/4b49a7b0-6de3-4822-9324-3f27ff503205" },
+  { title: "Idea Generation", org: "Nestlé Youth Entrepreneurship Platform", link: "https://mycourse.app/MZMSt0aHLIdb7hedy" },
+  { title: "Data Science & Analytics", org: "HP LIFE", link: "https://www.life-global.org/certificate/793e630d-a24d-4b48-ba77-4a59b9a62fa5" },
+  { title: "AI for Business Professionals", org: "HP LIFE", link: "https://www.life-global.org/certificate/fcb202f9-af69-4764-80ee-830179eb52a4" },
+  { title: "Professional Networking", org: "HP LIFE", link: "https://www.life-global.org/certificate/b374fc87-c911-4f5b-a473-54b8c8d448f9" },
+  { title: "6-month basic computer training program", org: "Victory Wisdom (after-school centre, Dodola)", date: "Jun 2024", paper: true },
 ];
 
 export const HONORS = [
   {
-    title: "Bronze Medal: Computer Skills Competition",
-    org: "Victory Wisdom School",
-    year: "January 2024",
-    desc: "Awarded for exceptional aptitude in fundamental computing. This served as the primary catalyst for my pursuit of advanced certifications from institutions like Princeton and Google.",
-    significance: "It proves that my growth is consistent and earned—telling recruiters I've been honing these skills for years."
-  }
+    title: "Bronze medal – Computer Skills Competition (beginner level)",
+    org: "Victory Wisdom (after-school centre, Dodola)",
+    date: "Jan 2024",
+  },
 ];
 
-export const BLOG_POSTS = [
-  {
-    title: "Vibe Coding: How I Build 13+ Projects in Grade 11",
-    date: "Apr 2026",
-    tag: "#VibeCoding",
-    excerpt: "How AI-assisted architecture changed everything about how I ship software.",
-    time: "7 min read",
-    content: "Building software in 2026 is no longer about fighting syntax. It's about 'Vibe Coding'—the art of using AI as an architectural partner. In this post, I break down how I managed to ship over 13 complex projects (from AgriTech to Fintech) while maintaining a high academic standing in Grade 11. The secret? Focusing on the 'Why' and the 'Architecture' while letting the AI handle the 'How' of the code."
-  },
-  {
-    title: "The Offline-First Reality: Designing for Dodola",
-    date: "Mar 2026",
-    tag: "#LocalTech",
-    excerpt: "Building Visit Dodola taught me that empathy for user constraints is the key.",
-    time: "5 min read",
-    content: "When I built 'Visit Dodola' and 'Zemen Academy', I realized that 5G speeds are a luxury. In my community, reliable internet is not guaranteed. Designing 'Offline-First' isn't just a technical choice—it's a choice to be inclusive. This post explores the technical stack behind Zemen Academy's offline sync and why local SQLite is my favorite database tool."
-  },
-  {
-    title: "From Bronze Medals to Aerospace Engineering",
-    date: "Feb 2026",
-    tag: "#MyStory",
-    excerpt: "How a single competition in January 2024 set a chain reaction in motion.",
-    time: "8 min read",
-    content: "In January 2024, I won a Bronze Medal in a computer skills competition. To most, it was just a medal. To me, it was the proof that I could compete globally. Since then, I've moved from basic computing to Aerospace Engineering and Machine Learning. This post is a roadmap for other students starting from zero."
-  },
-  {
-    title: "Why I'm Building AbayKey",
-    date: "Jan 2026",
-    tag: "#Language",
-    excerpt: "Language is the foundation of culture. The digital world should speak ours.",
-    time: "6 min read",
-    content: "Existing Amharic keyboards are frustrating. They slow us down. I wanted to build something that feels like 'Gesture Writing'. AbayKey is more than a tool—it's a digital home for our language. Here is the engineering story of the 'Gesture-Family' system."
-  }
+// Only skills I have used in a real project or have a certificate for.
+export const SKILLS = [
+  { group: "Building apps", items: ["Mobile app development", "React Native & Expo", "Kotlin (one Android app)", "JavaScript", "TypeScript", "Web development (React)", "Supabase", "Google Apps Script"] },
+  { group: "Other", items: ["AI-assisted development", "Excel", "Video editing", "Lean Canvas"] },
 ];
 
-export const GALLERY_ITEMS = [
+export const LANGUAGES = [
+  { name: "Afaan Oromoo", level: "native" },
+  { name: "Amharic", level: "native" },
+  { name: "English", level: "limited working · Duolingo English Test score: 85" },
+];
+
+export const VOLUNTEERING = [
   {
-    id: "red-cross",
-    slug: "red-cross",
-    title: "Ethiopian Red Cross Society Volunteering",
-    category: "Volunteering",
-    date: "March 2026",
-    coverImage: "/gallery/red-cross-first-aid.jpg",
-    icon: "Heart",
-    color: "#ef4444",
-    description: "My active participation as a high school volunteer for the Ethiopian Red Cross Society (ERCS) sub-branch. The program focused on community health outreach, distributing medical kits, conducting drills, and raising health awareness in remote villages of West Arsi.",
-    location: "Dodola District & West Arsi Zone",
-    media: [
-      {
-        id: "rc-1",
-        title: "First Aid Simulation Training",
-        type: "image",
-        url: "/gallery/red-cross-first-aid.jpg"
-      },
-      {
-        id: "rc-2",
-        title: "Humanitarian Principles Seminar",
-        type: "image",
-        url: "/gallery/red-cross-seminar.jpg"
-      },
-      {
-        id: "rc-3",
-        title: "Volunteer Deployment Briefing",
-        type: "image",
-        url: "/gallery/red-cross-deployment.jpg"
-      },
-      {
-        id: "rc-4",
-        title: "Emergency Evacuation Drills",
-        type: "image",
-        url: "/gallery/red-cross-drill.jpg"
-      },
-      {
-        id: "rc-5",
-        title: "Village Health Awareness Camp",
-        type: "image",
-        url: "/gallery/red-cross-camp.jpg"
-      }
-    ]
+    title: "Volunteer, Ethiopian Red Cross Society",
+    place: "Dodola · past",
+    text: "I volunteered with the Ethiopian Red Cross Society in Dodola. I did the volunteer training in first aid and basic disaster response, and I helped with community activities.",
   },
-  {
-    id: "medal-honors",
-    slug: "medal-honors",
-    title: "Regional Computing Honors & Medals",
-    category: "Honors & Awards",
-    date: "January 2024",
-    coverImage: "/gallery/medal-ceremony.jpg",
-    icon: "Award",
-    color: "#d97706",
-    description: "Celebrating foundational computing awards and skill validations. Includes regional competition achievements and secondary school recognitions that motivated my entry into systems programming and local app development.",
-    location: "Victory Wisdom Hall, Dodola",
-    media: [
-      {
-        id: "mh-1",
-        title: "Tenth World's Medal Stage Ceremony",
-        type: "image",
-        url: "/gallery/medal/ceremony.jpg"
-      },
-      {
-        id: "mh-2",
-        title: "Honors & Trophies Presentation",
-        type: "image",
-        url: "/gallery/medal/presentation.jpg"
-      },
-      {
-        id: "mh-3",
-        title: "Bronze Medal Stage Presentation",
-        type: "image",
-        url: "/gallery/medal-ceremony.jpg"
-      },
-      {
-        id: "mh-4",
-        title: "Certificate & Award Review",
-        type: "image",
-        url: "/gallery/medal-certificate.jpg"
-      }
-    ]
-  },
-  {
-    id: "video-editing",
-    slug: "video-editing",
-    title: "Video Editing & Content Creation Portfolio",
-    category: "Video Editing",
-    date: "2025 - 2026",
-    coverImage: "/gallery/videos/reel-thumbnail.jpg",
-    icon: "Film",
-    color: "#7c3aed",
-    description: "Showcasing dynamic video editing works, masterclass reels, sound design assets, and post-production timelines. Features local visual editing projects alongside strategic marketing videos designed for competitive pitches.",
-    location: "Mirkuz Editing Lab",
-    media: [
-      {
-        id: "ve-1",
-        title: "Video Editing Portfolio Reel",
-        type: "video",
-        url: "/gallery/videos/edit-reel.mp4"
-      },
-      {
-        id: "ve-2",
-        title: "Teaser Commercial Cut",
-        type: "video",
-        url: "/gallery/videos/teaser-cut.mp4"
-      },
-      {
-        id: "ve-3",
-        title: "Mirkuz Brand Motion Graphics",
-        type: "image",
-        url: "/gallery/videos/motion-draft.jpg"
-      }
-    ]
-  },
-  {
-    id: "blue-ocean-pitch",
-    slug: "blue-ocean-pitch",
-    title: "Blue Ocean Strategic Venture Pitch",
-    category: "Strategic Pitch",
-    date: "April 2026",
-    coverImage: "/gallery/pitch-rehearsal.jpg",
-    icon: "Waves",
-    color: "#10b981",
-    description: "Designing the comprehensive pitch deck, strategic framework canvases, and dynamic high-fidelity presentation for the global Blue Ocean Entrepreneurship Competition. The project details our localized agritech and student fintech engines.",
-    location: "Mirkuz Innovation Hub & Studio",
-    media: [
-      {
-        id: "bo-1",
-        title: "Blue Ocean Strategic Pitch - Main Video",
-        type: "video",
-        url: "/gallery/videos/blue-ocean-main.mp4"
-      },
-      {
-        id: "bo-2",
-        title: "Strategy Canvas Workshop",
-        type: "image",
-        url: "/gallery/canvas-draft.jpg"
-      },
-      {
-        id: "bo-3",
-        title: "Venture Pitch Rehearsal",
-        type: "image",
-        url: "/gallery/pitch-rehearsal.jpg"
-      }
-    ]
-  }
+];
+
+// What I am working on right now (home page). Update this when it changes.
+export const NOW = [
+  { icon: "📱", text: "Improving Zemen Academy, now that it is on Google Play.", link: "/projects/zemen-academy" },
+  { icon: "🔊", text: "Adding a feature to Visit Dodola: tap a word and hear it with a local accent.", link: "/projects/visit-dodola" },
+  { icon: "🎙️", text: "Studying open-source speech models for Amharic voice typing in AbayKey.", link: "/projects/abaykey" },
+];
+
+// Who my apps are for (the rotating line on the home page). Each one matches a real project.
+export const BUILDING_FOR = [
+  "students preparing for exams",
+  "students who dream of studying abroad",
+  "visitors to my town, Dodola",
+  "wheat traders like my brother",
+];
+
+// Key moments, oldest first. Only things with a date I can prove.
+export const TIMELINE = [
+  { date: "Sep 2023", title: "Started Grade 9 at Hawiko Academy", text: "Natural Science stream, Dodola." },
+  { date: "Jan 2024", title: "Bronze medal", text: "Computer Skills Competition (beginner level) at Victory Wisdom." },
+  { date: "Jun 2024", title: "Finished a 6-month computer course", text: "Basic computer training at Victory Wisdom, an after-school centre." },
+  { date: "Dec 2025", title: "Started building Zemen Academy", text: "A quiz app for Grades 9–12 that works offline." },
+  { date: "Feb 2026", title: "Blue Ocean Student Entrepreneurship", text: "Online course and certificate." },
+  { date: "May 2026", title: "Pitched SindeTrack", text: "Blue Ocean student pitch competition – certificate of recognition." },
+  { date: "Jun 2026", title: "Aerospace and Aviation Intensive Training", text: "Admas Aero Nexus – completed." },
+  { date: "Oct 2026", title: "Zemen Academy on Google Play", text: "My first app published on the Play Store." },
+  { date: "Jun 2027", title: "Finishing Grade 12", text: "After that, I hope to study software engineering at university.", future: true },
 ];
