@@ -5,6 +5,7 @@ import {
 } from '../data/portfolioData';
 import PageHero from '../components/PageHero';
 import Reveal from '../components/Reveal';
+import Icon from '../components/Icon';
 import usePageMeta from '../components/usePageMeta';
 
 export default function About() {
@@ -98,8 +99,8 @@ export default function About() {
 
           <Reveal className="side-card contact-card" delay={300}>
             <h3 className="small-heading">Contact</h3>
-            <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
             <div className="buttons">
+              <a className="btn primary" href={`mailto:${PROFILE.email}`}><Icon name="mail" size={16} /> Email</a>
               <a className="btn" href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
               <a className="btn" href={PROFILE.github} target="_blank" rel="noopener noreferrer">GitHub</a>
               <a className="btn" href={PROFILE.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CERTIFICATES, HONORS } from '../data/portfolioData';
 import PageHero from '../components/PageHero';
 import Reveal from '../components/Reveal';
+import Icon from '../components/Icon';
 import usePageMeta from '../components/usePageMeta';
 
 // A simple colour and short letters for each organisation. These are not their logos,
@@ -55,7 +56,7 @@ function CertificateCard({ cert }) {
       <div className={`cert-foot ${cert.link ? 'online' : 'paper'}`}>
         {cert.link ? (
           <>
-            <span className="cert-badge">✓ Check online</span>
+            <span className="cert-badge"><Icon name="check" size={14} stroke={2.4} /> Check online</span>
             <span className="cert-go">Open ↗</span>
           </>
         ) : (
@@ -119,7 +120,7 @@ export default function Certificates() {
           <Reveal><h2>Award</h2></Reveal>
           {HONORS.map((h) => (
             <Reveal key={h.title} className="award-card">
-              <span className="medal" aria-hidden="true">🥉</span>
+              <span className="medal"><Icon name="medal" size={30} stroke={1.7} /></span>
               <div>
                 <h3>{h.title}</h3>
                 <p className="muted">{h.org} · {h.date}</p>

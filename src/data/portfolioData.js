@@ -302,9 +302,9 @@ export const VOLUNTEERING = [
 
 // What I am working on right now (home page). Update this when it changes.
 export const NOW = [
-  { icon: "📱", text: "Improving Zemen Academy, now that it is on Google Play.", link: "/projects/zemen-academy" },
-  { icon: "🔊", text: "Adding a feature to Visit Dodola: tap a word and hear it with a local accent.", link: "/projects/visit-dodola" },
-  { icon: "🎙️", text: "Studying open-source speech models for Amharic voice typing in AbayKey.", link: "/projects/abaykey" },
+  { icon: "phone", text: "Improving Zemen Academy, now that it is on Google Play.", link: "/projects/zemen-academy" },
+  { icon: "sound", text: "Adding a feature to Visit Dodola: tap a word and hear it with a local accent.", link: "/projects/visit-dodola" },
+  { icon: "mic", text: "Studying open-source speech models for Amharic voice typing in AbayKey.", link: "/projects/abaykey" },
 ];
 
 // Who my apps are for (the rotating line on the home page). Each one matches a real project.
