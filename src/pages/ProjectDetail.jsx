@@ -1,72 +1,126 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useParams } from 'react-router-dom';
 import { PROJECTS } from '../data/portfolioData';
+import PageHero from '../components/PageHero';
 import StatusPill from '../components/StatusPill';
+import Reveal from '../components/Reveal';
 import NotFound from './NotFound';
+
+// Full-screen screenshot viewer. Arrow keys move, Escape closes.
+function Lightbox({ shots, index, onClose, onMove }) {
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') onMove(1);
+      if (e.key === 'ArrowLeft') onMove(-1);
+    };
+    window.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose, onMove]);
+
+  return createPortal(
+    <div className="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot" onClick={onClose}>
+      <button className="lb-btn lb-close" aria-label="Close" onClick={onClose}>×</button>
+      <button className="lb-btn lb-prev" aria-label="Previous screenshot" onClick={(e) => { e.stopPropagation(); onMove(-1); }}>‹</button>
+      <img key={shots[index]} src={shots[index]} alt={`Screenshot ${index + 1} of ${shots.length}`} onClick={(e) => e.stopPropagation()} />
+      <button className="lb-btn lb-next" aria-label="Next screenshot" onClick={(e) => { e.stopPropagation(); onMove(1); }}>›</button>
+      <div className="lb-count">{index + 1} / {shots.length}</div>
+    </div>,
+    document.body,
+  );
+}
 
 export default function ProjectDetail() {
   const { slug } = useParams();
   const project = PROJECTS.find((p) => p.slug === slug);
+  const [open, setOpen] = useState(null);
 
   useEffect(() => {
     if (project) document.title = `${project.title} · Tamerat Gebeyehu`;
   }, [project]);
 
+  const shots = project ? Array.from({ length: project.images }, (_, i) => `/projects/${slug}/${i + 1}.jpg`) : [];
+  const move = useCallback((d) => setOpen((i) => (i + d + shots.length) % shots.length), [shots.length]);
+  const close = useCallback(() => setOpen(null), []);
+
   if (!project) return <NotFound />;
 
   const { links } = project;
-  const shots = Array.from({ length: project.images }, (_, i) => `/projects/${slug}/${i + 1}.jpg`);
+  const index = PROJECTS.indexOf(project);
+  const next = PROJECTS[(index + 1) % PROJECTS.length];
 
   return (
-    <div className="wrap">
-      <Link to="/#projects" className="back">← All projects</Link>
-
-      <div className="project-head">
-        <img src={`/projects/${slug}/${project.logo}`} alt="" />
-        <div>
-          <h1>{project.title}</h1>
-          <div className="top" style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
-            <StatusPill status={project.status} />
-            <span className="muted small">{project.year}</span>
+    <>
+      <PageHero eyebrow={<Link to="/projects">← All projects</Link>} title={project.title}>
+        <div className="project-hero-row">
+          <img className="project-logo" src={`/projects/${slug}/${project.logo}`} alt="" />
+          <div>
+            <p className="hero-sub" style={{ marginTop: 0 }}>{project.oneLine}</p>
+            <div className="hero-meta">
+              <StatusPill status={project.status} />
+              <span>{project.year}</span>
+            </div>
           </div>
         </div>
-      </div>
-      <p className="lead muted" style={{ fontSize: 19, marginTop: 8 }}>{project.oneLine}</p>
+        <div className="buttons">
+          {links.play && <a className="btn primary" href={links.play} target="_blank" rel="noopener noreferrer">Get it on Google Play</a>}
+          {links.apk && <a className={`btn ${links.play ? 'ghost' : 'primary'}`} href={links.apk} download>Download APK (Android)</a>}
+          {links.video && <a className="btn ghost" href={links.video} target="_blank" rel="noopener noreferrer">▶ Watch the pitch video</a>}
+          {links.website && <a className="btn ghost" href={links.website} target="_blank" rel="noopener noreferrer">Website</a>}
+          {links.github && <a className="btn ghost" href={links.github} target="_blank" rel="noopener noreferrer">Code on GitHub</a>}
+          {!links.play && !links.apk && <span className="hero-note">No download yet. I am still building it.</span>}
+        </div>
+      </PageHero>
 
-      <div className="buttons">
-        {links.play && <a className="btn primary" href={links.play} target="_blank" rel="noopener noreferrer">Get it on Google Play</a>}
-        {links.apk && <a className={`btn ${links.play ? '' : 'primary'}`} href={links.apk} download>Download APK (Android)</a>}
-        {links.video && <a className="btn" href={links.video} target="_blank" rel="noopener noreferrer">Watch the pitch video</a>}
-        {links.website && <a className="btn" href={links.website} target="_blank" rel="noopener noreferrer">Website</a>}
-        {links.github && <a className="btn" href={links.github} target="_blank" rel="noopener noreferrer">Code on GitHub</a>}
-        {!links.play && !links.apk && <span className="muted small">No download yet. I am still building it.</span>}
-      </div>
+      <div className="wrap wide">
+        <Reveal className="shots">
+          {shots.map((src, i) => (
+            <button key={src} className="shot" onClick={() => setOpen(i)} aria-label={`Open screenshot ${i + 1}`}>
+              <img src={src} alt={`${project.title} screenshot ${i + 1}`} loading="lazy" />
+            </button>
+          ))}
+        </Reveal>
+        <p className="muted small center">Tap a screenshot to see it bigger.</p>
 
-      <div className="shots">
-        {shots.map((src, i) => (
-          <img key={src} src={src} alt={`${project.title} screenshot ${i + 1}`} loading="lazy" />
-        ))}
-      </div>
-
-      <div className="prose">
-        <h2 style={{ marginTop: 24 }}>What it does</h2>
-        {project.what.map((t) => <p key={t}>{t}</p>)}
-
-        <h2 style={{ marginTop: 32 }}>Why I built it</h2>
-        <p>{project.why}</p>
-
-        <h2 style={{ marginTop: 32 }}>What I learned</h2>
-        <ul>
-          {project.learned.map((t) => <li key={t}>{t}</li>)}
-        </ul>
+        <div className="detail-grid">
+          <Reveal className="detail-card">
+            <span className="detail-icon" aria-hidden="true">🛠️</span>
+            <h2>What it does</h2>
+            {project.what.map((t) => <p key={t}>{t}</p>)}
+          </Reveal>
+          <Reveal className="detail-card" delay={80}>
+            <span className="detail-icon" aria-hidden="true">💡</span>
+            <h2>Why I built it</h2>
+            <p>{project.why}</p>
+          </Reveal>
+          <Reveal className="detail-card" delay={160}>
+            <span className="detail-icon" aria-hidden="true">📚</span>
+            <h2>What I learned</h2>
+            <ul>{project.learned.map((t) => <li key={t}>{t}</li>)}</ul>
+          </Reveal>
+          <Reveal className="detail-card" delay={240}>
+            <span className="detail-icon" aria-hidden="true">🧩</span>
+            <h2>Built with</h2>
+            <div className="tags">{project.tech.map((t) => <span key={t} className="tag">{t}</span>)}</div>
+          </Reveal>
+        </div>
 
         {project.note && <p className="note">{project.note}</p>}
 
-        <h2 style={{ marginTop: 32 }}>Built with</h2>
-        <div className="tags">
-          {project.tech.map((t) => <span key={t} className="tag">{t}</span>)}
-        </div>
+        <Reveal className="next-project">
+          <Link to={`/projects/${next.slug}`}>
+            <span className="muted small">Next project</span>
+            <strong>{next.title} →</strong>
+          </Link>
+        </Reveal>
       </div>
-    </div>
+
+      {open !== null && <Lightbox shots={shots} index={open} onClose={close} onMove={move} />}
+    </>
   );
 }

@@ -259,3 +259,16 @@ export const VOLUNTEERING = [
     text: "I volunteered with the Ethiopian Red Cross Society in Dodola. I did the volunteer training in first aid and basic disaster response, and I helped with community activities.",
   },
 ];
+
+// Key moments, oldest first. Only things with a date I can prove.
+export const TIMELINE = [
+  { date: "Sep 2023", title: "Started Grade 9 at Hawiko Academy", text: "Natural Science stream, Dodola." },
+  { date: "Jan 2024", title: "Bronze medal", text: "Computer Skills Competition (beginner level) at Victory Wisdom." },
+  { date: "Jun 2024", title: "Finished a 6-month computer course", text: "Basic computer training at Victory Wisdom, an after-school centre." },
+  { date: "Dec 2025", title: "Started building Zemen Academy", text: "A quiz app for Grades 9–12 that works offline." },
+  { date: "Feb 2026", title: "Blue Ocean Student Entrepreneurship", text: "Online course and certificate." },
+  { date: "May 2026", title: "Pitched SindeTrack", text: "Blue Ocean student pitch competition – certificate of recognition." },
+  { date: "Jun 2026", title: "Aerospace and Aviation Intensive Training", text: "Admas Aero Nexus – completed." },
+  { date: "Oct 2026", title: "Zemen Academy on Google Play", text: "My first app published on the Play Store." },
+  { date: "Jun 2027", title: "Finishing Grade 12", text: "After that, I hope to study software engineering at university.", future: true },
+];
