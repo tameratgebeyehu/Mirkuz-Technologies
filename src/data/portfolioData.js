@@ -249,7 +249,7 @@ export const SKILLS = [
 export const LANGUAGES = [
   { name: "Afaan Oromoo", level: "native" },
   { name: "Amharic", level: "native" },
-  { name: "English", level: "limited working – I am still improving" },
+  { name: "English", level: "limited working · Duolingo English Test score: 85" },
 ];
 
 export const VOLUNTEERING = [
