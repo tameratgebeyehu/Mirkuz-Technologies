@@ -20,7 +20,7 @@ export const PROJECTS = [
   {
     slug: "zemen-academy",
     title: "Zemen Academy",
-    oneLine: "A quiz app for Ethiopian students in Grades 9–12. Works offline.",
+    oneLine: "My main project: a quiz app for Ethiopian students in Grades 9–12. It is live on Google Play and works offline.",
     status: "On Google Play",
     year: "2026",
     tech: ["React Native", "Expo", "Google Apps Script", "Google Sheets"],
@@ -36,6 +36,7 @@ export const PROJECTS = [
     ],
     links: {
       play: "https://play.google.com/store/apps/details?id=com.zemenacademy.app",
+      website: "https://zemenacademy.com",
       apk: "/apks/zemen-academy.apk",
       github: "https://github.com/tameratgebeyehu/zemen-academy",
     },
@@ -113,12 +114,13 @@ export const PROJECTS = [
   {
     slug: "sindetrack",
     title: "SindeTrack",
-    oneLine: "A record book app for local wheat buyers, instead of a paper notebook.",
+    oneLine: "An offline record book for local wheat traders, with Bluetooth receipt printing.",
     status: "Prototype",
     year: "2026",
     tech: ["Kotlin", "Jetpack Compose", "Android"],
     what: [
-      "A wheat buyer records each farmer, the amount of grain and the price. The app adds everything up and shows a daily summary.",
+      "A wheat buyer records each farmer, the amount of grain and the price. The app adds everything up and shows a daily summary. It works offline and can print a receipt on a small Bluetooth printer.",
+      "I pitched SindeTrack in the Blue Ocean student entrepreneurship competition in 2026.",
     ],
     why: "Wheat is very important in our area, and many local traders still keep their records in paper notebooks that can get lost or damaged.",
     learned: [
@@ -155,13 +157,13 @@ export const PROJECTS = [
   {
     slug: "abaykey",
     title: "AbayKey",
-    oneLine: "An Amharic keyboard: tap a letter, then swipe to choose its form. More Ethiopian languages are planned.",
-    status: "In progress",
+    oneLine: "An Amharic keyboard I am still building: tap a letter, then swipe to choose its form. It does not work yet.",
+    status: "In development",
     year: "2026",
     tech: ["Android", "Kotlin", "Java"],
     what: [
       "Each Ge'ez letter has about seven forms (for example ሀ ሁ ሂ ሃ ሄ ህ ሆ). In AbayKey you tap the base letter and swipe in a direction to pick the form, instead of tapping many times.",
-      "Right now it supports Amharic. I plan to add Tigrinya, Afaan Oromoo, Somali and English later.",
+      "It is not working yet. I am starting with Amharic. Later I want to add Tigrinya, Afaan Oromoo, Somali and English.",
     ],
     why: "Typing Amharic on a phone is slow for me and for most people I know. I want our language to be easy to type.",
     learned: [
@@ -197,7 +199,7 @@ export const SCHOOL = {
   name: "Hawiko Academy Secondary School",
   town: "Dodola, Ethiopia",
   detail: "Grade 12, Natural Science stream",
-  years: "Grades 9–12 · finishing in 2027",
+  years: "Grades 9–12, 2023–2027 · finishing in June 2027",
 };
 
 // Finished courses. Each one with a link has a public page where anyone can check it.
@@ -233,8 +235,8 @@ export const HONORS = [
 
 export const VOLUNTEERING = [
   {
-    title: "Volunteer, Ethiopian Red Cross Society",
+    title: "Volunteer, Ethiopian Red Cross Society (past)",
     place: "Dodola",
-    text: "I did the Red Cross volunteer training in first aid and basic disaster response, and I help with community activities in Dodola.",
+    text: "I volunteered with the Ethiopian Red Cross Society in Dodola. I did the volunteer training in first aid and basic disaster response, and I helped with community activities.",
   },
 ];

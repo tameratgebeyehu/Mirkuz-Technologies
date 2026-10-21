@@ -34,7 +34,7 @@ export default function Home() {
           <p>
             One of my apps, <Link to="/projects/zemen-academy">Zemen Academy</Link>, is on Google Play.
             The others are prototypes that you can install and try. I also wrote a beginner's
-            programming book, <Link to="/book">Code Ethiopia</Link>, and I volunteer with the Ethiopian
+            programming book, <Link to="/book">Code Ethiopia</Link>, and I volunteered with the Ethiopian
             Red Cross.
           </p>
           <p>I speak Afaan Oromoo, Amharic and English.</p>

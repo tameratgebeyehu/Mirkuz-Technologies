@@ -4,6 +4,7 @@ const CLASS_BY_STATUS = {
   'On Google Play': '',
   'Prototype': 'prototype',
   'In progress': 'progress',
+  'In development': 'progress',
 };
 
 export default function StatusPill({ status }) {
